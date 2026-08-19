@@ -7,55 +7,38 @@
   <title>INDIRIMBO ZA EKLEZIYA KATOLIKA</title>
 
   <meta name="description"
-        content="Urubuga rw'indirimbo za Ekleziya Katolika mu Kirundi. Lyrics, PDF na MIDI.">
+        content="Indirimbo za Ekleziya Katolika mu Kirundi.">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
 
-    /* =========================================
-       COLORS
-       Bleu profond + Doré + Blanc
-       ========================================= */
-
     :root {
-      --primary: #174a73;
-      --primary-dark: #0d2f4a;
-      --primary-light: #eaf3f9;
-
-      --gold: #c9a227;
-      --gold-light: #f5edcf;
-
-      --bg: #f5f7fa;
+      --primary: #245b7a;
+      --primary-dark: #173e55;
+      --primary-light: #eaf3f7;
+      --gold: #c7a646;
+      --background: #f5f7f9;
       --card: #ffffff;
-      --text: #1d2733;
+      --text: #1f2933;
       --muted: #718096;
-      --border: #e1e7ed;
-      --header: #ffffff;
-
-      --shadow: 0 4px 16px rgba(15, 45, 70, 0.08);
+      --border: #dfe6eb;
+      --danger: #b42318;
+      --shadow: 0 4px 15px rgba(0,0,0,.07);
     }
 
     body.dark {
-      --primary: #5fa8d3;
-      --primary-dark: #183b52;
-      --primary-light: #203d50;
-
-      --gold: #e2c45b;
-      --gold-light: #3b3520;
-
-      --bg: #101820;
-      --card: #19232d;
-      --text: #edf3f7;
-      --muted: #aab8c4;
-      --border: #2c3a46;
-      --header: #151f28;
-
-      --shadow: 0 4px 18px rgba(0,0,0,0.3);
+      --primary: #62a5c8;
+      --primary-dark: #102b3c;
+      --primary-light: #203d4d;
+      --gold: #d8bb55;
+      --background: #101820;
+      --card: #18232c;
+      --text: #edf2f5;
+      --muted: #a8b5bf;
+      --border: #2c3b46;
+      --shadow: 0 5px 18px rgba(0,0,0,.3);
     }
-
-
-    /* =========================================
-       GENERAL
-       ========================================= */
 
     * {
       box-sizing: border-box;
@@ -65,10 +48,10 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
+      background: var(--background);
       color: var(--text);
       line-height: 1.6;
-      transition: background 0.3s, color 0.3s;
+      transition: .25s;
     }
 
     button,
@@ -82,13 +65,8 @@
       cursor: pointer;
     }
 
-
-    /* =========================================
-       HEADER
-       ========================================= */
-
     header {
-      background: var(--header);
+      background: var(--card);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -96,84 +74,73 @@
       box-shadow: var(--shadow);
     }
 
-    .top-header {
+    .header-inner {
       max-width: 1200px;
       margin: auto;
-      padding: 14px 18px;
+      padding: 13px 18px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 15px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 10px;
       text-decoration: none;
       color: var(--text);
     }
 
     .brand-icon {
-      width: 44px;
-      height: 44px;
+      width: 43px;
+      height: 43px;
       border-radius: 50%;
+      border: 2px solid var(--gold);
       background: var(--primary);
       color: white;
-      border: 2px solid var(--gold);
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-size: 21px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    }
-
-    .brand-text h1 {
-      font-size: 16px;
-      line-height: 1.2;
-      color: var(--primary);
-      letter-spacing: 0.2px;
-    }
-
-    .brand-text span {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .header-actions {
-      display: flex;
       align-items: center;
-      gap: 8px;
+      font-size: 20px;
     }
 
-    .icon-btn {
+    .brand h1 {
+      font-size: 16px;
+      color: var(--primary);
+    }
+
+    .brand small {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 7px;
+    }
+
+    .icon-button {
+      width: 40px;
+      height: 40px;
       border: 1px solid var(--border);
+      border-radius: 8px;
       background: var(--card);
       color: var(--text);
-      width: 42px;
-      height: 42px;
-      border-radius: 9px;
-      font-size: 19px;
-      transition: 0.2s;
+      font-size: 17px;
     }
 
-    .icon-btn:hover {
+    .icon-button:hover {
       background: var(--primary);
-      border-color: var(--primary);
       color: white;
     }
 
-
-    /* =========================================
-       NAVIGATION
-       ========================================= */
-
-    .main-nav {
+    nav {
       max-width: 1200px;
       margin: auto;
-      padding: 0 18px 12px;
+      padding: 0 18px 11px;
       display: flex;
-      gap: 8px;
+      gap: 7px;
       flex-wrap: wrap;
     }
 
@@ -181,26 +148,66 @@
       border: 1px solid var(--border);
       background: var(--card);
       color: var(--text);
-      padding: 8px 14px;
-      border-radius: 8px;
+      border-radius: 7px;
+      padding: 8px 13px;
       font-size: 13px;
-      transition: 0.2s;
     }
 
     .nav-button:hover {
       background: var(--primary);
+      color: white;
       border-color: var(--primary);
+    }
+
+    .hidden-section {
+      display: none;
+      max-width: 1200px;
+      margin: auto;
+      padding: 15px 18px;
+    }
+
+    .hidden-section.active {
+      display: block;
+    }
+
+    .hidden-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
+      border-radius: 9px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .hidden-box h2 {
+      color: var(--primary);
+      font-size: 18px;
+      margin-bottom: 13px;
+    }
+
+    .hidden-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 9px;
+    }
+
+    .hidden-item {
+      border: 1px solid var(--border);
+      background: var(--background);
+      color: var(--text);
+      padding: 11px;
+      border-radius: 7px;
+      text-align: left;
+    }
+
+    .hidden-item:hover {
+      background: var(--primary);
       color: white;
     }
 
-
-    /* =========================================
-       SEARCH
-       ========================================= */
-
-    .search-section {
+    .search-area {
       max-width: 850px;
-      margin: 28px auto 10px;
+      margin: 27px auto 15px;
       padding: 0 18px;
     }
 
@@ -208,7 +215,7 @@
       display: flex;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 9px;
       overflow: hidden;
       box-shadow: var(--shadow);
     }
@@ -217,154 +224,106 @@
       flex: 1;
       border: none;
       outline: none;
-      padding: 15px;
       background: transparent;
       color: var(--text);
+      padding: 14px;
       font-size: 15px;
     }
 
-    .search-box input::placeholder {
-      color: var(--muted);
-    }
-
     .search-box button {
-      width: 55px;
+      width: 54px;
       border: none;
       background: var(--primary);
       color: white;
-      font-size: 19px;
-      transition: 0.2s;
+      font-size: 18px;
     }
-
-    .search-box button:hover {
-      background: var(--primary-dark);
-    }
-
-
-    /* =========================================
-       HERO
-       ========================================= */
 
     .hero {
       max-width: 1200px;
-      margin: 25px auto;
+      margin: 24px auto;
       padding: 0 18px;
     }
 
     .hero-box {
-      background:
-        linear-gradient(
-          135deg,
-          var(--primary-dark),
-          var(--primary)
-        );
-
+      background: linear-gradient(
+        135deg,
+        var(--primary-dark),
+        var(--primary)
+      );
       color: white;
-      border-radius: 13px;
-      padding: 38px 25px;
+      border-radius: 12px;
+      padding: 38px 20px;
       text-align: center;
-      position: relative;
-      overflow: hidden;
       box-shadow: var(--shadow);
     }
 
-    .hero-box::after {
-      content: "✝";
-      position: absolute;
-      right: 35px;
-      bottom: -25px;
-      font-size: 130px;
-      opacity: 0.06;
-    }
-
     .hero-box h2 {
-      font-size: 28px;
-      margin-bottom: 9px;
+      font-size: 27px;
+      margin-bottom: 8px;
     }
 
     .hero-box p {
-      max-width: 700px;
-      margin: auto;
-      opacity: 0.9;
       font-size: 14px;
+      opacity: .9;
     }
-
-
-    /* =========================================
-       MAIN
-       ========================================= */
 
     main {
       max-width: 1200px;
       margin: auto;
-      padding: 0 18px 50px;
+      padding: 0 18px 45px;
     }
 
-    .section-title {
+    .section-heading {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 30px 0 15px;
+      margin: 28px 0 14px;
     }
 
-    .section-title h2 {
+    .section-heading h2 {
       font-size: 20px;
-      color: var(--text);
     }
 
-    .section-title h2::first-letter {
-      color: var(--gold);
-    }
-
-    .section-title a {
+    .section-heading button {
+      border: none;
+      background: none;
       color: var(--primary);
-      font-size: 13px;
-      text-decoration: none;
     }
-
-    .section-title a:hover {
-      text-decoration: underline;
-    }
-
-
-    /* =========================================
-       SONG CARDS
-       ========================================= */
 
     .songs-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+      grid-template-columns: repeat(3,1fr);
+      gap: 14px;
     }
 
     .song-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 17px;
+      border-radius: 9px;
+      padding: 16px;
       box-shadow: var(--shadow);
-      transition: 0.2s;
+      transition: .2s;
     }
 
     .song-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-2px);
       border-color: var(--primary);
     }
 
-    .song-category {
+    .category-badge {
       display: inline-block;
-      font-size: 11px;
-      color: var(--primary);
       background: var(--primary-light);
-      padding: 4px 9px;
+      color: var(--primary);
       border-radius: 20px;
-      margin-bottom: 10px;
+      padding: 4px 9px;
+      font-size: 11px;
       font-weight: bold;
+      margin-bottom: 9px;
     }
 
     .song-card h3 {
       font-size: 16px;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .song-author {
@@ -373,186 +332,106 @@
       margin-bottom: 12px;
     }
 
-    .song-actions {
+    .card-buttons {
       display: flex;
-      gap: 7px;
+      gap: 6px;
     }
 
-    .small-btn {
+    .small-button {
       flex: 1;
       border: 1px solid var(--border);
       background: transparent;
       color: var(--text);
-      padding: 7px;
       border-radius: 6px;
+      padding: 7px;
       font-size: 12px;
-      transition: 0.2s;
     }
 
-    .small-btn:hover {
+    .small-button:hover {
       background: var(--primary);
-      border-color: var(--primary);
       color: white;
-    }
-
-
-    /* =========================================
-       HIDDEN MENUS
-       ========================================= */
-
-    .hidden-menu {
-      display: none;
-      max-width: 1200px;
-      margin: auto;
-      padding: 18px;
-      animation: slideDown 0.2s ease;
-    }
-
-    .hidden-menu.active {
-      display: block;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .menu-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--gold);
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: var(--shadow);
-    }
-
-    .menu-box h2 {
-      margin-bottom: 15px;
-      font-size: 19px;
-      color: var(--primary);
-    }
-
-    .menu-list {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-
-    .menu-item {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 12px;
-      border-radius: 7px;
-      text-align: left;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .menu-item:hover {
-      background: var(--primary);
       border-color: var(--primary);
-      color: white;
-      transform: translateY(-1px);
     }
-
-
-    /* =========================================
-       MODAL
-       ========================================= */
 
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.65);
-      z-index: 2000;
-      padding: 20px;
+      z-index: 3000;
+      background: rgba(0,0,0,.65);
+      padding: 18px;
       overflow-y: auto;
     }
 
     .modal.active {
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
     }
 
-    .modal-content {
+    .modal-box {
       width: 100%;
-      max-width: 700px;
+      max-width: 720px;
       max-height: 90vh;
       overflow-y: auto;
       background: var(--card);
-      color: var(--text);
-      border-radius: 12px;
-      padding: 25px;
-      position: relative;
+      border-radius: 10px;
       border-top: 4px solid var(--gold);
+      padding: 23px;
+      position: relative;
     }
 
-    .close {
+    .close-button {
       position: absolute;
-      right: 15px;
-      top: 12px;
+      right: 13px;
+      top: 9px;
+      background: none;
       border: none;
-      background: transparent;
       color: var(--text);
       font-size: 25px;
     }
 
-    .modal-content h2 {
+    .modal-box h2 {
       color: var(--primary);
-      margin-bottom: 8px;
       padding-right: 30px;
+      margin-bottom: 5px;
+    }
+
+    .modal-author {
+      color: var(--muted);
+      font-size: 13px;
     }
 
     .lyrics {
       white-space: pre-line;
-      margin-top: 20px;
-      padding: 18px;
-      background: var(--bg);
+      background: var(--background);
       border-left: 3px solid var(--gold);
-      border-radius: 8px;
+      padding: 17px;
+      border-radius: 7px;
+      margin-top: 18px;
     }
 
-    .file-buttons {
+    .file-links {
       display: flex;
-      gap: 10px;
-      margin-top: 15px;
+      gap: 8px;
       flex-wrap: wrap;
+      margin-top: 15px;
     }
 
-    .file-btn {
-      padding: 9px 14px;
-      border: none;
-      border-radius: 6px;
+    .file-link {
+      text-decoration: none;
       background: var(--primary);
       color: white;
-      text-decoration: none;
+      border-radius: 6px;
+      padding: 9px 13px;
       font-size: 13px;
     }
 
-    .file-btn:hover {
-      background: var(--primary-dark);
-    }
-
-
-    /* =========================================
-       ADMIN
-       ========================================= */
-
     .admin-panel {
       display: none;
-      max-width: 900px;
+      max-width: 1050px;
       margin: 25px auto;
-      padding: 18px;
+      padding: 0 18px 50px;
     }
 
     .admin-panel.active {
@@ -563,24 +442,37 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-top: 3px solid var(--gold);
-      border-radius: 10px;
-      padding: 20px;
+      border-radius: 9px;
+      padding: 19px;
+      margin-bottom: 17px;
       box-shadow: var(--shadow);
     }
 
     .admin-box h2 {
       color: var(--primary);
-      margin-bottom: 15px;
+      margin-bottom: 14px;
+      font-size: 19px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
     }
 
     .form-group {
-      margin-bottom: 13px;
+      margin-bottom: 12px;
+    }
+
+    .full {
+      grid-column: 1/-1;
     }
 
     .form-group label {
       display: block;
-      margin-bottom: 5px;
       font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
     .form-group input,
@@ -588,191 +480,205 @@
     .form-group select {
       width: 100%;
       padding: 10px;
+      background: var(--background);
+      color: var(--text);
       border: 1px solid var(--border);
       border-radius: 6px;
-      background: var(--bg);
-      color: var(--text);
       outline: none;
     }
 
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      border-color: var(--primary);
-    }
-
     .form-group textarea {
-      min-height: 130px;
+      min-height: 160px;
       resize: vertical;
     }
 
-    .primary-btn {
+    .primary-button {
       border: none;
       background: var(--primary);
       color: white;
-      padding: 10px 18px;
       border-radius: 6px;
-      transition: 0.2s;
+      padding: 10px 17px;
     }
 
-    .primary-btn:hover {
-      background: var(--primary-dark);
+    .secondary-button {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      border-radius: 6px;
+      padding: 9px 15px;
     }
 
+    .danger-button {
+      border: none;
+      background: var(--danger);
+      color: white;
+      border-radius: 6px;
+      padding: 7px 11px;
+    }
 
-    /* =========================================
-       FOOTER
-       ========================================= */
+    .admin-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .admin-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 11px;
+    }
+
+    .admin-row small {
+      color: var(--muted);
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .message {
+      display: none;
+      padding: 9px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .success {
+      background: #e7f6ed;
+      color: #166534;
+    }
+
+    .error {
+      background: #fde8e8;
+      color: #991b1b;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 25px;
+      color: var(--muted);
+    }
 
     footer {
       background: var(--primary-dark);
       color: white;
       text-align: center;
-      padding: 27px 15px;
-      margin-top: 30px;
+      padding: 25px 15px;
       border-top: 3px solid var(--gold);
     }
 
     footer p {
       font-size: 12px;
-      opacity: 0.9;
-      margin: 3px 0;
+      opacity: .9;
     }
 
-
-    /* =========================================
-       RESPONSIVE
-       ========================================= */
-
-    @media (max-width: 800px) {
+    @media(max-width:800px) {
 
       .songs-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
       }
 
-      .menu-list {
-        grid-template-columns: repeat(2, 1fr);
+      .hidden-grid {
+        grid-template-columns: repeat(2,1fr);
       }
 
-      .hero-box h2 {
-        font-size: 23px;
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .full {
+        grid-column: auto;
       }
     }
 
+    @media(max-width:520px) {
 
-    @media (max-width: 520px) {
-
-      .top-header {
-        padding: 11px 12px;
+      .brand h1 {
+        font-size: 12px;
       }
 
-      .brand-text h1 {
-        font-size: 13px;
-      }
-
-      .brand-text span {
+      .brand small {
         font-size: 9px;
       }
 
       .brand-icon {
-        width: 38px;
-        height: 38px;
-        font-size: 18px;
-      }
-
-      .header-actions {
-        gap: 4px;
-      }
-
-      .icon-btn {
         width: 37px;
         height: 37px;
-        font-size: 17px;
-      }
-
-      .main-nav {
-        padding: 0 12px 10px;
-      }
-
-      .nav-button {
-        font-size: 11px;
-        padding: 7px 9px;
       }
 
       .songs-grid {
         grid-template-columns: 1fr;
       }
 
-      .menu-list {
+      .hidden-grid {
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        margin-top: 18px;
-      }
-
       .hero-box {
-        padding: 27px 17px;
+        padding: 29px 16px;
       }
 
       .hero-box h2 {
         font-size: 21px;
       }
 
-      .search-section {
-        margin-top: 18px;
+      .admin-row {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
 
   </style>
 </head>
 
-
 <body>
 
-
-  <!-- =========================================
-       HEADER
-       ========================================= -->
+  <!-- HEADER -->
 
   <header>
 
-    <div class="top-header">
+    <div class="header-inner">
 
-      <a href="#" class="brand" onclick="showHome(); return false;">
+      <a href="#"
+         class="brand"
+         onclick="goHome();return false;">
 
-        <div class="brand-icon">
-          ✝
-        </div>
+        <div class="brand-icon">✝</div>
 
-        <div class="brand-text">
+        <div>
 
           <h1>
             INDIRIMBO ZA EKLEZIYA KATOLIKA
           </h1>
 
-          <span>
-            Indirimbo za Liturgie na Ndoramana
-          </span>
+          <small>
+            Liturgie na Ndoramana
+          </small>
 
         </div>
 
       </a>
 
+      <div class="header-buttons">
 
-      <div class="header-actions">
-
-        <button
-          class="icon-btn"
-          onclick="toggleDarkMode()"
-          title="Dark Mode">
+        <button class="icon-button"
+                onclick="toggleDarkMode()">
           🌙
         </button>
 
-        <button
-          class="icon-btn"
-          onclick="openAdmin()"
-          title="Admin">
+        <button class="icon-button"
+                onclick="openAdmin()">
           ⚙️
         </button>
 
@@ -780,24 +686,20 @@
 
     </div>
 
+    <nav>
 
-    <nav class="main-nav">
-
-      <button
-        class="nav-button"
-        onclick="showHome()">
+      <button class="nav-button"
+              onclick="goHome()">
         🏠 Accueil
       </button>
 
-      <button
-        class="nav-button"
-        onclick="toggleCategories()">
+      <button class="nav-button"
+              onclick="toggleCategories()">
         ☰ Catégories
       </button>
 
-      <button
-        class="nav-button"
-        onclick="toggleArtists()">
+      <button class="nav-button"
+              onclick="toggleArtists()">
         🎼 Abahinga b'indirimbo
       </button>
 
@@ -806,93 +708,21 @@
   </header>
 
 
-  <!-- =========================================
-       CATEGORIES
-       ========================================= -->
+  <!-- CATEGORIES -->
 
-  <section
-    id="categoriesMenu"
-    class="hidden-menu">
+  <section id="categoriesSection"
+           class="hidden-section">
 
-    <div class="menu-box">
+    <div class="hidden-box">
 
-      <h2>
-        🎼 Catégories
-      </h2>
+      <h2>📂 Catégories</h2>
 
-      <div class="menu-list">
+      <div id="categoriesList"
+           class="hidden-grid">
 
-        <button
-          class="menu-item"
-          onclick="filterCategory('Messe')">
-          ⛪ Messe
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterCategory('Liturgie')">
-          📖 Liturgie
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterCategory('Ndoramana')">
-          🙏 Ndoramana
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterCategory('Eucharistie')">
-          🍞 Eucharistie
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterCategory('Marie')">
-          🌹 Marie
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterCategory('Noël')">
-          ⭐ Noël
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterCategory('Pâques')">
-          ✝️ Pâques
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterCategory('Communion')">
-          🍷 Communion
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterCategory('Offertoire')">
-          🕊️ Offertoire
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterCategory('Entrée')">
-          🎶 Entrée
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterCategory('Sortie')">
-          🎵 Sortie
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterCategory('Autres')">
-          📚 Autres
-        </button>
+        <div class="loading">
+          Turiko turarondera...
+        </div>
 
       </div>
 
@@ -901,45 +731,21 @@
   </section>
 
 
-  <!-- =========================================
-       ARTISTS
-       ========================================= -->
+  <!-- ARTISTS -->
 
-  <section
-    id="artistsMenu"
-    class="hidden-menu">
+  <section id="artistsSection"
+           class="hidden-section">
 
-    <div class="menu-box">
+    <div class="hidden-box">
 
-      <h2>
-        🎼 Abahinga b'indirimbo
-      </h2>
+      <h2>🎼 Abahinga b'indirimbo</h2>
 
-      <div class="menu-list">
+      <div id="artistsList"
+           class="hidden-grid">
 
-        <button
-          class="menu-item"
-          onclick="filterArtist('Chorale')">
-          🎤 Chorale
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterArtist('Compositeur')">
-          🎼 Abahimvyi
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterArtist('Auteur')">
-          ✍️ Abanditsi
-        </button>
-
-        <button
-          class="menu-item"
-          onclick="filterArtist('Traditionnel')">
-          🕊️ Indirimbo za kera
-        </button>
+        <div class="loading">
+          Turiko turarondera...
+        </div>
 
       </div>
 
@@ -948,19 +754,16 @@
   </section>
 
 
-  <!-- =========================================
-       SEARCH
-       ========================================= -->
+  <!-- SEARCH -->
 
-  <section class="search-section">
+  <section class="search-area">
 
     <div class="search-box">
 
-      <input
-        type="search"
-        id="searchInput"
-        placeholder="Rondera indirimbo..."
-        oninput="searchSongs()">
+      <input id="searchInput"
+             type="search"
+             placeholder="Rondera indirimbo..."
+             oninput="searchSongs()">
 
       <button onclick="searchSongs()">
         🔍
@@ -971,13 +774,10 @@
   </section>
 
 
-  <!-- =========================================
-       HERO
-       ========================================= -->
+  <!-- HERO -->
 
-  <section
-    class="hero"
-    id="homeHero">
+  <section id="hero"
+           class="hero">
 
     <div class="hero-box">
 
@@ -986,8 +786,8 @@
       </h2>
 
       <p>
-        Rondera, soma kandi ukoreshe indirimbo
-        za Liturgie na Ndoramana mu Kirundi.
+        Rondera kandi usome indirimbo za
+        Liturgie na Ndoramana mu Kirundi.
       </p>
 
     </div>
@@ -995,86 +795,2029 @@
   </section>
 
 
-  <!-- =========================================
-       MAIN
-       ========================================= -->
+  <!-- SONGS -->
 
-  <main id="mainContent">
+  <main id="main">
 
-    <div class="section-title">
+    <div class="section-heading">
 
-      <h2>
+      <h2 id="sectionTitle">
         🆕 Indirimbo nshasha
       </h2>
 
-      <a
-        href="#"
-        onclick="showAllSongs(); return false;">
+      <button onclick="showAllSongs()">
         Raba zose
-      </a>
+      </button>
+
+    </div>
+
+    <div id="songsGrid"
+         class="songs-grid">
+
+      <div class="loading">
+        Turiko turarondera indirimbo...
+      </div>
 
     </div>
 
 
-    <div
-      id="songsGrid"
-      class="songs-grid">
-    </div>
+    <div id="popularArea">
 
+      <div class="section-heading">
 
-    <div class="section-title">
+        <h2>
+          ⭐ Indirimbo zikunzwe
+        </h2>
 
-      <h2>
-        ⭐ Indirimbo zikunzwe
-      </h2>
+      </div>
 
-    </div>
+      <div id="popularGrid"
+           class="songs-grid">
+      </div>
 
-
-    <div
-      id="popularGrid"
-      class="songs-grid">
     </div>
 
   </main>
 
 
-  <!-- =========================================
-       ADMIN
-       ========================================= -->
+  <!-- ADMIN -->
 
-  <section
-    id="adminPanel"
-    class="admin-panel">
+  <section id="adminPanel"
+           class="admin-panel">
 
     <div class="admin-box">
 
-      <h2>
-        ⚙️ Admin Panel
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        flex-wrap:wrap;">
+
+        <div>
+
+          <h2>
+            👨‍💼 Admin Dashboard
+          </h2>
+
+          <p style="color:var(--muted);font-size:13px;">
+            Gucungera urubuga rw'indirimbo.
+          </p>
+
+        </div>
+
+        <button class="secondary-button"
+                onclick="logout()">
+          Déconnexion
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ADD SONG -->
+
+    <div class="admin-box">
+
+      <h2 id="formTitle">
+        ➕ Shiramwo indirimbo
       </h2>
 
-      <p
-        style="color:var(--muted);
-               font-size:13px;
-               margin-bottom:20px;">
+      <div id="adminMessage"
+           class="message">
+      </div>
 
-        Iki gice ni ic'umuyobozi w'urubuga gusa.
+      <div class="form-grid">
 
-      </p>
+        <div class="form-group">
+
+          <label>
+            Izina ry'indirimbo *
+          </label>
+
+          <input id="songTitle"
+                 type="text"
+                 placeholder="Izina ry'indirimbo">
+
+        </div>
 
 
-      <div class="form-group">
+        <div class="form-group">
 
-        <label>
-          Izina ry'indirimbo
-        </label>
+          <label>
+            Umuhinga
+          </label>
 
-        <input
-          type="text"
-          id="songTitle"
-          placeholder="Andika izina ry'indirimbo">
+          <select id="songArtist">
+
+            <option value="">
+              Hitamwo umuhinga
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Catégorie *
+          </label>
+
+          <select id="songCategory">
+
+            <option value="">
+              Hitamwo catégorie
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            PDF *
+          </label>
+
+          <input id="songPDF"
+                 type="file"
+                 accept=".pdf,application/pdf">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            MIDI (facultatif)
+          </label>
+
+          <input id="songMIDI"
+                 type="file"
+                 accept=".mid,.midi">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Indirimbo ikunzwe?
+          </label>
+
+          <select id="songPopular">
+
+            <option value="false">
+              Oya
+            </option>
+
+            <option value="true">
+              Ego
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group full">
+
+          <label>
+            Lyrics *
+          </label>
+
+          <textarea id="songLyrics"
+                    placeholder="Andika lyrics z'indirimbo..."></textarea>
+
+        </div>
 
       </div>
 
 
-      <di
+      <div style="
+        display:flex;
+        gap:7px;
+        flex-wrap:wrap;">
+
+        <button class="primary-button"
+                onclick="saveSong()">
+          💾 Bika indirimbo
+        </button>
+
+        <button id="cancelEdit"
+                class="secondary-button"
+                onclick="cancelEdit()"
+                style="display:none;">
+          Annuler
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- SONG MANAGEMENT -->
+
+    <div class="admin-box">
+
+      <h2>
+        🎵 Indirimbo
+      </h2>
+
+      <div id="adminSongs"
+           class="admin-list">
+      </div>
+
+    </div>
+
+
+    <!-- CATEGORIES -->
+
+    <div class="admin-box">
+
+      <h2>
+        📂 Categories
+      </h2>
+
+      <div style="
+        display:flex;
+        gap:7px;
+        margin-bottom:13px;">
+
+        <input id="newCategory"
+               type="text"
+               placeholder="Izina rya catégorie"
+               style="
+                 flex:1;
+                 padding:10px;
+                 background:var(--background);
+                 color:var(--text);
+                 border:1px solid var(--border);
+                 border-radius:6px;">
+
+        <button class="primary-button"
+                onclick="addCategory()">
+          ➕
+        </button>
+
+      </div>
+
+      <div id="adminCategories"></div>
+
+    </div>
+
+
+    <!-- ARTISTS -->
+
+    <div class="admin-box">
+
+      <h2>
+        🎼 Abahinga
+      </h2>
+
+      <div style="
+        display:flex;
+        gap:7px;
+        margin-bottom:13px;">
+
+        <input id="newArtist"
+               type="text"
+               placeholder="Izina ry'umuhinga"
+               style="
+                 flex:1;
+                 padding:10px;
+                 background:var(--background);
+                 color:var(--text);
+                 border:1px solid var(--border);
+                 border-radius:6px;">
+
+        <button class="primary-button"
+                onclick="addArtist()">
+          ➕
+        </button>
+
+      </div>
+
+      <div id="adminArtists"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SONG MODAL -->
+
+  <div id="songModal"
+       class="modal">
+
+    <div class="modal-box">
+
+      <button class="close-button"
+              onclick="closeSong()">
+        ×
+      </button>
+
+      <h2 id="modalTitle"></h2>
+
+      <p id="modalAuthor"
+         class="modal-author"></p>
+
+      <div id="modalLyrics"
+           class="lyrics"></div>
+
+      <div id="modalFiles"
+           class="file-links"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- LOGIN -->
+
+  <div id="loginModal"
+       class="modal">
+
+    <div class="modal-box">
+
+      <button class="close-button"
+              onclick="closeLogin()">
+        ×
+      </button>
+
+      <h2>
+        🔐 Admin Login
+      </h2>
+
+      <p style="
+        color:var(--muted);
+        font-size:13px;
+        margin-bottom:15px;">
+        Injira ukoresheje account ya Admin.
+      </p>
+
+      <div id="loginMessage"
+           class="message">
+      </div>
+
+      <div class="form-group">
+
+        <label>Email</label>
+
+        <input id="loginEmail"
+               type="email"
+               placeholder="Email">
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Password</label>
+
+        <input id="loginPassword"
+               type="password"
+               placeholder="Password">
+
+      </div>
+
+      <button class="primary-button"
+              style="width:100%;"
+              onclick="login()">
+        Injira
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <p>
+      © 2026 INDIRIMBO ZA EKLEZIYA KATOLIKA
+    </p>
+
+    <p>
+      Indirimbo za Liturgie na Ndoramana
+    </p>
+
+  </footer>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
+  <script>
+
+    /* =====================================================
+       ⭐ SAMARITAN — AHA NI HO USHIRAMWO KEY YAWE ⭐
+       ===================================================== */
+
+    const SUPABASE_URL =
+      "https://wahazmzfoegrxncrailn.supabase.co";
+
+
+    /*
+      ======================================================
+      ⭐⭐⭐ SAMARITAN ⭐⭐⭐
+
+      SIBA IJAMBO SAMARITAN UHASHIREMO
+      PUBLISHABLE KEY YA SUPABASE YAWE.
+
+      Urugero:
+
+      const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_xxxxxxxxx";
+
+      NTUKORESHE SECRET KEY.
+      ======================================================
+    */
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "SAMARITAN";
+
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+
+    /* ADMIN USER */
+
+    const ADMIN_USER_ID =
+      "be45d2de-5c9f-4b04-9973-a644306e6362";
+
+
+    let songs = [];
+    let categories = [];
+    let artists = [];
+    let currentUser = null;
+    let editingSongId = null;
+
+
+    /* SECURITY */
+
+    function escapeHTML(value) {
+
+      if (
+        value === null ||
+        value === undefined
+      ) return "";
+
+      const div =
+        document.createElement("div");
+
+      div.textContent = value;
+
+      return div.innerHTML;
+    }
+
+
+    /* DARK MODE */
+
+    function toggleDarkMode() {
+
+      document.body.classList.toggle("dark");
+
+      localStorage.setItem(
+        "darkMode",
+        document.body.classList.contains("dark")
+          ? "on"
+          : "off"
+      );
+    }
+
+
+    if (
+      localStorage.getItem("darkMode") === "on"
+    ) {
+      document.body.classList.add("dark");
+    }
+
+
+    /* MENUS */
+
+    function closeMenus() {
+
+      document
+        .getElementById("categoriesSection")
+        .classList.remove("active");
+
+      document
+        .getElementById("artistsSection")
+        .classList.remove("active");
+    }
+
+
+    function toggleCategories() {
+
+      document
+        .getElementById("artistsSection")
+        .classList.remove("active");
+
+      document
+        .getElementById("categoriesSection")
+        .classList.toggle("active");
+    }
+
+
+    function toggleArtists() {
+
+      document
+        .getElementById("categoriesSection")
+        .classList.remove("active");
+
+      document
+        .getElementById("artistsSection")
+        .classList.toggle("active");
+    }
+
+
+    /* HOME */
+
+    function goHome() {
+
+      closeMenus();
+
+      document
+        .getElementById("hero")
+        .style.display = "block";
+
+      document
+        .getElementById("main")
+        .style.display = "block";
+
+      document
+        .getElementById("adminPanel")
+        .classList.remove("active");
+
+      document
+        .getElementById("popularArea")
+        .style.display = "block";
+
+      document
+        .getElementById("sectionTitle")
+        .textContent =
+        "🆕 Indirimbo nshasha";
+
+      renderSongs(
+        songs.slice(0,6),
+        "songsGrid"
+      );
+
+      renderSongs(
+        songs.filter(
+          song => song.is_popular
+        ),
+        "popularGrid"
+      );
+    }
+
+
+    /* LOAD CATEGORIES */
+
+    async function loadCategories() {
+
+      const result =
+        await supabaseClient
+          .from("categories")
+          .select("*")
+          .order("name");
+
+      if (result.error) {
+
+        console.error(result.error);
+
+        return;
+      }
+
+      categories =
+        result.data || [];
+
+      renderCategories();
+      renderCategorySelect();
+
+      if (currentUser)
+        renderAdminCategories();
+    }
+
+
+    function renderCategories() {
+
+      const container =
+        document.getElementById(
+          "categoriesList"
+        );
+
+      if (!categories.length) {
+
+        container.innerHTML =
+          `<div class="loading">
+            Nta catégorie iraboneka.
+          </div>`;
+
+        return;
+      }
+
+      container.innerHTML =
+        categories.map(category => `
+
+          <button
+            class="hidden-item"
+            onclick="filterCategory('${category.id}')">
+
+            📂 ${escapeHTML(category.name)}
+
+          </button>
+
+        `).join("");
+    }
+
+
+    function renderCategorySelect() {
+
+      const select =
+        document.getElementById(
+          "songCategory"
+        );
+
+      select.innerHTML =
+        `<option value="">
+          Hitamwo catégorie
+        </option>`;
+
+      categories.forEach(category => {
+
+        select.innerHTML += `
+
+          <option value="${category.id}">
+            ${escapeHTML(category.name)}
+          </option>
+
+        `;
+      });
+    }
+
+
+    /* LOAD ARTISTS */
+
+    async function loadArtists() {
+
+      const result =
+        await supabaseClient
+          .from("artists")
+          .select("*")
+          .order("name");
+
+      if (result.error) {
+
+        console.error(result.error);
+
+        return;
+      }
+
+      artists =
+        result.data || [];
+
+      renderArtists();
+      renderArtistSelect();
+
+      if (currentUser)
+        renderAdminArtists();
+    }
+
+
+    function renderArtists() {
+
+      const container =
+        document.getElementById(
+          "artistsList"
+        );
+
+      if (!artists.length) {
+
+        container.innerHTML =
+          `<div class="loading">
+            Nta muhinga arashirwamwo.
+          </div>`;
+
+        return;
+      }
+
+      container.innerHTML =
+        artists.map(artist => `
+
+          <button
+            class="hidden-item"
+            onclick="filterArtist('${artist.id}')">
+
+            🎼 ${escapeHTML(artist.name)}
+
+          </button>
+
+        `).join("");
+    }
+
+
+    function renderArtistSelect() {
+
+      const select =
+        document.getElementById(
+          "songArtist"
+        );
+
+      select.innerHTML =
+        `<option value="">
+          Hitamwo umuhinga
+        </option>`;
+
+      artists.forEach(artist => {
+
+        select.innerHTML += `
+
+          <option value="${artist.id}">
+            ${escapeHTML(artist.name)}
+          </option>
+
+        `;
+      });
+    }
+
+
+    /* LOAD SONGS */
+
+    async function loadSongs() {
+
+      const result =
+        await supabaseClient
+          .from("songs")
+          .select(`
+            *,
+            artists(id,name),
+            categories(id,name)
+          `)
+          .order(
+            "created_at",
+            {ascending:false}
+          );
+
+      if (result.error) {
+
+        console.error(result.error);
+
+        document.getElementById(
+          "songsGrid"
+        ).innerHTML =
+          `<div class="loading">
+            Ntitwashoboye kuronka indirimbo.
+          </div>`;
+
+        return;
+      }
+
+      songs =
+        result.data || [];
+
+      goHome();
+
+      if (currentUser)
+        renderAdminSongs();
+    }
+
+
+    /* RENDER SONGS */
+
+    function renderSongs(
+      list,
+      elementId
+    ) {
+
+      const container =
+        document.getElementById(
+          elementId
+        );
+
+      if (!container)
+        return;
+
+      if (!list.length) {
+
+        container.innerHTML =
+          `<div class="loading">
+            Nta ndirimbo yabonetse.
+          </div>`;
+
+        return;
+      }
+
+      container.innerHTML =
+        list.map(song => `
+
+          <article class="song-card">
+
+            <span class="category-badge">
+
+              ${
+                escapeHTML(
+                  song.categories?.name ||
+                  "Autres"
+                )
+              }
+
+            </span>
+
+            <h3>
+              ${escapeHTML(song.title)}
+            </h3>
+
+            <p class="song-author">
+
+              🎼
+              ${
+                escapeHTML(
+                  song.artists?.name ||
+                  "Umuhinga atarashirwamwo"
+                )
+              }
+
+            </p>
+
+            <div class="card-buttons">
+
+              <button
+                class="small-button"
+                onclick="openSong('${song.id}')">
+
+                Soma
+
+              </button>
+
+            </div>
+
+          </article>
+
+        `).join("");
+    }
+
+
+    /* SEARCH */
+
+    function searchSongs() {
+
+      const query =
+        document
+          .getElementById("searchInput")
+          .value
+          .toLowerCase()
+          .trim();
+
+      if (!query) {
+
+        goHome();
+
+        return;
+      }
+
+      closeMenus();
+
+      document
+        .getElementById("hero")
+        .style.display = "none";
+
+      document
+        .getElementById("popularArea")
+        .style.display = "none";
+
+      const results =
+        songs.filter(song => {
+
+          const title =
+            (song.title || "")
+            .toLowerCase();
+
+          const lyrics =
+            (song.lyrics || "")
+            .toLowerCase();
+
+          const artist =
+            (song.artists?.name || "")
+            .toLowerCase();
+
+          const category =
+            (song.categories?.name || "")
+            .toLowerCase();
+
+          return (
+            title.includes(query) ||
+            lyrics.includes(query) ||
+            artist.includes(query) ||
+            category.includes(query)
+          );
+        });
+
+      document
+        .getElementById("sectionTitle")
+        .textContent =
+        "🔎 Ivyavuye mu kurondera";
+
+      renderSongs(
+        results,
+        "songsGrid"
+      );
+    }
+
+
+    /* ALL SONGS */
+
+    function showAllSongs() {
+
+      closeMenus();
+
+      document
+        .getElementById("hero")
+        .style.display = "none";
+
+      document
+        .getElementById("popularArea")
+        .style.display = "none";
+
+      document
+        .getElementById("sectionTitle")
+        .textContent =
+        "🎵 Indirimbo zose";
+
+      renderSongs(
+        songs,
+        "songsGrid"
+      );
+    }
+
+
+    /* CATEGORY FILTER */
+
+    function filterCategory(id) {
+
+      closeMenus();
+
+      const category =
+        categories.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+      const result =
+        songs.filter(
+          song =>
+            String(song.category_id) ===
+            String(id)
+        );
+
+      document
+        .getElementById("hero")
+        .style.display = "none";
+
+      document
+        .getElementById("popularArea")
+        .style.display = "none";
+
+      document
+        .getElementById("sectionTitle")
+        .textContent =
+        "📂 " +
+        (
+          category?.name ||
+          "Catégorie"
+        );
+
+      renderSongs(
+        result,
+        "songsGrid"
+      );
+    }
+
+
+    /* ARTIST FILTER */
+
+    function filterArtist(id) {
+
+      closeMenus();
+
+      const artist =
+        artists.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+      const result =
+        songs.filter(
+          song =>
+            String(song.artist_id) ===
+            String(id)
+        );
+
+      document
+        .getElementById("hero")
+        .style.display = "none";
+
+      document
+        .getElementById("popularArea")
+        .style.display = "none";
+
+      document
+        .getElementById("sectionTitle")
+        .textContent =
+        "🎼 " +
+        (
+          artist?.name ||
+          "Umuhinga"
+        );
+
+      renderSongs(
+        result,
+        "songsGrid"
+      );
+    }
+
+
+    /* SONG MODAL */
+
+    async function openSong(id) {
+
+      const song =
+        songs.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+      if (!song)
+        return;
+
+      document
+        .getElementById("modalTitle")
+        .textContent =
+        song.title;
+
+      document
+        .getElementById("modalAuthor")
+        .textContent =
+        "🎼 " +
+        (
+          song.artists?.name ||
+          "Umuhinga"
+        );
+
+      document
+        .getElementById("modalLyrics")
+        .textContent =
+        song.lyrics || "";
+
+      const files =
+        document.getElementById(
+          "modalFiles"
+        );
+
+      files.innerHTML = "";
+
+      if (song.pdf_url) {
+
+        const result =
+          await supabaseClient
+            .storage
+            .from("pdf")
+            .createSignedUrl(
+              song.pdf_url,
+              3600
+            );
+
+        if (result.data?.signedUrl) {
+
+          files.innerHTML += `
+
+            <a
+              class="file-link"
+              href="${result.data.signedUrl}"
+              target="_blank">
+
+              📄 PDF
+
+            </a>
+
+          `;
+        }
+      }
+
+      if (song.midi_url) {
+
+        const result =
+          await supabaseClient
+            .storage
+            .from("midi")
+            .createSignedUrl(
+              song.midi_url,
+              3600
+            );
+
+        if (result.data?.signedUrl) {
+
+          files.innerHTML += `
+
+            <a
+              class="file-link"
+              href="${result.data.signedUrl}"
+              target="_blank">
+
+              🎹 MIDI
+
+            </a>
+
+          `;
+        }
+      }
+
+      document
+        .getElementById("songModal")
+        .classList.add("active");
+    }
+
+
+    function closeSong() {
+
+      document
+        .getElementById("songModal")
+        .classList.remove("active");
+    }
+
+
+    /* ADMIN */
+
+    function openAdmin() {
+
+      if (currentUser) {
+
+        openAdminPanel();
+
+      } else {
+
+        document
+          .getElementById("loginModal")
+          .classList.add("active");
+      }
+    }
+
+
+    function closeLogin() {
+
+      document
+        .getElementById("loginModal")
+        .classList.remove("active");
+    }
+
+
+    async function login() {
+
+      const email =
+        document
+          .getElementById("loginEmail")
+          .value
+          .trim();
+
+      const password =
+        document
+          .getElementById("loginPassword")
+          .value;
+
+      if (!email || !password) {
+
+        showMessage(
+          "loginMessage",
+          "Uzuza email na password.",
+          "error"
+        );
+
+        return;
+      }
+
+      const result =
+        await supabaseClient
+          .auth
+          .signInWithPassword({
+            email,
+            password
+          });
+
+      if (result.error) {
+
+        showMessage(
+          "loginMessage",
+          "Email canke password si vyo.",
+          "error"
+        );
+
+        return;
+      }
+
+      if (
+        result.data.user.id !==
+        ADMIN_USER_ID
+      ) {
+
+        await supabaseClient
+          .auth
+          .signOut();
+
+        showMessage(
+          "loginMessage",
+          "Iyi account si Admin.",
+          "error"
+        );
+
+        return;
+      }
+
+      currentUser =
+        result.data.user;
+
+      closeLogin();
+
+      openAdminPanel();
+    }
+
+
+    async function logout() {
+
+      await supabaseClient
+        .auth
+        .signOut();
+
+      currentUser = null;
+
+      document
+        .getElementById("adminPanel")
+        .classList.remove("active");
+
+      goHome();
+    }
+
+
+    function openAdminPanel() {
+
+      closeMenus();
+
+      document
+        .getElementById("hero")
+        .style.display = "none";
+
+      document
+        .getElementById("main")
+        .style.display = "none";
+
+      document
+        .getElementById("adminPanel")
+        .classList.add("active");
+
+      renderAdminSongs();
+      renderAdminCategories();
+      renderAdminArtists();
+    }
+
+
+    /* SESSION */
+
+    async function checkSession() {
+
+      const result =
+        await supabaseClient
+          .auth
+          .getSession();
+
+      const session =
+        result.data.session;
+
+      if (
+        session &&
+        session.user.id ===
+        ADMIN_USER_ID
+      ) {
+
+        currentUser =
+          session.user;
+      }
+    }
+
+
+    supabaseClient
+      .auth
+      .onAuthStateChange(
+        (_event, session) => {
+
+          if (
+            session &&
+            session.user.id ===
+            ADMIN_USER_ID
+          ) {
+
+            currentUser =
+              session.user;
+
+          } else {
+
+            currentUser = null;
+          }
+        }
+      );
+
+
+    /* FILE UPLOAD */
+
+    async function uploadFile(
+      file,
+      bucket
+    ) {
+
+      if (!file)
+        return null;
+
+      const safeName =
+        file.name.replace(
+          /[^a-zA-Z0-9._-]/g,
+          "_"
+        );
+
+      const path =
+        Date.now() +
+        "_" +
+        Math.random()
+          .toString(36)
+          .substring(2) +
+        "_" +
+        safeName;
+
+      const result =
+        await supabaseClient
+          .storage
+          .from(bucket)
+          .upload(
+            path,
+            file,
+            {
+              upsert:false
+            }
+          );
+
+      if (result.error)
+        throw result.error;
+
+      return path;
+    }
+
+
+    /* SAVE SONG */
+
+    async function saveSong() {
+
+      if (!currentUser) {
+
+        alert(
+          "Banza winjire nka Admin."
+        );
+
+        return;
+      }
+
+      const title =
+        document
+          .getElementById("songTitle")
+          .value
+          .trim();
+
+      const artistId =
+        document
+          .getElementById("songArtist")
+          .value;
+
+      const categoryId =
+        document
+          .getElementById("songCategory")
+          .value;
+
+      const lyrics =
+        document
+          .getElementById("songLyrics")
+          .value
+          .trim();
+
+      const pdf =
+        document
+          .getElementById("songPDF")
+          .files[0];
+
+      const midi =
+        document
+          .getElementById("songMIDI")
+          .files[0];
+
+      const popular =
+        document
+          .getElementById("songPopular")
+          .value === "true";
+
+      if (
+        !title ||
+        !categoryId ||
+        !lyrics
+      ) {
+
+        showMessage(
+          "adminMessage",
+          "Uzuza title, catégorie na lyrics.",
+          "error"
+        );
+
+        return;
+      }
+
+      if (
+        !editingSongId &&
+        !pdf
+      ) {
+
+        showMessage(
+          "adminMessage",
+          "PDF ni obligatoire.",
+          "error"
+        );
+
+        return;
+      }
+
+      try {
+
+        let pdfPath = null;
+        let midiPath = null;
+
+        if (pdf) {
+
+          pdfPath =
+            await uploadFile(
+              pdf,
+              "pdf"
+            );
+        }
+
+        if (midi) {
+
+          midiPath =
+            await uploadFile(
+              midi,
+              "midi"
+            );
+        }
+
+        const data = {
+
+          title:title,
+
+          artist_id:
+            artistId
+              ? artistId
+              : null,
+
+          category_id:
+            categoryId,
+
+          lyrics:lyrics,
+
+          is_popular:
+            popular
+        };
+
+        if (pdfPath)
+          data.pdf_url = pdfPath;
+
+        if (midiPath)
+          data.midi_url = midiPath;
+
+        let result;
+
+        if (editingSongId) {
+
+          result =
+            await supabaseClient
+              .from("songs")
+              .update(data)
+              .eq(
+                "id",
+                editingSongId
+              );
+
+        } else {
+
+          result =
+            await supabaseClient
+              .from("songs")
+              .insert(data);
+        }
+
+        if (result.error)
+          throw result.error;
+
+        showMessage(
+          "adminMessage",
+          editingSongId
+            ? "Indirimbo yahinduwe neza."
+            : "Indirimbo yashizwe muri database neza."
+        );
+
+        resetForm();
+
+        await loadSongs();
+
+      } catch(error) {
+
+        console.error(error);
+
+        showMessage(
+          "adminMessage",
+          "Ikibazo: " +
+          error.message,
+          "error"
+        );
+      }
+    }
+
+
+    /* EDIT */
+
+    function editSong(id) {
+
+      const song =
+        songs.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+      if (!song)
+        return;
+
+      editingSongId =
+        song.id;
+
+      document
+        .getElementById("formTitle")
+        .textContent =
+        "✏️ Hindura indirimbo";
+
+      document
+        .getElementById("songTitle")
+        .value =
+        song.title || "";
+
+      document
+        .getElementById("songArtist")
+        .value =
+        song.artist_id || "";
+
+      document
+        .getElementById("songCategory")
+        .value =
+        song.category_id || "";
+
+      document
+        .getElementById("songLyrics")
+        .value =
+        song.lyrics || "";
+
+      document
+        .getElementById("songPopular")
+        .value =
+        song.is_popular
+          ? "true"
+          : "false";
+
+      document
+        .getElementById("cancelEdit")
+        .style.display =
+        "inline-block";
+    }
+
+
+    function cancelEdit() {
+
+      resetForm();
+    }
+
+
+    function resetForm() {
+
+      editingSongId = null;
+
+      document
+        .getElementById("formTitle")
+        .textContent =
+        "➕ Shiramwo indirimbo";
+
+      document
+        .getElementById("songTitle")
+        .value = "";
+
+      document
+        .getElementById("songArtist")
+        .value = "";
+
+      document
+        .getElementById("songCategory")
+        .value = "";
+
+      document
+        .getElementById("songLyrics")
+        .value = "";
+
+      document
+        .getElementById("songPDF")
+        .value = "";
+
+      document
+        .getElementById("songMIDI")
+        .value = "";
+
+      document
+        .getElementById("songPopular")
+        .value = "false";
+
+      document
+        .getElementById("cancelEdit")
+        .style.display =
+        "none";
+    }
+
+
+    /* DELETE SONG */
+
+    async function deleteSong(id) {
+
+      if (
+        !confirm(
+          "Urashaka gukuraho iyi ndirimbo?"
+        )
+      )
+        return;
+
+      const result =
+        await supabaseClient
+          .from("songs")
+          .delete()
+          .eq("id",id);
+
+      if (result.error) {
+
+        alert(
+          result.error.message
+        );
+
+        return;
+      }
+
+      await loadSongs();
+    }
+
+
+    /* ADMIN SONGS */
+
+    function renderAdminSongs() {
+
+      const container =
+        document.getElementById(
+          "adminSongs"
+        );
+
+      if (!songs.length) {
+
+        container.innerHTML =
+          `<div class="loading">
+            Nta ndirimbo iraboneka.
+          </div>`;
+
+        return;
+      }
+
+      container.innerHTML =
+        songs.map(song => `
+
+          <div class="admin-row">
+
+            <div>
+
+              <strong>
+                ${escapeHTML(song.title)}
+              </strong>
+
+              <br>
+
+              <small>
+
+                ${
+                  escapeHTML(
+                    song.artists?.name ||
+                    "Nta muhinga"
+                  )
+                }
+
+                •
+
+                ${
+                  escapeHTML(
+                    song.categories?.name ||
+                    "Nta catégorie"
+                  )
+                }
+
+              </small>
+
+            </div>
+
+            <div class="admin-actions">
+
+              <button
+                class="small-button"
+                onclick="openSong('${song.id}')">
+                👁️
+              </button>
+
+              <button
+                class="small-button"
+                onclick="editSong('${song.id}')">
+                ✏️
+              </button>
+
+              <button
+                class="danger-button"
+                onclick="deleteSong('${song.id}')">
+                🗑️
+              </button>
+
+            </div>
+
+          </div>
+
+        `).join("");
+    }
+
+
+    /* CATEGORY ADMIN */
+
+    async function addCategory() {
+
+      const input =
+        document.getElementById(
+          "newCategory"
+        );
+
+      const name =
+        input.value.trim();
+
+      if (!name)
+        return;
+
+      const result =
+        await supabaseClient
+          .from("categories")
+          .insert({
+            name:name
+          });
+
+      if (result.error) {
+
+        alert(
+          result.error.message
+        );
+
+        return;
+      }
+
+      input.value = "";
+
+      await loadCategories();
+    }
+
+
+    function renderAdminCategories() {
+
+      const container =
+        document.getElementById(
+          "adminCategories"
+        );
+
+      container.innerHTML =
+        categories.map(category => `
+
+          <div class="admin-row">
+
+            <span>
+              📂
+              ${escapeHTML(category.name)}
+            </span>
+
+            <button
+              class="danger-button"
+              onclick="deleteCategory('${category.id}')">
+              🗑️
+            </button>
+
+          </div>
+
+        `).join("");
+    }
+
+
+    async function deleteCategory(id) {
+
+      if (
+        !confirm(
+          "Urashaka gukuraho iyi catégorie?"
+        )
+      )
+        return;
+
+      const used =
+        songs.some(
+          song =>
+            String(song.category_id) ===
+            String(id)
+        );
+
+      if (used) {
+
+        alert(
+          "Iyi catégorie iracari ikoreshwa n'indirimbo."
+        );
+
+        return;
+      }
+
+      const result =
+        await supabaseClient
+          .from("categories")
+          .delete()
+          .eq("id",id);
+
+      if (result.error) {
+
+        alert(
+          result.error.message
+        );
+
+        return;
+      }
+
+      await loadCategories();
+    }
+
+
+    /* ARTIST ADMIN */
+
+    async function addArtist() {
+
+      const input =
+        document.getElementById(
+          "newArtist"
+        );
+
+      const name =
+        input.value.trim();
+
+      if (!name)
+        return;
+
+      const result =
+        await supabaseClient
+          .from("artists")
+          .insert({
+            name:name
+          });
+
+      if (result.error) {
+
+        alert(
+          result.error.message
+        );
+
+        return;
+      }
+
+      input.value = "";
+
+      await loadArtists();
+    }
+
+
+    function renderAdminArtists() {
+
+      const container =
+        document.getElementById(
+          "adminArtists"
+        );
+
+      container.innerHTML =
+        artists.map(artist => `
+
+          <div class="admin-row">
+
+            <span>
+              🎼
+              ${escapeHTML(artist.name)}
+            </span>
+
+            <button
+              class="danger-button"
+              onclick="deleteArtist('${artist.id}')">
+              🗑️
+            </button>
+
+          </div>
+
+        `).join("");
+    }
+
+
+    async function deleteArtist(id) {
+
+      if (
+        !confirm(
+          "Urashaka gukuraho uyu muhinga?"
+        )
+      )
+        return;
+
+      const result =
+        await supabaseClient
+          .from("artists")
+          .delete()
+          .eq("id",id);
+
+      if (result.error) {
+
+        alert(
+          result.error.message
+        );
+
+        return;
+      }
+
+      await loadArtists();
+      await loadSongs();
+    }
+
+
+    /* MESSAGE */
+
+    function showMessage(
+      id,
+      text,
+      type = "success"
+    ) {
+
+      const element =
+        document.getElementById(id);
+
+      element.textContent =
+        text;
+
+      element.className =
+        "message show " +
+        type;
+    }
+
+
+    /* START */
+
+    async function initialize() {
+
+      await checkSession();
+
+      await Promise.all([
+        loadCategories(),
+        loadArtists(),
+        loadSongs()
+      ]);
+    }
+
+
+    initialize();
+
+  </script>
+
+</body>
+</html>
