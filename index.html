@@ -6,31 +6,56 @@
 
   <title>INDIRIMBO ZA EKLEZIYA KATOLIKA</title>
 
-  <meta name="description" content="Urubuga rw'indirimbo za Ekleziya Katolika mu Kirundi. Lyrics, PDF na MIDI.">
+  <meta name="description"
+        content="Urubuga rw'indirimbo za Ekleziya Katolika mu Kirundi. Lyrics, PDF na MIDI.">
 
   <style>
+
+    /* =========================================
+       COLORS
+       Bleu profond + Doré + Blanc
+       ========================================= */
+
     :root {
-      --primary: #7b1e1e;
-      --primary-dark: #541313;
-      --gold: #c99a2e;
-      --bg: #f7f7f7;
+      --primary: #174a73;
+      --primary-dark: #0d2f4a;
+      --primary-light: #eaf3f9;
+
+      --gold: #c9a227;
+      --gold-light: #f5edcf;
+
+      --bg: #f5f7fa;
       --card: #ffffff;
-      --text: #222222;
-      --muted: #777777;
-      --border: #e5e5e5;
+      --text: #1d2733;
+      --muted: #718096;
+      --border: #e1e7ed;
       --header: #ffffff;
-      --shadow: 0 3px 12px rgba(0,0,0,0.08);
+
+      --shadow: 0 4px 16px rgba(15, 45, 70, 0.08);
     }
 
     body.dark {
-      --bg: #121212;
-      --card: #1e1e1e;
-      --text: #eeeeee;
-      --muted: #aaaaaa;
-      --border: #333333;
-      --header: #1a1a1a;
-      --shadow: 0 3px 12px rgba(0,0,0,0.35);
+      --primary: #5fa8d3;
+      --primary-dark: #183b52;
+      --primary-light: #203d50;
+
+      --gold: #e2c45b;
+      --gold-light: #3b3520;
+
+      --bg: #101820;
+      --card: #19232d;
+      --text: #edf3f7;
+      --muted: #aab8c4;
+      --border: #2c3a46;
+      --header: #151f28;
+
+      --shadow: 0 4px 18px rgba(0,0,0,0.3);
     }
+
+
+    /* =========================================
+       GENERAL
+       ========================================= */
 
     * {
       box-sizing: border-box;
@@ -43,11 +68,13 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      transition: 0.3s;
+      transition: background 0.3s, color 0.3s;
     }
 
     button,
-    input {
+    input,
+    textarea,
+    select {
       font-family: inherit;
     }
 
@@ -55,7 +82,10 @@
       cursor: pointer;
     }
 
-    /* ================= HEADER ================= */
+
+    /* =========================================
+       HEADER
+       ========================================= */
 
     header {
       background: var(--header);
@@ -79,27 +109,30 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
       text-decoration: none;
       color: var(--text);
     }
 
     .brand-icon {
-      width: 43px;
-      height: 43px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       background: var(--primary);
       color: white;
-      border-radius: 50%;
+      border: 2px solid var(--gold);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 21px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
     }
 
     .brand-text h1 {
       font-size: 16px;
       line-height: 1.2;
       color: var(--primary);
+      letter-spacing: 0.2px;
     }
 
     .brand-text span {
@@ -119,16 +152,21 @@
       color: var(--text);
       width: 42px;
       height: 42px;
-      border-radius: 8px;
-      font-size: 20px;
+      border-radius: 9px;
+      font-size: 19px;
+      transition: 0.2s;
     }
 
     .icon-btn:hover {
       background: var(--primary);
+      border-color: var(--primary);
       color: white;
     }
 
-    /* ================= NAVIGATION ================= */
+
+    /* =========================================
+       NAVIGATION
+       ========================================= */
 
     .main-nav {
       max-width: 1200px;
@@ -143,17 +181,22 @@
       border: 1px solid var(--border);
       background: var(--card);
       color: var(--text);
-      padding: 8px 13px;
-      border-radius: 7px;
+      padding: 8px 14px;
+      border-radius: 8px;
       font-size: 13px;
+      transition: 0.2s;
     }
 
     .nav-button:hover {
       background: var(--primary);
+      border-color: var(--primary);
       color: white;
     }
 
-    /* ================= SEARCH ================= */
+
+    /* =========================================
+       SEARCH
+       ========================================= */
 
     .search-section {
       max-width: 850px;
@@ -165,7 +208,7 @@
       display: flex;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 9px;
+      border-radius: 10px;
       overflow: hidden;
       box-shadow: var(--shadow);
     }
@@ -180,15 +223,27 @@
       font-size: 15px;
     }
 
+    .search-box input::placeholder {
+      color: var(--muted);
+    }
+
     .search-box button {
       width: 55px;
       border: none;
       background: var(--primary);
       color: white;
-      font-size: 20px;
+      font-size: 19px;
+      transition: 0.2s;
     }
 
-    /* ================= HERO ================= */
+    .search-box button:hover {
+      background: var(--primary-dark);
+    }
+
+
+    /* =========================================
+       HERO
+       ========================================= */
 
     .hero {
       max-width: 1200px;
@@ -197,16 +252,34 @@
     }
 
     .hero-box {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      background:
+        linear-gradient(
+          135deg,
+          var(--primary-dark),
+          var(--primary)
+        );
+
       color: white;
-      border-radius: 12px;
-      padding: 35px 25px;
+      border-radius: 13px;
+      padding: 38px 25px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-box::after {
+      content: "✝";
+      position: absolute;
+      right: 35px;
+      bottom: -25px;
+      font-size: 130px;
+      opacity: 0.06;
     }
 
     .hero-box h2 {
-      font-size: 27px;
-      margin-bottom: 8px;
+      font-size: 28px;
+      margin-bottom: 9px;
     }
 
     .hero-box p {
@@ -216,7 +289,10 @@
       font-size: 14px;
     }
 
-    /* ================= MAIN ================= */
+
+    /* =========================================
+       MAIN
+       ========================================= */
 
     main {
       max-width: 1200px;
@@ -236,13 +312,24 @@
       color: var(--text);
     }
 
+    .section-title h2::first-letter {
+      color: var(--gold);
+    }
+
     .section-title a {
       color: var(--primary);
       font-size: 13px;
       text-decoration: none;
     }
 
-    /* ================= SONG CARDS ================= */
+    .section-title a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =========================================
+       SONG CARDS
+       ========================================= */
 
     .songs-grid {
       display: grid;
@@ -260,17 +347,19 @@
     }
 
     .song-card:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      border-color: var(--primary);
     }
 
     .song-category {
       display: inline-block;
       font-size: 11px;
       color: var(--primary);
-      background: rgba(123,30,30,0.08);
-      padding: 4px 8px;
+      background: var(--primary-light);
+      padding: 4px 9px;
       border-radius: 20px;
       margin-bottom: 10px;
+      font-weight: bold;
     }
 
     .song-card h3 {
@@ -297,14 +386,19 @@
       padding: 7px;
       border-radius: 6px;
       font-size: 12px;
+      transition: 0.2s;
     }
 
     .small-btn:hover {
       background: var(--primary);
+      border-color: var(--primary);
       color: white;
     }
 
-    /* ================= HIDDEN MENU ================= */
+
+    /* =========================================
+       HIDDEN MENUS
+       ========================================= */
 
     .hidden-menu {
       display: none;
@@ -333,6 +427,7 @@
     .menu-box {
       background: var(--card);
       border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
       border-radius: 10px;
       padding: 20px;
       box-shadow: var(--shadow);
@@ -358,14 +453,20 @@
       border-radius: 7px;
       text-align: left;
       cursor: pointer;
+      transition: 0.2s;
     }
 
     .menu-item:hover {
       background: var(--primary);
+      border-color: var(--primary);
       color: white;
+      transform: translateY(-1px);
     }
 
-    /* ================= MODAL ================= */
+
+    /* =========================================
+       MODAL
+       ========================================= */
 
     .modal {
       display: none;
@@ -393,6 +494,7 @@
       border-radius: 12px;
       padding: 25px;
       position: relative;
+      border-top: 4px solid var(--gold);
     }
 
     .close {
@@ -416,6 +518,7 @@
       margin-top: 20px;
       padding: 18px;
       background: var(--bg);
+      border-left: 3px solid var(--gold);
       border-radius: 8px;
     }
 
@@ -436,7 +539,14 @@
       font-size: 13px;
     }
 
-    /* ================= ADMIN ================= */
+    .file-btn:hover {
+      background: var(--primary-dark);
+    }
+
+
+    /* =========================================
+       ADMIN
+       ========================================= */
 
     .admin-panel {
       display: none;
@@ -452,6 +562,7 @@
     .admin-box {
       background: var(--card);
       border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
       border-radius: 10px;
       padding: 20px;
       box-shadow: var(--shadow);
@@ -484,6 +595,12 @@
       outline: none;
     }
 
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--primary);
+    }
+
     .form-group textarea {
       min-height: 130px;
       resize: vertical;
@@ -495,24 +612,37 @@
       color: white;
       padding: 10px 18px;
       border-radius: 6px;
+      transition: 0.2s;
     }
 
-    /* ================= FOOTER ================= */
+    .primary-btn:hover {
+      background: var(--primary-dark);
+    }
+
+
+    /* =========================================
+       FOOTER
+       ========================================= */
 
     footer {
       background: var(--primary-dark);
       color: white;
       text-align: center;
-      padding: 25px 15px;
+      padding: 27px 15px;
       margin-top: 30px;
+      border-top: 3px solid var(--gold);
     }
 
     footer p {
       font-size: 12px;
       opacity: 0.9;
+      margin: 3px 0;
     }
 
-    /* ================= RESPONSIVE ================= */
+
+    /* =========================================
+       RESPONSIVE
+       ========================================= */
 
     @media (max-width: 800px) {
 
@@ -528,6 +658,7 @@
         font-size: 23px;
       }
     }
+
 
     @media (max-width: 520px) {
 
@@ -592,12 +723,17 @@
         margin-top: 18px;
       }
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- ================= HEADER ================= -->
+
+  <!-- =========================================
+       HEADER
+       ========================================= -->
 
   <header>
 
@@ -610,27 +746,33 @@
         </div>
 
         <div class="brand-text">
-          <h1>INDIRIMBO ZA EKLEZIYA KATOLIKA</h1>
-          <span>Indirimbo za Liturgie na Ndoramana</span>
+
+          <h1>
+            INDIRIMBO ZA EKLEZIYA KATOLIKA
+          </h1>
+
+          <span>
+            Indirimbo za Liturgie na Ndoramana
+          </span>
+
         </div>
 
       </a>
+
 
       <div class="header-actions">
 
         <button
           class="icon-btn"
           onclick="toggleDarkMode()"
-          title="Dark Mode"
-        >
+          title="Dark Mode">
           🌙
         </button>
 
         <button
           class="icon-btn"
           onclick="openAdmin()"
-          title="Admin"
-        >
+          title="Admin">
           ⚙️
         </button>
 
@@ -638,17 +780,24 @@
 
     </div>
 
+
     <nav class="main-nav">
 
-      <button class="nav-button" onclick="showHome()">
+      <button
+        class="nav-button"
+        onclick="showHome()">
         🏠 Accueil
       </button>
 
-      <button class="nav-button" onclick="toggleCategories()">
+      <button
+        class="nav-button"
+        onclick="toggleCategories()">
         ☰ Catégories
       </button>
 
-      <button class="nav-button" onclick="toggleArtists()">
+      <button
+        class="nav-button"
+        onclick="toggleArtists()">
         🎼 Abahinga b'indirimbo
       </button>
 
@@ -657,61 +806,91 @@
   </header>
 
 
-  <!-- ================= CATEGORIES ================= -->
+  <!-- =========================================
+       CATEGORIES
+       ========================================= -->
 
-  <section id="categoriesMenu" class="hidden-menu">
+  <section
+    id="categoriesMenu"
+    class="hidden-menu">
 
     <div class="menu-box">
 
-      <h2>🎼 Catégories</h2>
+      <h2>
+        🎼 Catégories
+      </h2>
 
       <div class="menu-list">
 
-        <button class="menu-item" onclick="filterCategory('Messe')">
+        <button
+          class="menu-item"
+          onclick="filterCategory('Messe')">
           ⛪ Messe
         </button>
 
-        <button class="menu-item" onclick="filterCategory('Liturgie')">
+        <button
+          class="menu-item"
+          onclick="filterCategory('Liturgie')">
           📖 Liturgie
         </button>
 
-        <button class="menu-item" onclick="filterCategory('Ndoramana')">
+        <button
+          class="menu-item"
+          onclick="filterCategory('Ndoramana')">
           🙏 Ndoramana
         </button>
 
-        <button class="menu-item" onclick="filterCategory('Eucharistie')">
+        <button
+          class="menu-item"
+          onclick="filterCategory('Eucharistie')">
           🍞 Eucharistie
         </button>
 
-        <button class="menu-item" onclick="filterCategory('Marie')">
+        <button
+          class="menu-item"
+          onclick="filterCategory('Marie')">
           🌹 Marie
         </button>
 
-        <button class="menu-item" onclick="filterCategory('Noël')">
+        <button
+          class="menu-item"
+          onclick="filterCategory('Noël')">
           ⭐ Noël
         </button>
 
-        <button class="menu-item" onclick="filterCategory('Pâques')">
+        <button
+          class="menu-item"
+          onclick="filterCategory('Pâques')">
           ✝️ Pâques
         </button>
 
-        <button class="menu-item" onclick="filterCategory('Communion')">
+        <button
+          class="menu-item"
+          onclick="filterCategory('Communion')">
           🍷 Communion
         </button>
 
-        <button class="menu-item" onclick="filterCategory('Offertoire')">
+        <button
+          class="menu-item"
+          onclick="filterCategory('Offertoire')">
           🕊️ Offertoire
         </button>
 
-        <button class="menu-item" onclick="filterCategory('Entrée')">
+        <button
+          class="menu-item"
+          onclick="filterCategory('Entrée')">
           🎶 Entrée
         </button>
 
-        <button class="menu-item" onclick="filterCategory('Sortie')">
+        <button
+          class="menu-item"
+          onclick="filterCategory('Sortie')">
           🎵 Sortie
         </button>
 
-        <button class="menu-item" onclick="filterCategory('Autres')">
+        <button
+          class="menu-item"
+          onclick="filterCategory('Autres')">
           📚 Autres
         </button>
 
@@ -722,29 +901,43 @@
   </section>
 
 
-  <!-- ================= ARTISTS ================= -->
+  <!-- =========================================
+       ARTISTS
+       ========================================= -->
 
-  <section id="artistsMenu" class="hidden-menu">
+  <section
+    id="artistsMenu"
+    class="hidden-menu">
 
     <div class="menu-box">
 
-      <h2>🎼 Abahinga b'indirimbo</h2>
+      <h2>
+        🎼 Abahinga b'indirimbo
+      </h2>
 
       <div class="menu-list">
 
-        <button class="menu-item" onclick="filterArtist('Chorale')">
+        <button
+          class="menu-item"
+          onclick="filterArtist('Chorale')">
           🎤 Chorale
         </button>
 
-        <button class="menu-item" onclick="filterArtist('Compositeur')">
+        <button
+          class="menu-item"
+          onclick="filterArtist('Compositeur')">
           🎼 Abahimvyi
         </button>
 
-        <button class="menu-item" onclick="filterArtist('Auteur')">
+        <button
+          class="menu-item"
+          onclick="filterArtist('Auteur')">
           ✍️ Abanditsi
         </button>
 
-        <button class="menu-item" onclick="filterArtist('Traditionnel')">
+        <button
+          class="menu-item"
+          onclick="filterArtist('Traditionnel')">
           🕊️ Indirimbo za kera
         </button>
 
@@ -755,7 +948,9 @@
   </section>
 
 
-  <!-- ================= SEARCH ================= -->
+  <!-- =========================================
+       SEARCH
+       ========================================= -->
 
   <section class="search-section">
 
@@ -765,8 +960,7 @@
         type="search"
         id="searchInput"
         placeholder="Rondera indirimbo..."
-        oninput="searchSongs()"
-      >
+        oninput="searchSongs()">
 
       <button onclick="searchSongs()">
         🔍
@@ -777,17 +971,23 @@
   </section>
 
 
-  <!-- ================= HERO ================= -->
+  <!-- =========================================
+       HERO
+       ========================================= -->
 
-  <section class="hero" id="homeHero">
+  <section
+    class="hero"
+    id="homeHero">
 
     <div class="hero-box">
 
-      <h2>Indirimbo za Ekleziya Katolika</h2>
+      <h2>
+        Indirimbo za Ekleziya Katolika
+      </h2>
 
       <p>
-        Rondera, soma kandi ukoreshe indirimbo za Liturgie
-        na Ndoramana mu Kirundi.
+        Rondera, soma kandi ukoreshe indirimbo
+        za Liturgie na Ndoramana mu Kirundi.
       </p>
 
     </div>
@@ -795,265 +995,86 @@
   </section>
 
 
-  <!-- ================= MAIN ================= -->
+  <!-- =========================================
+       MAIN
+       ========================================= -->
 
   <main id="mainContent">
 
-    <!-- NEW SONGS -->
-
     <div class="section-title">
 
-      <h2>🆕 Indirimbo nshasha</h2>
+      <h2>
+        🆕 Indirimbo nshasha
+      </h2>
 
-      <a href="#" onclick="showAllSongs(); return false;">
+      <a
+        href="#"
+        onclick="showAllSongs(); return false;">
         Raba zose
       </a>
 
     </div>
 
-    <div id="songsGrid" class="songs-grid"></div>
 
+    <div
+      id="songsGrid"
+      class="songs-grid">
+    </div>
 
-    <!-- POPULAR -->
 
     <div class="section-title">
 
-      <h2>⭐ Indirimbo zikunzwe</h2>
+      <h2>
+        ⭐ Indirimbo zikunzwe
+      </h2>
 
     </div>
 
-    <div id="popularGrid" class="songs-grid"></div>
+
+    <div
+      id="popularGrid"
+      class="songs-grid">
+    </div>
 
   </main>
 
 
-  <!-- ================= ADMIN ================= -->
+  <!-- =========================================
+       ADMIN
+       ========================================= -->
 
-  <section id="adminPanel" class="admin-panel">
+  <section
+    id="adminPanel"
+    class="admin-panel">
 
     <div class="admin-box">
 
-      <h2>⚙️ Admin Panel</h2>
+      <h2>
+        ⚙️ Admin Panel
+      </h2>
 
-      <p style="color:var(--muted); font-size:13px; margin-bottom:20px;">
+      <p
+        style="color:var(--muted);
+               font-size:13px;
+               margin-bottom:20px;">
+
         Iki gice ni ic'umuyobozi w'urubuga gusa.
+
       </p>
+
 
       <div class="form-group">
 
-        <label>Izina ry'indirimbo</label>
+        <label>
+          Izina ry'indirimbo
+        </label>
 
         <input
           type="text"
           id="songTitle"
-          placeholder="Andika izina ry'indirimbo"
-        >
+          placeholder="Andika izina ry'indirimbo">
 
       </div>
 
-      <div class="form-group">
 
-        <label>Umuhinga / Umwanditsi</label>
-
-        <input
-          type="text"
-          id="songArtist"
-          placeholder="Andika izina ry'umuhinga"
-        >
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Catégorie</label>
-
-        <select id="songCategory">
-
-          <option value="Messe">Messe</option>
-          <option value="Liturgie">Liturgie</option>
-          <option value="Ndoramana">Ndoramana</option>
-          <option value="Eucharistie">Eucharistie</option>
-          <option value="Marie">Marie</option>
-          <option value="Noël">Noël</option>
-          <option value="Pâques">Pâques</option>
-          <option value="Communion">Communion</option>
-          <option value="Offertoire">Offertoire</option>
-          <option value="Autres">Autres</option>
-
-        </select>
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Lyrics</label>
-
-        <textarea
-          id="songLyrics"
-          placeholder="Andika amajambo y'indirimbo..."
-        ></textarea>
-
-      </div>
-
-      <div class="form-group">
-
-        <label>PDF</label>
-
-        <input
-          type="text"
-          id="songPdf"
-          placeholder="Link ya PDF"
-        >
-
-      </div>
-
-      <div class="form-group">
-
-        <label>MIDI (facultatif)</label>
-
-        <input
-          type="text"
-          id="songMidi"
-          placeholder="Link ya MIDI"
-        >
-
-      </div>
-
-      <button class="primary-btn" onclick="addSong()">
-        ➕ Shiramwo indirimbo
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- ================= SONG MODAL ================= -->
-
-  <div id="songModal" class="modal">
-
-    <div class="modal-content">
-
-      <button class="close" onclick="closeModal()">
-        ×
-      </button>
-
-      <h2 id="modalTitle"></h2>
-
-      <p id="modalArtist" style="color:var(--muted);"></p>
-
-      <div id="modalLyrics" class="lyrics"></div>
-
-      <div id="modalFiles" class="file-buttons"></div>
-
-    </div>
-
-  </div>
-
-
-  <!-- ================= FOOTER ================= -->
-
-  <footer>
-
-    <p>
-      © 2026 INDІRIMBO ZA EKLEZIYA KATOLIKA
-    </p>
-
-    <p>
-      Urubuga rw'indirimbo za Liturgie na Ndoramana
-    </p>
-
-  </footer>
-
-
-  <!-- ================= JAVASCRIPT ================= -->
-
-  <script>
-
-    /*
-      ==========================================
-      INDIRIMBO ZA EKLEZIYA KATOLIKA
-      Version 1.0
-      ==========================================
-    */
-
-
-    /* ================= DATA ================= */
-
-    let songs = [
-
-      {
-        id: 1,
-        title: "Urugero rw'indirimbo",
-        artist: "Chorale",
-        category: "Messe",
-        lyrics:
-`Aha ni ho hazoshirwa amajambo y'indirimbo.
-
-Igitero ca mbere...
-
-Refrain...
-
-Igitero ca kabiri...`,
-        pdf: "",
-        midi: "",
-        popular: true
-      },
-
-      {
-        id: 2,
-        title: "Indirimbo ya Liturgie",
-        artist: "Compositeur",
-        category: "Liturgie",
-        lyrics:
-`Aha hazoshirwa lyrics z'indirimbo ya Liturgie.
-
-Refrain...
-
-Igitero...`,
-        pdf: "",
-        midi: "",
-        popular: false
-      },
-
-      {
-        id: 3,
-        title: "Indirimbo ya Ndoramana",
-        artist: "Auteur",
-        category: "Ndoramana",
-        lyrics:
-`Aha hazoshirwa lyrics z'indirimbo ya Ndoramana.
-
-Refrain...
-
-Igitero...`,
-        pdf: "",
-        midi: "",
-        popular: true
-      }
-
-    ];
-
-
-    /* ================= DISPLAY SONGS ================= */
-
-    function displaySongs(list, containerId) {
-
-      const container = document.getElementById(containerId);
-
-      container.innerHTML = "";
-
-      if (list.length === 0) {
-
-        container.innerHTML =
-          `<p style="color:var(--muted);">
-            Nta ndirimbo yabonetse.
-          </p>`;
-
-        return;
-      }
-
-
-      list.forEach(song => {
-
-        const card = documen
+      <di
