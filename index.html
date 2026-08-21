@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="rn">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Indirimbo za Ekleziya Katolika | IEK</title>
 
 <meta name="description"
-content="Indirimbo za Ekleziya Katolika - IEK">
+      content="Indirimbo za Ekleziya Katolika - IEK">
 
 <style>
 
 /* =====================================================
-   IEK - INDIRIMBO ZA EKLEZIYA KATOLIKA
+   IEK — INDIRIMBO ZA EKLEZIYA KATOLIKA
    HOMEPAGE
 ===================================================== */
 
@@ -23,60 +26,91 @@ content="Indirimbo za Ekleziya Katolika - IEK">
 }
 
 :root{
-    --primary:#0f766e;
-    --primary-dark:#115e59;
 
-    --gold:#d4a72c;
-    --blue:#2563eb;
-    --red:#dc2626;
-    --purple:#7c3aed;
-    --green:#16a34a;
-    --orange:#ea580c;
+    --primary:#087f5b;
+    --primary-dark:#056043;
 
-    --background:#f7f9fc;
+    --background:#f6f8fb;
     --card:#ffffff;
+
     --text:#172033;
     --muted:#718096;
-    --border:#e5e9f0;
 
-    --shadow:0 10px 30px rgba(20,30,50,.08);
+    --border:#e3e8ef;
+
+    --header:rgba(255,255,255,.94);
+
+    --shadow:
+        0 10px 30px rgba(20,30,50,.08);
 }
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
 
 body.dark{
-    --background:#0b1220;
+
+    --background:#080d16;
     --card:#111827;
+
     --text:#f8fafc;
-    --muted:#9ca3af;
+    --muted:#a3adbd;
+
     --border:#263244;
-    --shadow:0 10px 30px rgba(0,0,0,.25);
+
+    --header:rgba(17,24,39,.94);
+
+    --shadow:
+        0 10px 30px rgba(0,0,0,.35);
 }
 
+
+/* =====================================================
+   BODY
+===================================================== */
+
 body{
+
     font-family:
         Arial,
         Helvetica,
         sans-serif;
 
     background:var(--background);
+
     color:var(--text);
 
+    min-height:100vh;
+
     transition:
-        background .3s,
-        color .3s;
+        background .3s ease,
+        color .3s ease;
 }
 
 button,
-input{
+input,
+textarea{
+
     font-family:inherit;
 }
 
+button{
+
+    cursor:pointer;
+}
+
 a{
+
     text-decoration:none;
+
     color:inherit;
 }
 
 .container{
+
     width:min(1150px,92%);
+
     margin:auto;
 }
 
@@ -86,24 +120,25 @@ a{
 ===================================================== */
 
 .header{
+
     position:sticky;
+
     top:0;
+
     z-index:1000;
 
-    height:76px;
+    height:74px;
 
-    background:rgba(255,255,255,.92);
+    background:var(--header);
 
-    border-bottom:1px solid var(--border);
+    border-bottom:
+        1px solid var(--border);
 
     backdrop-filter:blur(15px);
 }
 
-body.dark .header{
-    background:rgba(17,24,39,.92);
-}
-
 .header-inner{
+
     height:100%;
 
     display:grid;
@@ -117,15 +152,19 @@ body.dark .header{
 }
 
 
-/* MENU */
+/* =====================================================
+   MENU BUTTON
+===================================================== */
 
 .menu-button{
+
     justify-self:start;
 
     width:44px;
     height:44px;
 
-    border:1px solid var(--border);
+    border:
+        1px solid var(--border);
 
     border-radius:12px;
 
@@ -133,12 +172,13 @@ body.dark .header{
 
     color:var(--text);
 
-    cursor:pointer;
-
     display:flex;
+
     flex-direction:column;
-    justify-content:center;
+
     align-items:center;
+
+    justify-content:center;
 
     gap:5px;
 
@@ -146,11 +186,16 @@ body.dark .header{
 }
 
 .menu-button:hover{
+
     background:var(--primary);
+
+    color:white;
+
     border-color:var(--primary);
 }
 
 .menu-button span{
+
     width:21px;
     height:2px;
 
@@ -160,61 +205,90 @@ body.dark .header{
 }
 
 
-/* IEK LOGO */
+/* =====================================================
+   IEK LOGO
+   TEMPORAIRE
+===================================================== */
 
 .logo{
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     gap:10px;
 
-    font-weight:900;
-
-    letter-spacing:.5px;
-
     color:var(--text);
+
+    font-weight:900;
 }
 
 .logo-mark{
+
     width:42px;
     height:42px;
 
     border-radius:13px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    background:linear-gradient(
-        135deg,
-        var(--primary),
-        #14b8a6
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #087f5b,
+            #14b8a6
+        );
 
     color:white;
 
     font-size:21px;
 
     box-shadow:
-        0 6px 18px rgba(15,118,110,.25);
+        0 6px 18px
+        rgba(8,127,91,.25);
 }
 
 .logo-text{
+
+    font-size:15px;
+
     line-height:1.05;
-    font-size:16px;
 }
 
 
-/* ADMIN */
+/* =====================================================
+   RIGHT HEADER
+===================================================== */
 
-.admin-button{
+.header-right{
+
     justify-self:end;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+.theme-button{
 
     width:44px;
     height:44px;
 
-    border:1px solid var(--border);
+    border:
+        1px solid var(--border);
 
     border-radius:12px;
 
@@ -222,7 +296,38 @@ body.dark .header{
 
     color:var(--text);
 
-    cursor:pointer;
+    font-size:19px;
+
+    transition:.25s;
+}
+
+.theme-button:hover{
+
+    background:#334155;
+
+    color:white;
+
+    border-color:#334155;
+}
+
+
+/* =====================================================
+   ADMIN
+===================================================== */
+
+.admin-button{
+
+    width:44px;
+    height:44px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:12px;
+
+    background:var(--card);
+
+    color:var(--text);
 
     font-size:19px;
 
@@ -230,8 +335,11 @@ body.dark .header{
 }
 
 .admin-button:hover{
+
     background:#f59e0b;
+
     color:white;
+
     border-color:#f59e0b;
 }
 
@@ -241,12 +349,15 @@ body.dark .header{
 ===================================================== */
 
 .side-menu{
+
     position:fixed;
 
     top:0;
+
     left:-330px;
 
     width:310px;
+
     height:100vh;
 
     background:var(--card);
@@ -254,51 +365,60 @@ body.dark .header{
     z-index:2000;
 
     box-shadow:
-        10px 0 35px rgba(0,0,0,.12);
+        10px 0 35px rgba(0,0,0,.18);
 
     transition:.3s;
 
     padding:25px;
+
+    overflow-y:auto;
 }
 
 .side-menu.active{
+
     left:0;
 }
 
 .menu-header{
+
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
 
-    padding-bottom:22px;
+    justify-content:space-between;
 
-    border-bottom:1px solid var(--border);
+    padding-bottom:20px;
 
     margin-bottom:20px;
+
+    border-bottom:
+        1px solid var(--border);
 }
 
 .menu-header strong{
-    font-size:19px;
+
+    font-size:20px;
 }
 
 .close-menu{
+
     width:40px;
     height:40px;
 
-    border:1px solid var(--border);
+    border:
+        1px solid var(--border);
+
+    border-radius:10px;
 
     background:var(--card);
 
     color:var(--text);
 
-    border-radius:10px;
-
-    cursor:pointer;
-
-    font-size:20px;
+    font-size:21px;
 }
 
 .menu-link{
+
     display:block;
 
     padding:14px 12px;
@@ -309,51 +429,105 @@ body.dark .header{
 
     color:var(--text);
 
-    font-weight:600;
+    font-weight:700;
 
     transition:.2s;
 }
 
 .menu-link:hover{
+
     background:var(--primary);
+
     color:white;
 }
 
 .menu-link small{
+
     display:block;
+
+    margin-top:4px;
 
     color:var(--muted);
 
     font-size:11px;
 
-    margin-top:3px;
+    font-weight:400;
 }
 
 .menu-link:hover small{
+
     color:#dffaf7;
 }
 
 
-/* OVERLAY */
+/* =====================================================
+   OVERLAY
+===================================================== */
 
 .overlay{
+
     position:fixed;
 
     inset:0;
 
-    background:rgba(0,0,0,.45);
+    background:
+        rgba(0,0,0,.48);
 
     z-index:1500;
 
     opacity:0;
+
     visibility:hidden;
 
     transition:.3s;
 }
 
 .overlay.active{
+
     opacity:1;
+
     visibility:visible;
+}
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+.welcome{
+
+    text-align:center;
+
+    padding:
+        48px 0 25px;
+}
+
+.welcome h1{
+
+    font-size:
+        clamp(30px,5vw,48px);
+
+    line-height:1.1;
+
+    margin-bottom:12px;
+}
+
+.welcome h1 span{
+
+    color:var(--primary);
+}
+
+.welcome p{
+
+    max-width:650px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    font-size:15px;
+
+    line-height:1.6;
 }
 
 
@@ -362,33 +536,33 @@ body.dark .header{
 ===================================================== */
 
 .search-section{
+
     padding:
-        38px
-        0
-        20px;
+        15px 0 30px;
 }
 
 .search-wrapper{
+
     max-width:720px;
+
     margin:auto;
 
     position:relative;
 }
 
 .search-input{
+
     width:100%;
 
     height:58px;
 
     padding:
-        0
-        55px
-        0
-        20px;
+        0 58px 0 20px;
+
+    border:
+        1px solid var(--border);
 
     border-radius:16px;
-
-    border:1px solid var(--border);
 
     background:var(--card);
 
@@ -403,104 +577,88 @@ body.dark .header{
     transition:.25s;
 }
 
+.search-input::placeholder{
+
+    color:var(--muted);
+}
+
 .search-input:focus{
+
     border-color:var(--primary);
 
     box-shadow:
         0 0 0 4px
-        rgba(15,118,110,.10);
+        rgba(8,127,91,.10);
 }
 
 .search-icon{
+
     position:absolute;
 
     right:19px;
+
     top:50%;
 
     transform:
         translateY(-50%);
 
+    color:var(--muted);
+
     font-size:21px;
-
-    color:var(--muted);
 }
 
 
 /* =====================================================
-   WELCOME
-===================================================== */
-
-.welcome{
-    text-align:center;
-
-    padding:
-        35px
-        0
-        25px;
-}
-
-.welcome h1{
-    font-size:
-        clamp(28px,5vw,48px);
-
-    line-height:1.1;
-
-    margin-bottom:12px;
-}
-
-.welcome h1 span{
-    color:var(--primary);
-}
-
-.welcome p{
-    max-width:650px;
-
-    margin:auto;
-
-    color:var(--muted);
-
-    font-size:15px;
-}
-
-
-/* =====================================================
-   SECTION
+   SECTIONS
 ===================================================== */
 
 .section{
-    padding:32px 0;
+
+    padding:
+        25px 0 35px;
 }
 
 .section-title{
+
     display:flex;
-    justify-content:space-between;
+
     align-items:end;
+
+    justify-content:space-between;
 
     margin-bottom:18px;
 }
 
 .section-title h2{
+
     font-size:23px;
 }
 
 .section-title p{
-    color:var(--muted);
-    font-size:13px;
+
     margin-top:4px;
+
+    color:var(--muted);
+
+    font-size:13px;
 }
 
 .view-all{
+
     color:var(--primary);
+
     font-size:13px;
+
     font-weight:800;
 }
 
 
 /* =====================================================
-   SONG CARDS
+   SONG GRID
 ===================================================== */
 
 .songs-grid{
+
     display:grid;
 
     grid-template-columns:
@@ -510,11 +668,13 @@ body.dark .header{
 }
 
 .song-card{
+
     background:var(--card);
 
-    border:1px solid var(--border);
+    border:
+        1px solid var(--border);
 
-    border-radius:16px;
+    border-radius:17px;
 
     padding:18px;
 
@@ -527,60 +687,43 @@ body.dark .header{
 }
 
 .song-card:hover{
-    transform:translateY(-4px);
+
+    transform:
+        translateY(-4px);
 
     border-color:
-        rgba(15,118,110,.35);
+        rgba(8,127,91,.4);
 
     box-shadow:var(--shadow);
 }
 
 .song-number{
-    width:35px;
-    height:35px;
+
+    width:37px;
+    height:37px;
 
     border-radius:10px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     background:
         linear-gradient(
             135deg,
-            #ccfbf1,
+            #d1fae5,
             #99f6e4
         );
 
-    color:#115e59;
+    color:#065f46;
+
+    font-size:12px;
 
     font-weight:900;
 
     margin-bottom:17px;
-}
-
-.song-card h3{
-    font-size:15px;
-
-    line-height:1.35;
-
-    margin-bottom:7px;
-}
-
-.song-card .artist{
-    color:var(--muted);
-
-    font-size:12px;
-}
-
-.song-arrow{
-    margin-top:16px;
-
-    font-size:13px;
-
-    color:var(--primary);
-
-    font-weight:800;
 }
 
 
@@ -589,6 +732,7 @@ body.dark .header{
 ===================================================== */
 
 .popular .song-number{
+
     background:
         linear-gradient(
             135deg,
@@ -599,80 +743,31 @@ body.dark .header{
     color:#92400e;
 }
 
+.song-card h3{
 
-/* =====================================================
-   INFO CARDS
-===================================================== */
+    font-size:15px;
 
-.info-section{
-    padding:
-        20px
-        0
-        45px;
-}
-
-.info-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:16px;
-}
-
-.info-card{
-    background:var(--card);
-
-    border:1px solid var(--border);
-
-    border-radius:17px;
-
-    padding:23px;
-}
-
-.info-icon{
-    width:45px;
-    height:45px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:12px;
-
-    font-size:20px;
-
-    margin-bottom:15px;
-}
-
-.info-card:nth-child(1)
-.info-icon{
-    background:#dbeafe;
-    color:#1d4ed8;
-}
-
-.info-card:nth-child(2)
-.info-icon{
-    background:#fce7f3;
-    color:#be185d;
-}
-
-.info-card:nth-child(3)
-.info-icon{
-    background:#dcfce7;
-    color:#15803d;
-}
-
-.info-card h3{
-    font-size:16px;
+    line-height:1.35;
 
     margin-bottom:7px;
 }
 
-.info-card p{
+.artist{
+
     color:var(--muted);
 
-    font-size:13px;
+    font-size:12px;
+}
+
+.song-arrow{
+
+    margin-top:17px;
+
+    color:var(--primary);
+
+    font-size:12px;
+
+    font-weight:800;
 }
 
 
@@ -681,48 +776,53 @@ body.dark .header{
 ===================================================== */
 
 .footer{
+
+    margin-top:20px;
+
     border-top:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     padding:
-        38px
-        0
-        22px;
+        38px 0 22px;
 }
 
 .footer-grid{
+
     display:grid;
 
     grid-template-columns:
-        2fr
-        1fr
-        1fr;
+        2fr 1fr 1fr;
 
     gap:30px;
 }
 
 .footer-brand h3{
+
     font-size:18px;
 }
 
 .footer-brand p{
-    color:var(--muted);
-
-    font-size:13px;
 
     max-width:400px;
 
     margin-top:8px;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.6;
 }
 
 .footer-column h4{
+
     font-size:14px;
 
     margin-bottom:12px;
 }
 
 .footer-column a{
+
     display:block;
 
     color:var(--muted);
@@ -733,15 +833,16 @@ body.dark .header{
 }
 
 .footer-column a:hover{
+
     color:var(--primary);
 }
 
 .copyright{
+
     text-align:center;
 
     border-top:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     margin-top:30px;
 
@@ -758,6 +859,7 @@ body.dark .header{
 ===================================================== */
 
 .modal{
+
     position:fixed;
 
     inset:0;
@@ -767,24 +869,30 @@ body.dark .header{
     display:flex;
 
     align-items:center;
+
     justify-content:center;
 
     padding:20px;
 
-    background:rgba(0,0,0,.55);
+    background:
+        rgba(0,0,0,.60);
 
     opacity:0;
+
     visibility:hidden;
 
     transition:.25s;
 }
 
 .modal.active{
+
     opacity:1;
+
     visibility:visible;
 }
 
 .modal-content{
+
     width:min(650px,100%);
 
     max-height:90vh;
@@ -801,15 +909,18 @@ body.dark .header{
 }
 
 .modal-close{
+
     position:absolute;
 
-    right:18px;
     top:18px;
+
+    right:18px;
 
     width:38px;
     height:38px;
 
-    border:1px solid var(--border);
+    border:
+        1px solid var(--border);
 
     background:var(--card);
 
@@ -817,18 +928,18 @@ body.dark .header{
 
     border-radius:10px;
 
-    cursor:pointer;
-
     font-size:19px;
 }
 
 .modal-content h2{
+
     padding-right:50px;
 
     margin-bottom:5px;
 }
 
 .modal-artist{
+
     color:var(--muted);
 
     font-size:13px;
@@ -838,11 +949,11 @@ body.dark .header{
 
 
 /* =====================================================
-   SONG ACTION BUTTONS
-   EVERY BUTTON HAS DIFFERENT COLOR
+   ACTION BUTTONS
 ===================================================== */
 
 .song-actions{
+
     display:flex;
 
     flex-wrap:wrap;
@@ -853,9 +964,11 @@ body.dark .header{
 }
 
 .action-btn{
+
     border:none;
 
-    padding:11px 17px;
+    padding:
+        11px 17px;
 
     border-radius:10px;
 
@@ -863,47 +976,52 @@ body.dark .header{
 
     font-weight:800;
 
-    cursor:pointer;
-
     transition:.2s;
 }
 
 .action-btn:hover{
-    transform:translateY(-2px);
+
+    transform:
+        translateY(-2px);
 }
 
 
-/* LYRICS - BLUE */
+/* BLUE — LYRICS */
 
 .lyrics-btn{
+
     background:#2563eb;
 }
 
 
-/* PDF - RED */
+/* RED — PDF */
 
 .pdf-btn{
+
     background:#dc2626;
 }
 
 
-/* MIDI - PURPLE */
+/* PURPLE — MIDI */
 
 .midi-btn{
+
     background:#7c3aed;
 }
 
 
-/* DOWNLOAD - GREEN */
+/* GREEN — DOWNLOAD */
 
 .download-btn{
+
     background:#16a34a;
 }
 
 
-/* SHARE - ORANGE */
+/* ORANGE — SHARE */
 
 .share-btn{
+
     background:#ea580c;
 }
 
@@ -913,18 +1031,22 @@ body.dark .header{
 ===================================================== */
 
 .comments{
-    border-top:1px solid var(--border);
+
+    border-top:
+        1px solid var(--border);
 
     padding-top:20px;
 }
 
 .comments h3{
+
     font-size:17px;
 
     margin-bottom:15px;
 }
 
 .comment-form{
+
     display:flex;
 
     flex-direction:column;
@@ -934,11 +1056,11 @@ body.dark .header{
 
 .comment-form input,
 .comment-form textarea{
+
     width:100%;
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     border-radius:10px;
 
@@ -952,12 +1074,14 @@ body.dark .header{
 }
 
 .comment-form textarea{
+
     min-height:90px;
 
     resize:vertical;
 }
 
 .comment-submit{
+
     align-self:flex-start;
 
     border:none;
@@ -966,11 +1090,10 @@ body.dark .header{
 
     color:white;
 
-    padding:10px 17px;
+    padding:
+        10px 17px;
 
     border-radius:9px;
-
-    cursor:pointer;
 
     font-weight:800;
 }
@@ -983,76 +1106,81 @@ body.dark .header{
 @media(max-width:1000px){
 
     .songs-grid{
+
         grid-template-columns:
             repeat(3,1fr);
     }
-
 }
+
 
 @media(max-width:700px){
 
     .header{
+
         height:68px;
     }
 
     .logo-text{
-        font-size:13px;
+
+        font-size:12px;
     }
 
     .logo-mark{
+
         width:38px;
         height:38px;
     }
 
     .songs-grid{
+
         grid-template-columns:
             repeat(2,1fr);
     }
 
-    .info-grid{
-        grid-template-columns:1fr;
-    }
-
     .footer-grid{
+
         grid-template-columns:1fr;
     }
-
 }
+
 
 @media(max-width:450px){
 
     .songs-grid{
+
         grid-template-columns:1fr;
     }
 
     .welcome{
-        padding-top:25px;
+
+        padding-top:30px;
     }
 
     .welcome h1{
+
         font-size:30px;
     }
 
     .side-menu{
+
         width:285px;
     }
 
+    .header-right{
+
+        gap:5px;
+    }
+
+    .theme-button,
+    .admin-button{
+
+        width:40px;
+        height:40px;
+
+        font-size:17px;
+    }
 }
 
-
-/* =====================================================
-   SEARCH EMPTY
-===================================================== */
-
-.no-results{
-    display:none;
-
-    text-align:center;
-
-    padding:35px;
-
-    color:var(--muted);
-}
 
 </style>
 </head>
@@ -1076,39 +1204,76 @@ body.dark .header{
         <button
             class="close-menu"
             id="closeMenu">
+
             ×
+
         </button>
 
     </div>
 
 
-    <a href="#" class="menu-link">
+    <a
+        href="index.html"
+        class="menu-link">
+
         Ahabanza
-        <small>Urupapuro rw'intango</small>
+
+        <small>
+            Urupapuro rw'intango
+        </small>
+
     </a>
 
 
-    <a href="#" class="menu-link">
+    <a
+        href="#"
+        class="menu-link">
+
         Imirwi y'indirimbo
-        <small>Rondera indirimbo hakurikijwe imirwi</small>
+
+        <small>
+            Rondera indirimbo hakurikijwe imirwi
+        </small>
+
     </a>
 
 
-    <a href="#" class="menu-link">
+    <a
+        href="#"
+        class="menu-link">
+
         Abahinga b'indirimbo
-        <small>Abahinga n'indirimbo zabo</small>
+
+        <small>
+            Abahinga n'indirimbo zabo
+        </small>
+
     </a>
 
 
-    <a href="#" class="menu-link">
+    <a
+        href="#"
+        class="menu-link">
+
         Ivyerekeye Indirimbo za Ekleziya Katolika (IEK)
-        <small>Menya vyinshi ku rubuga</small>
+
+        <small>
+            Menya vyinshi kuri IEK
+        </small>
+
     </a>
 
 
-    <a href="#" class="menu-link">
+    <a
+        href="#"
+        class="menu-link">
+
         Ibimenyeshejwe muri IEK
-        <small>Amakuru n'amatangazo</small>
+
+        <small>
+            Amakuru n'amatangazo
+        </small>
+
     </a>
 
 </aside>
@@ -1124,7 +1289,7 @@ body.dark .header{
     <div class="container header-inner">
 
 
-        <!-- THREE HORIZONTAL LINES -->
+        <!-- MENU -->
 
         <button
             class="menu-button"
@@ -1140,30 +1305,53 @@ body.dark .header{
 
         <!-- IEK LOGO -->
 
-        <a href="#" class="logo">
+        <a
+            href="index.html"
+            class="logo">
 
             <div class="logo-mark">
-                ♫
+                IEK
             </div>
 
             <div class="logo-text">
+
                 INDIRIMBO ZA<br>
                 EKLEZIYA KATOLIKA
+
             </div>
 
         </a>
 
 
-        <!-- ADMIN -->
+        <!-- RIGHT -->
 
-        <button
-            class="admin-button"
-            id="adminButton"
-            title="Admin">
+        <div class="header-right">
 
-            ⚙
 
-        </button>
+            <!-- DARK MODE -->
+
+            <button
+                class="theme-button"
+                id="themeButton"
+                title="Hindura uburyo bw'urumuri">
+
+                🌙
+
+            </button>
+
+
+            <!-- ADMIN -->
+
+            <button
+                class="admin-button"
+                id="adminButton"
+                title="Admin">
+
+                ⚙
+
+            </button>
+
+        </div>
 
     </div>
 
@@ -1180,13 +1368,17 @@ body.dark .header{
     <div class="container">
 
         <h1>
+
             Ikaze kuri
             <span>IEK</span>
+
         </h1>
 
         <p>
-            Rondera kandi usangire indirimbo za
-            Ekleziya Katolika mu buryo bworoshe kandi bwihuta.
+
+            Rondera indirimbo za Ekleziya Katolika
+            mu buryo bworoshe kandi bwihuta.
+
         </p>
 
     </div>
@@ -1203,7 +1395,9 @@ body.dark .header{
 
     <div class="container">
 
-        <div class="search-wrapper">
+        <form
+            class="search-wrapper"
+            id="searchForm">
 
             <input
                 type="search"
@@ -1216,7 +1410,7 @@ body.dark .header{
                 🔍
             </span>
 
-        </div>
+        </form>
 
     </div>
 
@@ -1225,7 +1419,7 @@ body.dark .header{
 
 
 <!-- =====================================================
-     5 NEW SONGS
+     5 INDIRIMBO NSHASHA
 ===================================================== -->
 
 <section class="section">
@@ -1246,14 +1440,18 @@ body.dark .header{
 
             </div>
 
-            <a href="#" class="view-all">
+            <a
+                href="#"
+                class="view-all">
+
                 Zose →
+
             </a>
 
         </div>
 
 
-        <div class="songs-grid" id="newSongs">
+        <div class="songs-grid">
 
 
             <article
@@ -1384,7 +1582,7 @@ body.dark .header{
 
 
 <!-- =====================================================
-     5 POPULAR / FREQUENTLY DOWNLOADED
+     5 INDIRIMBO ZIKUNZWE
 ===================================================== -->
 
 <section class="section popular">
@@ -1405,8 +1603,12 @@ body.dark .header{
 
             </div>
 
-            <a href="#" class="view-all">
+            <a
+                href="#"
+                class="view-all">
+
                 Zose →
+
             </a>
 
         </div>
@@ -1543,79 +1745,8 @@ body.dark .header{
 
 
 <!-- =====================================================
-     SMALL INFORMATION
-===================================================== -->
-
-<section class="info-section">
-
-    <div class="container">
-
-        <div class="info-grid">
-
-
-            <div class="info-card">
-
-                <div class="info-icon">
-                    🎵
-                </div>
-
-                <h3>
-                    Indirimbo
-                </h3>
-
-                <p>
-                    Rondera indirimbo za Liturgie
-                    na Ndoramana mu buryo bworoshe.
-                </p>
-
-            </div>
-
-
-            <div class="info-card">
-
-                <div class="info-icon">
-                    👤
-                </div>
-
-                <h3>
-                    Abahinga
-                </h3>
-
-                <p>
-                    Menya abahinga bakoze indirimbo
-                    kandi urabe ibikorwa vyabo.
-                </p>
-
-            </div>
-
-
-            <div class="info-card">
-
-                <div class="info-icon">
-                    📢
-                </div>
-
-                <h3>
-                    Ibimenyeshejwe
-                </h3>
-
-                <p>
-                    Kurikirana ibimenyeshejwe bishasha
-                    muri IEK.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
      FOOTER
+     HOMEPAGE IRANGIRIRA HANO
 ===================================================== -->
 
 <footer class="footer">
@@ -1648,27 +1779,6 @@ body.dark .header{
                 </h4>
 
                 <a href="#">
-                    Ivyerekeye IEK
-                </a>
-
-                <a href="#">
-                    Ibimenyeshejwe
-                </a>
-
-                <a href="#">
-                    Imirwi y'indirimbo
-                </a>
-
-            </div>
-
-
-            <div class="footer-column">
-
-                <h4>
-                    Kuvugana natwe
-                </h4>
-
-                <a href="#">
                     Twandikire
                 </a>
 
@@ -1678,6 +1788,23 @@ body.dark .header{
 
                 <a href="#">
                     Logout y'umuhinga
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Ubufasha
+                </h4>
+
+                <a href="#">
+                    Amategeko
+                </a>
+
+                <a href="#">
+                    Uko utanga indirimbo
                 </a>
 
             </div>
@@ -1699,17 +1826,22 @@ body.dark .header{
 
 
 <!-- =====================================================
-     SONG DETAIL MODAL
+     SONG DETAIL
 ===================================================== -->
 
-<div class="modal" id="songModal">
+<div
+    class="modal"
+    id="songModal">
 
     <div class="modal-content">
+
 
         <button
             class="modal-close"
             id="modalClose">
+
             ×
+
         </button>
 
 
@@ -1717,40 +1849,57 @@ body.dark .header{
             Izina ry'indirimbo
         </h2>
 
+
         <div
             class="modal-artist"
             id="modalArtist">
+
             Umuhinga
+
         </div>
 
 
-        <!--
-          IBI BIZOGARAGARA KURI PAGE
-          Y'INDIRIMBO, SI HOMEPAGE.
-        -->
+        <!-- ACTIONS -->
 
         <div class="song-actions">
 
-            <!-- DIFFERENT COLORS -->
+            <button
+                class="action-btn lyrics-btn">
 
-            <button class="action-btn lyrics-btn">
                 Lyrics
+
             </button>
 
-            <button class="action-btn pdf-btn">
+
+            <button
+                class="action-btn pdf-btn">
+
                 PDF
+
             </button>
 
-            <button class="action-btn midi-btn">
+
+            <button
+                class="action-btn midi-btn">
+
                 MIDI
+
             </button>
 
-            <button class="action-btn download-btn">
+
+            <button
+                class="action-btn download-btn">
+
                 Download
+
             </button>
 
-            <button class="action-btn share-btn">
+
+            <button
+                class="action-btn share-btn">
+
                 Sangiza
+
             </button>
 
         </div>
@@ -1764,16 +1913,20 @@ body.dark .header{
                 Commentaires
             </h3>
 
-            <form class="comment-form">
+
+            <form
+                class="comment-form">
 
                 <input
                     type="text"
                     placeholder="Izina ryawe"
                     required>
 
+
                 <textarea
                     placeholder="Andika commentaire yawe..."
                     required></textarea>
+
 
                 <button
                     type="submit"
@@ -1812,62 +1965,99 @@ const overlay =
     document.getElementById("overlay");
 
 
-function openMenu(){
-
-    sideMenu.classList.add("active");
-
-    overlay.classList.add("active");
-
-}
-
-
-function closeSideMenu(){
-
-    sideMenu.classList.remove("active");
-
-    overlay.classList.remove("active");
-
-}
-
-
 menuButton.addEventListener(
     "click",
-    openMenu
+    () => {
+
+        sideMenu.classList.add("active");
+
+        overlay.classList.add("active");
+
+    }
 );
+
 
 closeMenu.addEventListener(
     "click",
-    closeSideMenu
+    () => {
+
+        sideMenu.classList.remove("active");
+
+        overlay.classList.remove("active");
+
+    }
 );
+
 
 overlay.addEventListener(
     "click",
-    closeSideMenu
+    () => {
+
+        sideMenu.classList.remove("active");
+
+        overlay.classList.remove("active");
+
+    }
 );
 
 
 
 /* =====================================================
    DARK MODE
+   MANUAL CHOICE — NOT AUTOMATIC
 ===================================================== */
 
-const adminButton =
-    document.getElementById("adminButton");
+const themeButton =
+    document.getElementById("themeButton");
 
 
-/*
-   Kugeza ubu admin button irerekana
-   gusa message. Tuzoyihuza na
-   authentication ya admin mu nyuma.
-*/
+const savedTheme =
+    localStorage.getItem("IEK-theme");
 
-adminButton.addEventListener(
+
+if(savedTheme === "dark"){
+
+    document.body.classList.add("dark");
+
+    themeButton.textContent = "☀️";
+
+}else{
+
+    document.body.classList.remove("dark");
+
+    themeButton.textContent = "🌙";
+
+}
+
+
+themeButton.addEventListener(
     "click",
-    function(){
+    () => {
 
-        alert(
-            "Aha hazofunguka igice ca Admin."
-        );
+        document.body.classList.toggle("dark");
+
+
+        if(
+            document.body.classList.contains("dark")
+        ){
+
+            themeButton.textContent = "☀️";
+
+            localStorage.setItem(
+                "IEK-theme",
+                "dark"
+            );
+
+        }else{
+
+            themeButton.textContent = "🌙";
+
+            localStorage.setItem(
+                "IEK-theme",
+                "light"
+            );
+
+        }
 
     }
 );
@@ -1875,58 +2065,61 @@ adminButton.addEventListener(
 
 
 /* =====================================================
-   SEARCH
+   ADMIN
 ===================================================== */
+
+document
+    .getElementById("adminButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            alert(
+                "Igice ca Admin kizohuzwa na system ya Admin."
+            );
+
+        }
+    );
+
+
+
+/* =====================================================
+   SEARCH → SEARCH.HTML
+===================================================== */
+
+const searchForm =
+    document.getElementById("searchForm");
 
 const searchInput =
     document.getElementById("searchInput");
 
-const songCards =
-    document.querySelectorAll(".song-card");
+
+searchForm.addEventListener(
+    "submit",
+    function(event){
+
+        event.preventDefault();
 
 
-searchInput.addEventListener(
-    "input",
-    function(){
-
-        const value =
-            this.value
-            .toLowerCase()
-            .trim();
+        const query =
+            searchInput.value.trim();
 
 
-        songCards.forEach(
-            function(card){
+        if(query !== ""){
 
-                const title =
-                    card.dataset.title
-                    .toLowerCase();
+            window.location.href =
+                "search.html?q=" +
+                encodeURIComponent(query);
 
-                const artist =
-                    card.dataset.artist
-                    .toLowerCase();
+        }else{
 
+            window.location.href =
+                "search.html";
 
-                if(
-                    title.includes(value)
-                    ||
-                    artist.includes(value)
-                ){
-
-                    card.style.display = "";
-
-                }else{
-
-                    card.style.display = "none";
-
-                }
-
-            }
-        );
+        }
 
     }
 );
-
 
 
 /* =====================================================
@@ -1945,18 +2138,22 @@ const modalTitle =
 const modalArtist =
     document.getElementById("modalArtist");
 
+const songCards =
+    document.querySelectorAll(".song-card");
+
 
 songCards.forEach(
-    function(card){
+    card => {
 
         card.addEventListener(
             "click",
-            function(){
+            () => {
 
                 modalTitle.textContent =
                     card.dataset.title;
 
                 modalArtist.textContent =
+                    "Umuhinga: " +
                     card.dataset.artist;
 
                 modal.classList.add("active");
@@ -1970,7 +2167,7 @@ songCards.forEach(
 
 modalClose.addEventListener(
     "click",
-    function(){
+    () => {
 
         modal.classList.remove("active");
 
@@ -1980,7 +2177,7 @@ modalClose.addEventListener(
 
 modal.addEventListener(
     "click",
-    function(event){
+    event => {
 
         if(event.target === modal){
 
@@ -1990,7 +2187,6 @@ modal.addEventListener(
 
     }
 );
-
 
 
 /* =====================================================
@@ -2003,21 +2199,44 @@ const commentForm =
 
 commentForm.addEventListener(
     "submit",
-    function(event){
+    event => {
 
         event.preventDefault();
 
+
         alert(
-            "Commentaire yawe yakiriwe. Mu version ya database izobikwa hano."
+            "Commentaire yakiriwe. Tuzoyihuza na database ya IEK."
         );
+
 
         commentForm.reset();
 
     }
 );
 
-</script>
 
+/* =====================================================
+   ESC KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Escape"){
+
+            sideMenu.classList.remove("active");
+
+            overlay.classList.remove("active");
+
+            modal.classList.remove("active");
+
+        }
+
+    }
+);
+
+</script>
 
 </body>
 </html>
