@@ -1,1130 +1,1251 @@
 <!DOCTYPE html>
 <html lang="rn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>INDIRIMBO ZA EKLEZIYA KATOLIKA</title>
-
-  <meta name="description"
-        content="Indirimbo za Ekleziya Katolika mu Kirundi.">
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <style>
-    :root {
-      --primary: #245b7a;
-      --primary-dark: #173e55;
-      --primary-light: #eaf3f7;
-      --gold: #c7a646;
-      --background: #f5f7f9;
-      --card: #ffffff;
-      --text: #1f2933;
-      --muted: #718096;
-      --border: #dfe6eb;
-      --danger: #b42318;
-      --shadow: 0 4px 15px rgba(0,0,0,.07);
-    }
-
-    body.dark {
-      --primary: #62a5c8;
-      --primary-dark: #102b3c;
-      --primary-light: #203d4d;
-      --gold: #d8bb55;
-      --background: #101820;
-      --card: #18232c;
-      --text: #edf2f5;
-      --muted: #a8b5bf;
-      --border: #2c3b46;
-      --shadow: 0 5px 18px rgba(0,0,0,.3);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--background);
-      color: var(--text);
-      line-height: 1.6;
-      transition: .25s;
-    }
-
-    button,
-    input,
-    textarea,
-    select {
-      font-family: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    header {
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: var(--shadow);
-    }
-
-    .header-inner {
-      max-width: 1200px;
-      margin: auto;
-      padding: 13px 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--text);
-    }
-
-    .brand-icon {
-      width: 43px;
-      height: 43px;
-      border-radius: 50%;
-      border: 2px solid var(--gold);
-      background: var(--primary);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 20px;
-    }
-
-    .brand h1 {
-      font-size: 16px;
-      color: var(--primary);
-    }
-
-    .brand small {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .header-buttons {
-      display: flex;
-      gap: 7px;
-    }
-
-    .icon-button {
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--card);
-      color: var(--text);
-      font-size: 17px;
-    }
-
-    .icon-button:hover {
-      background: var(--primary);
-      color: white;
-    }
-
-    nav {
-      max-width: 1200px;
-      margin: auto;
-      padding: 0 18px 11px;
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-    }
-
-    .nav-button {
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      border-radius: 7px;
-      padding: 8px 13px;
-      font-size: 13px;
-    }
-
-    .nav-button:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .hidden-section {
-      display: none;
-      max-width: 1200px;
-      margin: auto;
-      padding: 15px 18px;
-    }
-
-    .hidden-section.active {
-      display: block;
-    }
-
-    .hidden-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--gold);
-      border-radius: 9px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .hidden-box h2 {
-      color: var(--primary);
-      font-size: 18px;
-      margin-bottom: 13px;
-    }
-
-    .hidden-grid {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 9px;
-    }
-
-    .hidden-item {
-      border: 1px solid var(--border);
-      background: var(--background);
-      color: var(--text);
-      padding: 11px;
-      border-radius: 7px;
-      text-align: left;
-    }
-
-    .hidden-item:hover {
-      background: var(--primary);
-      color: white;
-    }
-
-    .search-area {
-      max-width: 850px;
-      margin: 27px auto 15px;
-      padding: 0 18px;
-    }
-
-    .search-box {
-      display: flex;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .search-box input {
-      flex: 1;
-      border: none;
-      outline: none;
-      background: transparent;
-      color: var(--text);
-      padding: 14px;
-      font-size: 15px;
-    }
-
-    .search-box button {
-      width: 54px;
-      border: none;
-      background: var(--primary);
-      color: white;
-      font-size: 18px;
-    }
-
-    .hero {
-      max-width: 1200px;
-      margin: 24px auto;
-      padding: 0 18px;
-    }
-
-    .hero-box {
-      background: linear-gradient(135deg,
-        var(--primary-dark),
-        var(--primary));
-      color: white;
-      border-radius: 12px;
-      padding: 38px 20px;
-      text-align: center;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-box h2 {
-      font-size: 27px;
-      margin-bottom: 8px;
-    }
-
-    .hero-box p {
-      font-size: 14px;
-      opacity: .9;
-    }
-
-    main {
-      max-width: 1200px;
-      margin: auto;
-      padding: 0 18px 45px;
-    }
-
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 28px 0 14px;
-    }
-
-    .section-heading h2 {
-      font-size: 20px;
-    }
-
-    .section-heading button {
-      border: none;
-      background: none;
-      color: var(--primary);
-    }
-
-    .songs-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 14px;
-    }
-
-    .song-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 16px;
-      box-shadow: var(--shadow);
-      transition: .2s;
-    }
-
-    .song-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--primary);
-    }
-
-    .category-badge {
-      display: inline-block;
-      background: var(--primary-light);
-      color: var(--primary);
-      border-radius: 20px;
-      padding: 4px 9px;
-      font-size: 11px;
-      font-weight: bold;
-      margin-bottom: 9px;
-    }
-
-    .song-card h3 {
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-
-    .song-author {
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 12px;
-    }
-
-    .card-buttons {
-      display: flex;
-      gap: 6px;
-    }
-
-    .small-button {
-      flex: 1;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text);
-      border-radius: 6px;
-      padding: 7px;
-      font-size: 12px;
-    }
-
-    .small-button:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 3000;
-      background: rgba(0,0,0,.65);
-      padding: 18px;
-      overflow-y: auto;
-    }
-
-    .modal.active {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-box {
-      width: 100%;
-      max-width: 720px;
-      max-height: 90vh;
-      overflow-y: auto;
-      background: var(--card);
-      border-radius: 10px;
-      border-top: 4px solid var(--gold);
-      padding: 23px;
-      position: relative;
-    }
-
-    .close-button {
-      position: absolute;
-      right: 13px;
-      top: 9px;
-      background: none;
-      border: none;
-      color: var(--text);
-      font-size: 25px;
-    }
-
-    .modal-box h2 {
-      color: var(--primary);
-      padding-right: 30px;
-      margin-bottom: 5px;
-    }
-
-    .modal-author {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .lyrics {
-      white-space: pre-line;
-      background: var(--background);
-      border-left: 3px solid var(--gold);
-      padding: 17px;
-      border-radius: 7px;
-      margin-top: 18px;
-    }
-
-    .file-links {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 15px;
-    }
-
-    .file-link {
-      text-decoration: none;
-      background: var(--primary);
-      color: white;
-      border-radius: 6px;
-      padding: 9px 13px;
-      font-size: 13px;
-    }
-
-    .admin-panel {
-      display: none;
-      max-width: 1050px;
-      margin: 25px auto;
-      padding: 0 18px 50px;
-    }
-
-    .admin-panel.active {
-      display: block;
-    }
-
-    .admin-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--gold);
-      border-radius: 9px;
-      padding: 19px;
-      margin-bottom: 17px;
-      box-shadow: var(--shadow);
-    }
-
-    .admin-box h2 {
-      color: var(--primary);
-      margin-bottom: 14px;
-      font-size: 19px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 13px;
-    }
-
-    .form-group {
-      margin-bottom: 12px;
-    }
-
-    .full {
-      grid-column: 1/-1;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      padding: 10px;
-      background: var(--background);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      outline: none;
-    }
-
-    .form-group textarea {
-      min-height: 160px;
-      resize: vertical;
-    }
-
-    .primary-button {
-      border: none;
-      background: var(--primary);
-      color: white;
-      border-radius: 6px;
-      padding: 10px 17px;
-    }
-
-    .secondary-button {
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text);
-      border-radius: 6px;
-      padding: 9px 15px;
-    }
-
-    .danger-button {
-      border: none;
-      background: var(--danger);
-      color: white;
-      border-radius: 6px;
-      padding: 7px 11px;
-    }
-
-    .admin-list {
-      display: grid;
-      gap: 8px;
-    }
-
-    .admin-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      background: var(--background);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 11px;
-    }
-
-    .admin-row small {
-      color: var(--muted);
-    }
-
-    .admin-actions {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-    }
-
-    .message {
-      display: none;
-      padding: 9px;
-      border-radius: 6px;
-      margin-bottom: 12px;
-      font-size: 13px;
-    }
-
-    .message.show {
-      display: block;
-    }
-
-    .success {
-      background: #e7f6ed;
-      color: #166534;
-    }
-
-    .error {
-      background: #fde8e8;
-      color: #991b1b;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 25px;
-      color: var(--muted);
-    }
-
-    footer {
-      background: var(--primary-dark);
-      color: white;
-      text-align: center;
-      padding: 25px 15px;
-      border-top: 3px solid var(--gold);
-    }
-
-    footer p {
-      font-size: 12px;
-      opacity: .9;
-    }
-
-    @media(max-width:800px) {
-      .songs-grid {
-        grid-template-columns: repeat(2,1fr);
-      }
-
-      .hidden-grid {
-        grid-template-columns: repeat(2,1fr);
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .full {
-        grid-column: auto;
-      }
-    }
-
-    @media(max-width:520px) {
-      .brand h1 {
-        font-size: 12px;
-      }
-
-      .brand small {
-        font-size: 9px;
-      }
-
-      .brand-icon {
-        width: 37px;
-        height: 37px;
-      }
-
-      .songs-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hidden-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-box {
-        padding: 29px 16px;
-      }
-
-      .hero-box h2 {
-        font-size: 21px;
-      }
-
-      .admin-row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>INDIRIMBO ZA EKLEZIYA KATOLIKA</title>
+
+<meta name="description"
+content="Indirimbo za Ekleziya Katolika mu Kirundi.">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root{
+  --primary:#245b7a;
+  --primary-dark:#173e55;
+  --primary-light:#eaf3f7;
+  --gold:#c7a646;
+  --bg:#f5f7f9;
+  --card:#ffffff;
+  --text:#1f2933;
+  --muted:#718096;
+  --border:#dfe6eb;
+  --danger:#b42318;
+  --success:#166534;
+  --shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+body.dark{
+  --primary:#62a5c8;
+  --primary-dark:#102b3c;
+  --primary-light:#203d4d;
+  --gold:#d8bb55;
+  --bg:#101820;
+  --card:#18232c;
+  --text:#edf2f5;
+  --muted:#a8b5bf;
+  --border:#2c3b46;
+  --shadow:0 5px 18px rgba(0,0,0,.3);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  transition:.25s;
+}
+
+button,input,textarea,select{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+header{
+  background:var(--card);
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:var(--shadow);
+}
+
+.header-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:13px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  color:var(--text);
+}
+
+.brand-icon{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:2px solid var(--gold);
+  background:var(--primary);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+}
+
+.brand h1{
+  font-size:16px;
+  color:var(--primary);
+}
+
+.brand small{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.header-buttons{
+  display:flex;
+  gap:7px;
+}
+
+.icon-button{
+  width:40px;
+  height:40px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:var(--card);
+  color:var(--text);
+  font-size:17px;
+}
+
+.icon-button:hover{
+  background:var(--primary);
+  color:#fff;
+}
+
+nav{
+  max-width:1200px;
+  margin:auto;
+  padding:0 18px 11px;
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.nav-button{
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  border-radius:7px;
+  padding:8px 13px;
+  font-size:13px;
+}
+
+.nav-button:hover{
+  background:var(--primary);
+  color:#fff;
+}
+
+.hidden-section{
+  display:none;
+  max-width:1200px;
+  margin:auto;
+  padding:15px 18px;
+}
+
+.hidden-section.active{
+  display:block;
+}
+
+.hidden-box{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-top:3px solid var(--gold);
+  border-radius:9px;
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+
+.hidden-box h2{
+  color:var(--primary);
+  font-size:18px;
+  margin-bottom:13px;
+}
+
+.hidden-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+}
+
+.hidden-item{
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+  padding:11px;
+  border-radius:7px;
+  text-align:left;
+}
+
+.hidden-item:hover{
+  background:var(--primary);
+  color:#fff;
+}
+
+.search-area{
+  max-width:850px;
+  margin:27px auto 15px;
+  padding:0 18px;
+}
+
+.search-box{
+  display:flex;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:9px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.search-box input{
+  flex:1;
+  border:none;
+  outline:none;
+  background:transparent;
+  color:var(--text);
+  padding:14px;
+  font-size:15px;
+}
+
+.search-box button{
+  width:54px;
+  border:none;
+  background:var(--primary);
+  color:#fff;
+  font-size:18px;
+}
+
+.hero{
+  max-width:1200px;
+  margin:24px auto;
+  padding:0 18px;
+}
+
+.hero-box{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  color:#fff;
+  border-radius:12px;
+  padding:38px 20px;
+  text-align:center;
+  box-shadow:var(--shadow);
+}
+
+.hero-box h2{
+  font-size:27px;
+  margin-bottom:8px;
+}
+
+.hero-box p{
+  font-size:14px;
+  opacity:.9;
+}
+
+main{
+  max-width:1200px;
+  margin:auto;
+  padding:0 18px 45px;
+}
+
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:28px 0 14px;
+}
+
+.section-heading h2{
+  font-size:20px;
+}
+
+.section-heading button{
+  border:none;
+  background:none;
+  color:var(--primary);
+}
+
+.songs-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.song-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:16px;
+  box-shadow:var(--shadow);
+  transition:.2s;
+}
+
+.song-card:hover{
+  transform:translateY(-2px);
+  border-color:var(--primary);
+}
+
+.category-badge{
+  display:inline-block;
+  background:var(--primary-light);
+  color:var(--primary);
+  border-radius:20px;
+  padding:4px 9px;
+  font-size:11px;
+  font-weight:bold;
+  margin-bottom:9px;
+}
+
+.song-card h3{
+  font-size:16px;
+  margin-bottom:4px;
+}
+
+.song-author{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:12px;
+}
+
+.card-buttons{
+  display:flex;
+  gap:6px;
+}
+
+.small-button{
+  flex:1;
+  border:1px solid var(--border);
+  background:transparent;
+  color:var(--text);
+  border-radius:6px;
+  padding:7px;
+  font-size:12px;
+}
+
+.small-button:hover{
+  background:var(--primary);
+  color:#fff;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  background:rgba(0,0,0,.65);
+  padding:18px;
+  overflow-y:auto;
+}
+
+.modal.active{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-box{
+  width:100%;
+  max-width:720px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:var(--card);
+  border-radius:10px;
+  border-top:4px solid var(--gold);
+  padding:23px;
+  position:relative;
+}
+
+.close-button{
+  position:absolute;
+  right:13px;
+  top:9px;
+  background:none;
+  border:none;
+  color:var(--text);
+  font-size:25px;
+}
+
+.modal-box h2{
+  color:var(--primary);
+  padding-right:30px;
+  margin-bottom:5px;
+}
+
+.modal-author{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.lyrics{
+  white-space:pre-line;
+  background:var(--bg);
+  border-left:3px solid var(--gold);
+  padding:17px;
+  border-radius:7px;
+  margin-top:18px;
+}
+
+.file-links{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.file-link{
+  text-decoration:none;
+  background:var(--primary);
+  color:#fff;
+  border-radius:6px;
+  padding:9px 13px;
+  font-size:13px;
+}
+
+.admin-panel{
+  display:none;
+  max-width:1050px;
+  margin:25px auto;
+  padding:0 18px 50px;
+}
+
+.admin-panel.active{
+  display:block;
+}
+
+.admin-box{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-top:3px solid var(--gold);
+  border-radius:9px;
+  padding:19px;
+  margin-bottom:17px;
+  box-shadow:var(--shadow);
+}
+
+.admin-box h2{
+  color:var(--primary);
+  margin-bottom:14px;
+  font-size:19px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+.form-group{
+  margin-bottom:12px;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.form-group label{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+  width:100%;
+  padding:10px;
+  background:var(--bg);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:6px;
+  outline:none;
+}
+
+.form-group textarea{
+  min-height:160px;
+  resize:vertical;
+}
+
+.primary-button{
+  border:none;
+  background:var(--primary);
+  color:#fff;
+  border-radius:6px;
+  padding:10px 17px;
+}
+
+.secondary-button{
+  border:1px solid var(--border);
+  background:transparent;
+  color:var(--text);
+  border-radius:6px;
+  padding:9px 15px;
+}
+
+.danger-button{
+  border:none;
+  background:var(--danger);
+  color:#fff;
+  border-radius:6px;
+  padding:7px 11px;
+}
+
+.admin-list{
+  display:grid;
+  gap:8px;
+}
+
+.admin-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:7px;
+  padding:11px;
+}
+
+.admin-row small{
+  color:var(--muted);
+}
+
+.admin-actions{
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+}
+
+.message{
+  display:none;
+  padding:9px;
+  border-radius:6px;
+  margin-bottom:12px;
+  font-size:13px;
+}
+
+.message.show{
+  display:block;
+}
+
+.success{
+  background:#e7f6ed;
+  color:var(--success);
+}
+
+.error{
+  background:#fde8e8;
+  color:#991b1b;
+}
+
+.loading{
+  text-align:center;
+  padding:25px;
+  color:var(--muted);
+}
+
+footer{
+  background:var(--primary-dark);
+  color:#fff;
+  border-top:3px solid var(--gold);
+  padding:38px 18px 18px;
+}
+
+.footer-container{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.3fr 1fr 1fr;
+  gap:35px;
+}
+
+.footer-column h3{
+  color:#fff;
+  font-size:16px;
+  margin-bottom:12px;
+}
+
+.footer-column p,
+.footer-column a{
+  color:#cbd5dc;
+  font-size:13px;
+  line-height:1.8;
+}
+
+.footer-column a{
+  display:block;
+  text-decoration:none;
+}
+
+.footer-column a:hover{
+  color:#fff;
+}
+
+.samaritan{
+  color:var(--gold)!important;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+
+.footer-bottom{
+  max-width:1200px;
+  margin:28px auto 0;
+  padding-top:15px;
+  border-top:1px solid rgba(255,255,255,.15);
+  text-align:center;
+}
+
+.footer-bottom p{
+  color:#cbd5dc;
+  font-size:12px;
+}
+
+@media(max-width:800px){
+  .songs-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .hidden-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .footer-container{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:520px){
+  .brand h1{
+    font-size:12px;
+  }
+
+  .brand small{
+    font-size:9px;
+  }
+
+  .brand-icon{
+    width:37px;
+    height:37px;
+  }
+
+  .songs-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hidden-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-box{
+    padding:29px 16px;
+  }
+
+  .hero-box h2{
+    font-size:21px;
+  }
+
+  .admin-row{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .footer-container{
+    grid-template-columns:1fr;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
 
-  <div class="header-inner">
+<div class="header-inner">
 
-    <a href="#"
-       class="brand"
-       onclick="goHome();return false;">
+<a href="#" class="brand" onclick="goHome();return false;">
 
-      <div class="brand-icon">✝</div>
+<div class="brand-icon">✝</div>
 
-      <div>
-        <h1>INDIRIMBO ZA EKLEZIYA KATOLIKA</h1>
-        <small>Liturgie na Ndoramana</small>
-      </div>
+<div>
+<h1>INDIRIMBO ZA EKLEZIYA KATOLIKA</h1>
+<small>Liturgie na Ndoramana</small>
+</div>
 
-    </a>
+</a>
 
-    <div class="header-buttons">
+<div class="header-buttons">
 
-      <button class="icon-button"
-              onclick="toggleDarkMode()">
-        🌙
-      </button>
+<button class="icon-button"
+onclick="toggleDarkMode()">
+🌙
+</button>
 
-      <button class="icon-button"
-              onclick="openAdmin()">
-        ⚙️
-      </button>
+<button class="icon-button"
+onclick="openAdmin()">
+⚙️
+</button>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
-  <nav>
+<nav>
 
-    <button class="nav-button"
-            onclick="goHome()">
-      🏠 Accueil
-    </button>
+<button class="nav-button"
+onclick="goHome()">
+🏠 Ahabanza
+</button>
 
-    <button class="nav-button"
-            onclick="toggleCategories()">
-      ☰ Catégories
-    </button>
+<button class="nav-button"
+onclick="toggleCategories()">
+☰ Catégories
+</button>
 
-    <button class="nav-button"
-            onclick="toggleArtists()">
-      🎼 Abahinga b'indirimbo
-    </button>
+<button class="nav-button"
+onclick="toggleArtists()">
+🎼 Abahinga b'indirimbo
+</button>
 
-  </nav>
+</nav>
 
 </header>
 
 
 <section id="categoriesSection"
-         class="hidden-section">
+class="hidden-section">
 
-  <div class="hidden-box">
+<div class="hidden-box">
 
-    <h2>📂 Catégories</h2>
+<h2>📂 Catégories</h2>
 
-    <div id="categoriesList"
-         class="hidden-grid">
-      <div class="loading">
-        Turiko turarondera...
-      </div>
-    </div>
+<div id="categoriesList"
+class="hidden-grid">
 
-  </div>
+<div class="loading">
+Turiko turarondera...
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 
 <section id="artistsSection"
-         class="hidden-section">
+class="hidden-section">
 
-  <div class="hidden-box">
+<div class="hidden-box">
 
-    <h2>🎼 Abahinga b'indirimbo</h2>
+<h2>🎼 Abahinga b'indirimbo</h2>
 
-    <div id="artistsList"
-         class="hidden-grid">
-      <div class="loading">
-        Turiko turarondera...
-      </div>
-    </div>
+<div id="artistsList"
+class="hidden-grid">
 
-  </div>
+<div class="loading">
+Turiko turarondera...
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 
 <section class="search-area">
 
-  <div class="search-box">
+<div class="search-box">
 
-    <input id="searchInput"
-           type="search"
-           placeholder="Rondera indirimbo..."
-           oninput="searchSongs()">
+<input
+id="searchInput"
+type="search"
+placeholder="Rondera indirimbo..."
+oninput="searchSongs()">
 
-    <button onclick="searchSongs()">
-      🔍
-    </button>
+<button onclick="searchSongs()">
+🔍
+</button>
 
-  </div>
+</div>
 
 </section>
 
 
-<section id="hero"
-         class="hero">
+<section id="hero" class="hero">
 
-  <div class="hero-box">
+<div class="hero-box">
 
-    <h2>Indirimbo za Ekleziya Katolika</h2>
+<h2>Indirimbo za Ekleziya Katolika</h2>
 
-    <p>
-      Rondera kandi usome indirimbo za
-      Liturgie na Ndoramana mu Kirundi.
-    </p>
+<p>
+Rondera kandi usome indirimbo za
+Liturgie na Ndoramana mu Kirundi.
+</p>
 
-  </div>
+</div>
 
 </section>
 
 
 <main id="main">
 
-  <div class="section-heading">
+<div class="section-heading">
 
-    <h2 id="sectionTitle">
-      🆕 Indirimbo nshasha
-    </h2>
+<h2 id="sectionTitle">
+🆕 Indirimbo nshasha
+</h2>
 
-    <button onclick="showAllSongs()">
-      Raba zose
-    </button>
+<button onclick="showAllSongs()">
+Raba zose
+</button>
 
-  </div>
+</div>
 
-  <div id="songsGrid"
-       class="songs-grid">
+<div id="songsGrid"
+class="songs-grid">
 
-    <div class="loading">
-      Turiko turarondera indirimbo...
-    </div>
+<div class="loading">
+Turiko turarondera indirimbo...
+</div>
 
-  </div>
+</div>
 
 
-  <div id="popularArea">
+<div id="popularArea">
 
-    <div class="section-heading">
+<div class="section-heading">
 
-      <h2>⭐ Indirimbo zikunzwe</h2>
+<h2>⭐ Indirimbo zikunzwe</h2>
 
-    </div>
+</div>
 
-    <div id="popularGrid"
-         class="songs-grid">
-    </div>
+<div id="popularGrid"
+class="songs-grid">
+</div>
 
-  </div>
+</div>
 
 </main>
 
 
 <section id="adminPanel"
-         class="admin-panel">
+class="admin-panel">
 
-  <div class="admin-box">
+<div class="admin-box">
 
-    <div style="
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;">
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;">
 
-      <div>
+<div>
 
-        <h2>👨‍💼 Admin Dashboard</h2>
+<h2>👨‍💼 Admin Dashboard</h2>
 
-        <p style="color:var(--muted);font-size:13px;">
-          Gucungera urubuga rw'indirimbo.
-        </p>
+<p style="color:var(--muted);font-size:13px;">
+Gucungera urubuga rw'indirimbo.
+</p>
 
-      </div>
+</div>
 
-      <button class="secondary-button"
-              onclick="logout()">
-        Déconnexion
-      </button>
+<button class="secondary-button"
+onclick="logout()">
+Déconnexion
+</button>
 
-    </div>
-
-  </div>
-
-
-  <div class="admin-box">
-
-    <h2 id="formTitle">
-      ➕ Shiramwo indirimbo
-    </h2>
-
-    <div id="adminMessage"
-         class="message">
-    </div>
-
-    <div class="form-grid">
-
-      <div class="form-group">
-
-        <label>Izina ry'indirimbo *</label>
-
-        <input id="songTitle"
-               type="text"
-               placeholder="Izina ry'indirimbo">
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>Umuhinga</label>
-
-        <select id="songArtist">
-          <option value="">
-            Hitamwo umuhinga
-          </option>
-        </select>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>Catégorie *</label>
-
-        <select id="songCategory">
-          <option value="">
-            Hitamwo catégorie
-          </option>
-        </select>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>PDF *</label>
-
-        <input id="songPDF"
-               type="file"
-               accept=".pdf,application/pdf">
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>MIDI (facultatif)</label>
-
-        <input id="songMIDI"
-               type="file"
-               accept=".mid,.midi">
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>Indirimbo ikunzwe?</label>
-
-        <select id="songPopular">
-
-          <option value="false">Oya</option>
-
-          <option value="true">Ego</option>
-
-        </select>
-
-      </div>
-
-
-      <div class="form-group full">
-
-        <label>Lyrics *</label>
-
-        <textarea id="songLyrics"
-                  placeholder="Andika lyrics z'indirimbo..."></textarea>
-
-      </div>
-
-    </div>
-
-
-    <div style="
-      display:flex;
-      gap:7px;
-      flex-wrap:wrap;">
-
-      <button class="primary-button"
-              onclick="saveSong()">
-        💾 Bika indirimbo
-      </button>
-
-      <button id="cancelEdit"
-              class="secondary-button"
-              onclick="cancelEdit()"
-              style="display:none;">
-        Annuler
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div class="admin-box">
-
-    <h2>🎵 Indirimbo</h2>
-
-    <div id="adminSongs"
-         class="admin-list">
-    </div>
-
-  </div>
-
-
-  <div class="admin-box">
-
-    <h2>📂 Categories</h2>
-
-    <div style="
-      display:flex;
-      gap:7px;
-      margin-bottom:13px;">
-
-      <input id="newCategory"
-             type="text"
-             placeholder="Izina rya catégorie"
-             style="
-               flex:1;
-               padding:10px;
-               background:var(--background);
-               color:var(--text);
-               border:1px solid var(--border);
-               border-radius:6px;">
-
-      <button class="primary-button"
-              onclick="addCategory()">
-        ➕
-      </button>
-
-    </div>
-
-    <div id="adminCategories"></div>
-
-  </div>
-
-
-  <div class="admin-box">
-
-    <h2>🎼 Abahinga</h2>
-
-    <div style="
-      display:flex;
-      gap:7px;
-      margin-bottom:13px;">
-
-      <input id="newArtist"
-             type="text"
-             placeholder="Izina ry'umuhinga"
-             style="
-               flex:1;
-               padding:10px;
-               background:var(--background);
-               color:var(--text);
-               border:1px solid var(--border);
-               border-radius:6px;">
-
-      <button class="primary-button"
-              onclick="addArtist()">
-        ➕
-      </button>
-
-    </div>
-
-    <div id="adminArtists"></div>
-
-  </div>
-
-</section>
-
-
-<div id="songModal"
-     class="modal">
-
-  <div class="modal-box">
-
-    <button class="close-button"
-            onclick="closeSong()">
-      ×
-    </button>
-
-    <h2 id="modalTitle"></h2>
-
-    <p id="modalAuthor"
-       class="modal-author"></p>
-
-    <div id="modalLyrics"
-         class="lyrics"></div>
-
-    <div id="modalFiles"
-         class="file-links"></div>
-
-  </div>
+</div>
 
 </div>
 
 
-<div id="loginModal"
-     class="modal">
+<div class="admin-box">
 
-  <div class="modal-box">
+<h2 id="formTitle">
+➕ Shiramwo indirimbo
+</h2>
 
-    <button class="close-button"
-            onclick="closeLogin()">
-      ×
-    </button>
+<div id="adminMessage"
+class="message">
+</div>
 
-    <h2>🔐 Admin Login</h2>
+<div class="form-grid">
 
-    <p style="
-      color:var(--muted);
-      font-size:13px;
-      margin-bottom:15px;">
-      Injira ukoresheje account ya Admin.
-    </p>
+<div class="form-group">
 
-    <div id="loginMessage"
-         class="message">
-    </div>
+<label>Izina ry'indirimbo *</label>
 
-    <div class="form-group">
+<input
+id="songTitle"
+type="text"
+placeholder="Izina ry'indirimbo">
 
-      <label>Email</label>
+</div>
 
-      <input id="loginEmail"
-             type="email"
-             placeholder="Email">
 
-    </div>
+<div class="form-group">
 
-    <div class="form-group">
+<label>Umuhinga</label>
 
-      <label>Password</label>
+<select id="songArtist">
 
-      <input id="loginPassword"
-             type="password"
-             placeholder="Password">
+<option value="">
+Hitamwo umuhinga
+</option>
 
-    </div>
+</select>
 
-    <button class="primary-button"
-            style="width:100%;"
-            onclick="login()">
-      Injira
-    </button>
+</div>
 
-  </div>
+
+<div class="form-group">
+
+<label>Catégorie *</label>
+
+<select id="songCategory">
+
+<option value="">
+Hitamwo catégorie
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>PDF *</label>
+
+<input
+id="songPDF"
+type="file"
+accept=".pdf,application/pdf">
+
+</div>
+
+
+<div class="form-group">
+
+<label>MIDI (facultatif)</label>
+
+<input
+id="songMIDI"
+type="file"
+accept=".mid,.midi">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Indirimbo ikunzwe?</label>
+
+<select id="songPopular">
+
+<option value="false">Oya</option>
+<option value="true">Ego</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group full">
+
+<label>Lyrics *</label>
+
+<textarea
+id="songLyrics"
+placeholder="Andika lyrics z'indirimbo..."></textarea>
+
+</div>
+
+</div>
+
+
+<div style="
+display:flex;
+gap:7px;
+flex-wrap:wrap;">
+
+<button class="primary-button"
+onclick="saveSong()">
+💾 Bika indirimbo
+</button>
+
+<button id="cancelEdit"
+class="secondary-button"
+onclick="cancelEdit()"
+style="display:none;">
+Annuler
+</button>
+
+</div>
+
+</div>
+
+
+<div class="admin-box">
+
+<h2>🎵 Indirimbo</h2>
+
+<div id="adminSongs"
+class="admin-list">
+</div>
+
+</div>
+
+
+<div class="admin-box">
+
+<h2>📂 Categories</h2>
+
+<div style="
+display:flex;
+gap:7px;
+margin-bottom:13px;">
+
+<input
+id="newCategory"
+type="text"
+placeholder="Izina rya catégorie"
+style="
+flex:1;
+padding:10px;
+background:var(--bg);
+color:var(--text);
+border:1px solid var(--border);
+border-radius:6px;">
+
+<button class="primary-button"
+onclick="addCategory()">
+➕
+</button>
+
+</div>
+
+<div id="adminCategories"></div>
+
+</div>
+
+
+<div class="admin-box">
+
+<h2>🎼 Abahinga</h2>
+
+<div style="
+display:flex;
+gap:7px;
+margin-bottom:13px;">
+
+<input
+id="newArtist"
+type="text"
+placeholder="Izina ry'umuhinga"
+style="
+flex:1;
+padding:10px;
+background:var(--bg);
+color:var(--text);
+border:1px solid var(--border);
+border-radius:6px;">
+
+<button class="primary-button"
+onclick="addArtist()">
+➕
+</button>
+
+</div>
+
+<div id="adminArtists"></div>
+
+</div>
+
+</section>
+
+
+<div id="songModal" class="modal">
+
+<div class="modal-box">
+
+<button class="close-button"
+onclick="closeSong()">
+×
+</button>
+
+<h2 id="modalTitle"></h2>
+
+<p id="modalAuthor"
+class="modal-author"></p>
+
+<div id="modalLyrics"
+class="lyrics"></div>
+
+<div id="modalFiles"
+class="file-links"></div>
+
+</div>
+
+</div>
+
+
+<div id="loginModal" class="modal">
+
+<div class="modal-box">
+
+<button class="close-button"
+onclick="closeLogin()">
+×
+</button>
+
+<h2>🔐 Admin Login</h2>
+
+<p style="
+color:var(--muted);
+font-size:13px;
+margin-bottom:15px;">
+Injira ukoresheje account ya Admin.
+</p>
+
+<div id="loginMessage"
+class="message">
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+id="loginEmail"
+type="email"
+placeholder="Email">
+
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Password">
+
+</div>
+
+<button class="primary-button"
+style="width:100%;"
+onclick="login()">
+Injira
+</button>
+
+</div>
 
 </div>
 
 
 <footer>
 
-  <p>
-    © 2026 INDIRIMBO ZA EKLEZIYA KATOLIKA
-  </p>
+<div class="footer-container">
 
-  <p>
-    Indirimbo za Liturgie na Ndoramana
-  </p>
+<div class="footer-column">
+
+<h3>
+INDIRIMBO ZA EKLEZIYA KATOLIKA
+</h3>
+
+<p>
+Urubuga rwo kubika, kurondera no gusangira
+indirimbo za Ekleziya Katolika mu Kirundi,
+harimwo izikoreshwa muri Liturgie na Ndoramana.
+</p>
+
+<p class="samaritan" style="margin-top:10px;">
+SAMARITAN
+</p>
+
+</div>
+
+
+<div class="footer-column">
+
+<h3>
+Ibice vy'urubuga
+</h3>
+
+<a href="#" onclick="goHome();return false;">
+Ahabanza
+</a>
+
+<a href="#" onclick="toggleCategories();return false;">
+Catégories
+</a>
+
+<a href="#" onclick="toggleArtists();return false;">
+Abahinga b'indirimbo
+</a>
+
+<a href="#" onclick="openAdmin();return false;">
+Tanga indirimbo
+</a>
+
+</div>
+
+
+<div class="footer-column">
+
+<h3>
+Intumbero yacu
+</h3>
+
+<p>
+Gufasha amakorali, abigisha indirimbo,
+abapadiri n'abakristu kuronka mu buryo
+bworoshe indirimbo zifasha mu gusenga.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="footer-bottom">
+
+<p>
+© <span id="currentYear"></span>
+Indirimbo za Ekleziya Katolika.
+Uburenganzira bwose burakingiwe.
+</p>
+
+</div>
 
 </footer>
 
@@ -1132,1636 +1253,1452 @@
 <script>
 
 /* =====================================================
-   SUPABASE CONNECTION
-   ===================================================== */
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
-  "https://wahazmzfoegrxncrailn.supabase.co";
+"https://wahazmzfoegrxncrailn.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_tq-B3XUF9ujcZf21sp9khw_G8NovPVS";
-
+"sb_publishable_tq-B3XUF9ujcZf21sp9khw_G8NovPVS";
 
 const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
+);
 
 
 /* =====================================================
    ADMIN
-   ===================================================== */
+===================================================== */
 
 const ADMIN_USER_ID =
-  "be45d2de-5c9f-4b04-9973-a644306e6362";
+"be45d2de-5c9f-4b04-9973-a644306e6362";
 
 
-let songs = [];
-let categories = [];
-let artists = [];
-let currentUser = null;
-let editingSongId = null;
+let songs=[];
+let categories=[];
+let artists=[];
+let currentUser=null;
+let editingSongId=null;
 
 
 /* =====================================================
-   SECURITY
-   ===================================================== */
+   YEAR
+===================================================== */
 
-function escapeHTML(value) {
+document.getElementById("currentYear")
+.textContent=new Date().getFullYear();
 
-  if (
-    value === null ||
-    value === undefined
-  ) return "";
 
-  const div =
-    document.createElement("div");
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
-  div.textContent = value;
+function escapeHTML(value){
 
-  return div.innerHTML;
+if(value===null||value===undefined)
+return "";
+
+const div=document.createElement("div");
+
+div.textContent=value;
+
+return div.innerHTML;
 }
 
 
 /* =====================================================
    DARK MODE
-   ===================================================== */
+===================================================== */
 
-function toggleDarkMode() {
+function toggleDarkMode(){
 
-  document.body.classList.toggle("dark");
+document.body.classList.toggle("dark");
 
-  localStorage.setItem(
-    "darkMode",
-    document.body.classList.contains("dark")
-      ? "on"
-      : "off"
-  );
+localStorage.setItem(
+"darkMode",
+document.body.classList.contains("dark")
+?"on":"off"
+);
 }
 
-
-if (
-  localStorage.getItem("darkMode") === "on"
-) {
-  document.body.classList.add("dark");
+if(localStorage.getItem("darkMode")==="on"){
+document.body.classList.add("dark");
 }
 
 
 /* =====================================================
    MENUS
-   ===================================================== */
+===================================================== */
 
-function closeMenus() {
+function closeMenus(){
 
-  document
-    .getElementById("categoriesSection")
-    .classList.remove("active");
+document
+.getElementById("categoriesSection")
+.classList.remove("active");
 
-  document
-    .getElementById("artistsSection")
-    .classList.remove("active");
+document
+.getElementById("artistsSection")
+.classList.remove("active");
 }
 
 
-function toggleCategories() {
+function toggleCategories(){
 
-  document
-    .getElementById("artistsSection")
-    .classList.remove("active");
+document
+.getElementById("artistsSection")
+.classList.remove("active");
 
-  document
-    .getElementById("categoriesSection")
-    .classList.toggle("active");
+document
+.getElementById("categoriesSection")
+.classList.toggle("active");
 }
 
 
-function toggleArtists() {
+function toggleArtists(){
 
-  document
-    .getElementById("categoriesSection")
-    .classList.remove("active");
+document
+.getElementById("categoriesSection")
+.classList.remove("active");
 
-  document
-    .getElementById("artistsSection")
-    .classList.toggle("active");
+document
+.getElementById("artistsSection")
+.classList.toggle("active");
 }
 
 
 /* =====================================================
    HOME
-   ===================================================== */
+===================================================== */
 
-function goHome() {
+function goHome(){
 
-  closeMenus();
+closeMenus();
 
-  document
-    .getElementById("hero")
-    .style.display = "block";
+document.getElementById("hero")
+.style.display="block";
 
-  document
-    .getElementById("main")
-    .style.display = "block";
+document.getElementById("main")
+.style.display="block";
 
-  document
-    .getElementById("adminPanel")
-    .classList.remove("active");
+document.getElementById("popularArea")
+.style.display="block";
 
-  document
-    .getElementById("popularArea")
-    .style.display = "block";
+document.getElementById("adminPanel")
+.classList.remove("active");
 
-  document
-    .getElementById("sectionTitle")
-    .textContent =
-    "🆕 Indirimbo nshasha";
+document.getElementById("sectionTitle")
+.textContent="🆕 Indirimbo nshasha";
 
-  renderSongs(
-    songs.slice(0,6),
-    "songsGrid"
-  );
+renderSongs(
+songs.slice(0,6),
+"songsGrid"
+);
 
-  renderSongs(
-    songs.filter(
-      song => song.is_popular
-    ),
-    "popularGrid"
-  );
+renderSongs(
+songs.filter(song=>song.is_popular),
+"popularGrid"
+);
 }
 
 
 /* =====================================================
    CATEGORIES
-   ===================================================== */
+===================================================== */
 
-async function loadCategories() {
+async function loadCategories(){
 
-  const result =
-    await supabaseClient
-      .from("categories")
-      .select("*")
-      .order("name");
+const result=
+await supabaseClient
+.from("categories")
+.select("*")
+.order("name");
 
-  if (result.error) {
+if(result.error){
 
-    console.error(result.error);
+console.error(result.error);
 
-    return;
-  }
+return;
+}
 
-  categories =
-    result.data || [];
+categories=result.data||[];
 
-  renderCategories();
-  renderCategorySelect();
+renderCategories();
 
-  if (currentUser)
-    renderAdminCategories();
+renderCategorySelect();
+
+if(currentUser)
+renderAdminCategories();
 }
 
 
-function renderCategories() {
+function renderCategories(){
 
-  const container =
-    document.getElementById(
-      "categoriesList"
-    );
+const container=
+document.getElementById("categoriesList");
 
-  if (!categories.length) {
+if(!categories.length){
 
-    container.innerHTML =
-      `<div class="loading">
-        Nta catégorie iraboneka.
-      </div>`;
+container.innerHTML=
+`<div class="loading">
+Nta catégorie iraboneka.
+</div>`;
 
-    return;
-  }
+return;
+}
 
-  container.innerHTML =
-    categories.map(category => `
+container.innerHTML=
+categories.map(category=>`
 
-      <button
-        class="hidden-item"
-        onclick="filterCategory('${category.id}')">
+<button
+class="hidden-item"
+onclick="filterCategory('${category.id}')">
 
-        📂 ${escapeHTML(category.name)}
+📂 ${escapeHTML(category.name)}
 
-      </button>
+</button>
 
-    `).join("");
+`).join("");
 }
 
 
-function renderCategorySelect() {
+function renderCategorySelect(){
 
-  const select =
-    document.getElementById(
-      "songCategory"
-    );
+const select=
+document.getElementById("songCategory");
 
-  select.innerHTML =
-    `<option value="">
-      Hitamwo catégorie
-    </option>`;
+select.innerHTML=
+`<option value="">
+Hitamwo catégorie
+</option>`;
 
-  categories.forEach(category => {
+categories.forEach(category=>{
 
-    select.innerHTML += `
+select.innerHTML+=`
 
-      <option value="${category.id}">
-        ${escapeHTML(category.name)}
-      </option>
+<option value="${category.id}">
+${escapeHTML(category.name)}
+</option>
 
-    `;
-  });
+`;
+
+});
 }
 
 
 /* =====================================================
    ARTISTS
-   ===================================================== */
+===================================================== */
 
-async function loadArtists() {
+async function loadArtists(){
 
-  const result =
-    await supabaseClient
-      .from("artists")
-      .select("*")
-      .order("name");
+const result=
+await supabaseClient
+.from("artists")
+.select("*")
+.order("name");
 
-  if (result.error) {
+if(result.error){
 
-    console.error(result.error);
+console.error(result.error);
 
-    return;
-  }
+return;
+}
 
-  artists =
-    result.data || [];
+artists=result.data||[];
 
-  renderArtists();
-  renderArtistSelect();
+renderArtists();
 
-  if (currentUser)
-    renderAdminArtists();
+renderArtistSelect();
+
+if(currentUser)
+renderAdminArtists();
 }
 
 
-function renderArtists() {
+function renderArtists(){
 
-  const container =
-    document.getElementById(
-      "artistsList"
-    );
+const container=
+document.getElementById("artistsList");
 
-  if (!artists.length) {
+if(!artists.length){
 
-    container.innerHTML =
-      `<div class="loading">
-        Nta muhinga arashirwamwo.
-      </div>`;
+container.innerHTML=
+`<div class="loading">
+Nta muhinga arashirwamwo.
+</div>`;
 
-    return;
-  }
+return;
+}
 
-  container.innerHTML =
-    artists.map(artist => `
+container.innerHTML=
+artists.map(artist=>`
 
-      <button
-        class="hidden-item"
-        onclick="filterArtist('${artist.id}')">
+<button
+class="hidden-item"
+onclick="filterArtist('${artist.id}')">
 
-        🎼 ${escapeHTML(artist.name)}
+🎼 ${escapeHTML(artist.name)}
 
-      </button>
+</button>
 
-    `).join("");
+`).join("");
 }
 
 
-function renderArtistSelect() {
+function renderArtistSelect(){
 
-  const select =
-    document.getElementById(
-      "songArtist"
-    );
+const select=
+document.getElementById("songArtist");
 
-  select.innerHTML =
-    `<option value="">
-      Hitamwo umuhinga
-    </option>`;
+select.innerHTML=
+`<option value="">
+Hitamwo umuhinga
+</option>`;
 
-  artists.forEach(artist => {
+artists.forEach(artist=>{
 
-    select.innerHTML += `
+select.innerHTML+=`
 
-      <option value="${artist.id}">
-        ${escapeHTML(artist.name)}
-      </option>
+<option value="${artist.id}">
+${escapeHTML(artist.name)}
+</option>
 
-    `;
-  });
+`;
+
+});
 }
 
 
 /* =====================================================
    SONGS
-   ===================================================== */
+===================================================== */
 
-async function loadSongs() {
+async function loadSongs(){
 
-  const result =
-    await supabaseClient
-      .from("songs")
-      .select(`
-        *,
-        artists(id,name),
-        categories(id,name)
-      `)
-      .order(
-        "created_at",
-        {ascending:false}
-      );
+const result=
+await supabaseClient
+.from("songs")
+.select(`
+*,
+artists(id,name),
+categories(id,name)
+`)
+.order("created_at",{ascending:false});
 
-  if (result.error) {
+if(result.error){
 
-    console.error(result.error);
+console.error(result.error);
 
-    document.getElementById(
-      "songsGrid"
-    ).innerHTML =
-      `<div class="loading">
-        Ntitwashoboye kuronka indirimbo.
-      </div>`;
+document.getElementById("songsGrid")
+.innerHTML=
+`<div class="loading">
+Ntitwashoboye kuronka indirimbo.
+</div>`;
 
-    return;
-  }
+return;
+}
 
-  songs =
-    result.data || [];
+songs=result.data||[];
 
-  goHome();
+goHome();
 
-  if (currentUser)
-    renderAdminSongs();
+if(currentUser)
+renderAdminSongs();
 }
 
 
-function renderSongs(
-  list,
-  elementId
-) {
+/* =====================================================
+   RENDER SONGS
+===================================================== */
 
-  const container =
-    document.getElementById(
-      elementId
-    );
+function renderSongs(list,elementId){
 
-  if (!container)
-    return;
+const container=
+document.getElementById(elementId);
 
-  if (!list.length) {
+if(!container)
+return;
 
-    container.innerHTML =
-      `<div class="loading">
-        Nta ndirimbo yabonetse.
-      </div>`;
+if(!list.length){
 
-    return;
-  }
+container.innerHTML=
+`<div class="loading">
+Nta ndirimbo yabonetse.
+</div>`;
 
-  container.innerHTML =
-    list.map(song => `
+return;
+}
 
-      <article class="song-card">
+container.innerHTML=
+list.map(song=>`
 
-        <span class="category-badge">
+<article class="song-card">
 
-          ${
-            escapeHTML(
-              song.categories?.name ||
-              "Autres"
-            )
-          }
+<span class="category-badge">
+${escapeHTML(
+song.categories?.name||"Autres"
+)}
+</span>
 
-        </span>
+<h3>
+${escapeHTML(song.title)}
+</h3>
 
-        <h3>
-          ${escapeHTML(song.title)}
-        </h3>
+<p class="song-author">
+🎼
+${escapeHTML(
+song.artists?.name||
+"Umuhinga atarashirwamwo"
+)}
+</p>
 
-        <p class="song-author">
+<div class="card-buttons">
 
-          🎼
-          ${
-            escapeHTML(
-              song.artists?.name ||
-              "Umuhinga atarashirwamwo"
-            )
-          }
+<button
+class="small-button"
+onclick="openSong('${song.id}')">
+Soma
+</button>
 
-        </p>
+</div>
 
-        <div class="card-buttons">
+</article>
 
-          <button
-            class="small-button"
-            onclick="openSong('${song.id}')">
-
-            Soma
-
-          </button>
-
-        </div>
-
-      </article>
-
-    `).join("");
+`).join("");
 }
 
 
 /* =====================================================
    SEARCH
-   ===================================================== */
+===================================================== */
 
-function searchSongs() {
+function searchSongs(){
 
-  const query =
-    document
-      .getElementById("searchInput")
-      .value
-      .toLowerCase()
-      .trim();
+const query=
+document
+.getElementById("searchInput")
+.value
+.toLowerCase()
+.trim();
 
-  if (!query) {
+if(!query){
 
-    goHome();
+goHome();
 
-    return;
-  }
+return;
+}
 
-  closeMenus();
+closeMenus();
 
-  document
-    .getElementById("hero")
-    .style.display = "none";
+document.getElementById("hero")
+.style.display="none";
 
-  document
-    .getElementById("popularArea")
-    .style.display = "none";
+document.getElementById("popularArea")
+.style.display="none";
 
-  const results =
-    songs.filter(song => {
+const results=
+songs.filter(song=>{
 
-      const title =
-        (song.title || "")
-        .toLowerCase();
+const title=
+(song.title||"").toLowerCase();
 
-      const lyrics =
-        (song.lyrics || "")
-        .toLowerCase();
+const lyrics=
+(song.lyrics||"").toLowerCase();
 
-      const artist =
-        (song.artists?.name || "")
-        .toLowerCase();
+const artist=
+(song.artists?.name||"").toLowerCase();
 
-      const category =
-        (song.categories?.name || "")
-        .toLowerCase();
+const category=
+(song.categories?.name||"").toLowerCase();
 
-      return (
-        title.includes(query) ||
-        lyrics.includes(query) ||
-        artist.includes(query) ||
-        category.includes(query)
-      );
-    });
+return(
+title.includes(query)||
+lyrics.includes(query)||
+artist.includes(query)||
+category.includes(query)
+);
 
-  document
-    .getElementById("sectionTitle")
-    .textContent =
-    "🔎 Ivyavuye mu kurondera";
+});
 
-  renderSongs(
-    results,
-    "songsGrid"
-  );
+document.getElementById("sectionTitle")
+.textContent="🔎 Ivyavuye mu kurondera";
+
+renderSongs(results,"songsGrid");
 }
 
 
 /* =====================================================
    ALL SONGS
-   ===================================================== */
+===================================================== */
 
-function showAllSongs() {
+function showAllSongs(){
 
-  closeMenus();
+closeMenus();
 
-  document
-    .getElementById("hero")
-    .style.display = "none";
+document.getElementById("hero")
+.style.display="none";
 
-  document
-    .getElementById("popularArea")
-    .style.display = "none";
+document.getElementById("popularArea")
+.style.display="none";
 
-  document
-    .getElementById("sectionTitle")
-    .textContent =
-    "🎵 Indirimbo zose";
+document.getElementById("sectionTitle")
+.textContent="🎵 Indirimbo zose";
 
-  renderSongs(
-    songs,
-    "songsGrid"
-  );
+renderSongs(songs,"songsGrid");
 }
 
 
 /* =====================================================
    CATEGORY FILTER
-   ===================================================== */
+===================================================== */
 
-function filterCategory(id) {
+function filterCategory(id){
 
-  closeMenus();
+closeMenus();
 
-  const category =
-    categories.find(
-      item =>
-        String(item.id) ===
-        String(id)
-    );
+const category=
+categories.find(
+item=>String(item.id)===String(id)
+);
 
-  const result =
-    songs.filter(
-      song =>
-        String(song.category_id) ===
-        String(id)
-    );
+const result=
+songs.filter(
+song=>String(song.category_id)===String(id)
+);
 
-  document
-    .getElementById("hero")
-    .style.display = "none";
+document.getElementById("hero")
+.style.display="none";
 
-  document
-    .getElementById("popularArea")
-    .style.display = "none";
+document.getElementById("popularArea")
+.style.display="none";
 
-  document
-    .getElementById("sectionTitle")
-    .textContent =
-    "📂 " +
-    (
-      category?.name ||
-      "Catégorie"
-    );
+document.getElementById("sectionTitle")
+.textContent=
+"📂 "+(category?.name||"Catégorie");
 
-  renderSongs(
-    result,
-    "songsGrid"
-  );
+renderSongs(result,"songsGrid");
 }
 
 
 /* =====================================================
    ARTIST FILTER
-   ===================================================== */
+===================================================== */
 
-function filterArtist(id) {
+function filterArtist(id){
 
-  closeMenus();
+closeMenus();
 
-  const artist =
-    artists.find(
-      item =>
-        String(item.id) ===
-        String(id)
-    );
+const artist=
+artists.find(
+item=>String(item.id)===String(id)
+);
 
-  const result =
-    songs.filter(
-      song =>
-        String(song.artist_id) ===
-        String(id)
-    );
+const result=
+songs.filter(
+song=>String(song.artist_id)===String(id)
+);
 
-  document
-    .getElementById("hero")
-    .style.display = "none";
+document.getElementById("hero")
+.style.display="none";
 
-  document
-    .getElementById("popularArea")
-    .style.display = "none";
+document.getElementById("popularArea")
+.style.display="none";
 
-  document
-    .getElementById("sectionTitle")
-    .textContent =
-    "🎼 " +
-    (
-      artist?.name ||
-      "Umuhinga"
-    );
+document.getElementById("sectionTitle")
+.textContent=
+"🎼 "+(artist?.name||"Umuhinga");
 
-  renderSongs(
-    result,
-    "songsGrid"
-  );
+renderSongs(result,"songsGrid");
 }
 
 
 /* =====================================================
    OPEN SONG
-   ===================================================== */
+===================================================== */
 
-async function openSong(id) {
+async function openSong(id){
 
-  const song =
-    songs.find(
-      item =>
-        String(item.id) ===
-        String(id)
-    );
+const song=
+songs.find(
+item=>String(item.id)===String(id)
+);
 
-  if (!song)
-    return;
+if(!song)
+return;
 
-  document
-    .getElementById("modalTitle")
-    .textContent =
-    song.title;
+document.getElementById("modalTitle")
+.textContent=song.title;
 
-  document
-    .getElementById("modalAuthor")
-    .textContent =
-    "🎼 " +
-    (
-      song.artists?.name ||
-      "Umuhinga"
-    );
+document.getElementById("modalAuthor")
+.textContent=
+"🎼 "+
+(song.artists?.name||"Umuhinga");
 
-  document
-    .getElementById("modalLyrics")
-    .textContent =
-    song.lyrics || "";
+document.getElementById("modalLyrics")
+.textContent=
+song.lyrics||"";
 
-  const files =
-    document.getElementById(
-      "modalFiles"
-    );
+const files=
+document.getElementById("modalFiles");
 
-  files.innerHTML = "";
+files.innerHTML="";
 
-  if (song.pdf_url) {
 
-    const result =
-      await supabaseClient
-        .storage
-        .from("pdf")
-        .createSignedUrl(
-          song.pdf_url,
-          3600
-        );
+if(song.pdf_url){
 
-    if (result.data?.signedUrl) {
+const result=
+await supabaseClient
+.storage
+.from("Pdf")
+.createSignedUrl(
+song.pdf_url,
+3600
+);
 
-      files.innerHTML += `
+if(result.data?.signedUrl){
 
-        <a
-          class="file-link"
-          href="${result.data.signedUrl}"
-          target="_blank">
+files.innerHTML+=`
 
-          📄 PDF
+<a
+class="file-link"
+href="${result.data.signedUrl}"
+target="_blank">
 
-        </a>
+📄 PDF
 
-      `;
-    }
-  }
+</a>
 
-  if (song.midi_url) {
-
-    const result =
-      await supabaseClient
-        .storage
-        .from("midi")
-        .createSignedUrl(
-          song.midi_url,
-          3600
-        );
-
-    if (result.data?.signedUrl) {
-
-      files.innerHTML += `
-
-        <a
-          class="file-link"
-          href="${result.data.signedUrl}"
-          target="_blank">
-
-          🎹 MIDI
-
-        </a>
-
-      `;
-    }
-  }
-
-  document
-    .getElementById("songModal")
-    .classList.add("active");
+`;
+}
 }
 
 
-function closeSong() {
+if(song.midi_url){
 
-  document
-    .getElementById("songModal")
-    .classList.remove("active");
+const result=
+await supabaseClient
+.storage
+.from("Midi")
+.createSignedUrl(
+song.midi_url,
+3600
+);
+
+if(result.data?.signedUrl){
+
+files.innerHTML+=`
+
+<a
+class="file-link"
+href="${result.data.signedUrl}"
+target="_blank">
+
+🎹 MIDI
+
+</a>
+
+`;
+}
+}
+
+
+document.getElementById("songModal")
+.classList.add("active");
+}
+
+
+function closeSong(){
+
+document.getElementById("songModal")
+.classList.remove("active");
 }
 
 
 /* =====================================================
    ADMIN LOGIN
-   ===================================================== */
+===================================================== */
 
-function openAdmin() {
+function openAdmin(){
 
-  if (currentUser) {
+if(currentUser){
 
-    openAdminPanel();
+openAdminPanel();
 
-  } else {
+}else{
 
-    document
-      .getElementById("loginModal")
-      .classList.add("active");
-  }
+document.getElementById("loginModal")
+.classList.add("active");
+
+}
 }
 
 
-function closeLogin() {
+function closeLogin(){
 
-  document
-    .getElementById("loginModal")
-    .classList.remove("active");
+document.getElementById("loginModal")
+.classList.remove("active");
 }
 
 
-async function login() {
+async function login(){
 
-  const email =
-    document
-      .getElementById("loginEmail")
-      .value
-      .trim();
+const email=
+document.getElementById("loginEmail")
+.value.trim();
 
-  const password =
-    document
-      .getElementById("loginPassword")
-      .value;
+const password=
+document.getElementById("loginPassword")
+.value;
 
-  if (!email || !password) {
+if(!email||!password){
 
-    showMessage(
-      "loginMessage",
-      "Uzuza email na password.",
-      "error"
-    );
+showMessage(
+"loginMessage",
+"Uzuza email na password.",
+"error"
+);
 
-    return;
-  }
+return;
+}
 
-  const result =
-    await supabaseClient
-      .auth
-      .signInWithPassword({
-        email,
-        password
-      });
+const result=
+await supabaseClient
+.auth
+.signInWithPassword({
+email,
+password
+});
 
-  if (result.error) {
+if(result.error){
 
-    showMessage(
-      "loginMessage",
-      "Email canke password si vyo.",
-      "error"
-    );
+showMessage(
+"loginMessage",
+"Email canke password si vyo.",
+"error"
+);
 
-    return;
-  }
+return;
+}
 
-  if (
-    result.data.user.id !==
-    ADMIN_USER_ID
-  ) {
+if(
+result.data.user.id!==
+ADMIN_USER_ID
+){
 
-    await supabaseClient
-      .auth
-      .signOut();
+await supabaseClient.auth.signOut();
 
-    showMessage(
-      "loginMessage",
-      "Iyi account si Admin.",
-      "error"
-    );
+showMessage(
+"loginMessage",
+"Iyi account si Admin.",
+"error"
+);
 
-    return;
-  }
+return;
+}
 
-  currentUser =
-    result.data.user;
+currentUser=
+result.data.user;
 
-  closeLogin();
+closeLogin();
 
-  openAdminPanel();
+openAdminPanel();
 }
 
 
-async function logout() {
+async function logout(){
 
-  await supabaseClient
-    .auth
-    .signOut();
+await supabaseClient.auth.signOut();
 
-  currentUser = null;
+currentUser=null;
 
-  document
-    .getElementById("adminPanel")
-    .classList.remove("active");
+document.getElementById("adminPanel")
+.classList.remove("active");
 
-  goHome();
+goHome();
 }
 
 
 /* =====================================================
    SESSION
-   ===================================================== */
+===================================================== */
 
-async function checkSession() {
+async function checkSession(){
 
-  const result =
-    await supabaseClient
-      .auth
-      .getSession();
+const result=
+await supabaseClient
+.auth
+.getSession();
 
-  const session =
-    result.data.session;
+const session=
+result.data.session;
 
-  if (
-    session &&
-    session.user.id ===
-    ADMIN_USER_ID
-  ) {
+if(
+session&&
+session.user.id===ADMIN_USER_ID
+){
 
-    currentUser =
-      session.user;
-  }
+currentUser=session.user;
+}
 }
 
 
-supabaseClient
-  .auth
-  .onAuthStateChange(
-    (_event, session) => {
+supabaseClient.auth.onAuthStateChange(
+(_event,session)=>{
 
-      if (
-        session &&
-        session.user.id ===
-        ADMIN_USER_ID
-      ) {
+if(
+session&&
+session.user.id===ADMIN_USER_ID
+){
 
-        currentUser =
-          session.user;
+currentUser=session.user;
 
-      } else {
+}else{
 
-        currentUser = null;
-      }
-    }
-  );
+currentUser=null;
+
+}
+
+}
+);
 
 
 /* =====================================================
    ADMIN PANEL
-   ===================================================== */
+===================================================== */
 
-function openAdminPanel() {
+function openAdminPanel(){
 
-  closeMenus();
+closeMenus();
 
-  document
-    .getElementById("hero")
-    .style.display = "none";
+document.getElementById("hero")
+.style.display="none";
 
-  document
-    .getElementById("main")
-    .style.display = "none";
+document.getElementById("main")
+.style.display="none";
 
-  document
-    .getElementById("adminPanel")
-    .classList.add("active");
+document.getElementById("adminPanel")
+.classList.add("active");
 
-  renderAdminSongs();
-  renderAdminCategories();
-  renderAdminArtists();
+renderAdminSongs();
+
+renderAdminCategories();
+
+renderAdminArtists();
 }
 
 
 /* =====================================================
-   UPLOAD FILE
-   ===================================================== */
+   FILE UPLOAD
+===================================================== */
 
-async function uploadFile(
-  file,
-  bucket
-) {
+async function uploadFile(file,bucket){
 
-  if (!file)
-    return null;
+if(!file)
+return null;
 
-  const safeName =
-    file.name.replace(
-      /[^a-zA-Z0-9._-]/g,
-      "_"
-    );
+const safeName=
+file.name.replace(
+/[^a-zA-Z0-9._-]/g,
+"_"
+);
 
-  const path =
-    Date.now() +
-    "_" +
-    Math.random()
-      .toString(36)
-      .substring(2) +
-    "_" +
-    safeName;
+const path=
+Date.now()+
+"_"+Math.random()
+.toString(36)
+.substring(2)+
+"_"+safeName;
 
-  const result =
-    await supabaseClient
-      .storage
-      .from(bucket)
-      .upload(
-        path,
-        file,
-        {
-          upsert:false
-        }
-      );
+const result=
+await supabaseClient
+.storage
+.from(bucket)
+.upload(
+path,
+file,
+{upsert:false}
+);
 
-  if (result.error)
-    throw result.error;
+if(result.error)
+throw result.error;
 
-  return path;
+return path;
 }
 
 
 /* =====================================================
    SAVE SONG
-   ===================================================== */
+===================================================== */
 
-async function saveSong() {
+async function saveSong(){
 
-  if (!currentUser) {
+if(!currentUser){
 
-    alert(
-      "Banza winjire nka Admin."
-    );
+alert("Banza winjire nka Admin.");
 
-    return;
-  }
+return;
+}
 
-  const title =
-    document
-      .getElementById("songTitle")
-      .value
-      .trim();
+const title=
+document.getElementById("songTitle")
+.value.trim();
 
-  const artistId =
-    document
-      .getElementById("songArtist")
-      .value;
+const artistId=
+document.getElementById("songArtist")
+.value;
 
-  const categoryId =
-    document
-      .getElementById("songCategory")
-      .value;
+const categoryId=
+document.getElementById("songCategory")
+.value;
 
-  const lyrics =
-    document
-      .getElementById("songLyrics")
-      .value
-      .trim();
+const lyrics=
+document.getElementById("songLyrics")
+.value.trim();
 
-  const pdf =
-    document
-      .getElementById("songPDF")
-      .files[0];
+const pdf=
+document.getElementById("songPDF")
+.files[0];
 
-  const midi =
-    document
-      .getElementById("songMIDI")
-      .files[0];
+const midi=
+document.getElementById("songMIDI")
+.files[0];
 
-  const popular =
-    document
-      .getElementById("songPopular")
-      .value === "true";
+const popular=
+document.getElementById("songPopular")
+.value==="true";
 
-  if (
-    !title ||
-    !categoryId ||
-    !lyrics
-  ) {
 
-    showMessage(
-      "adminMessage",
-      "Uzuza title, catégorie na lyrics.",
-      "error"
-    );
+if(!title||!categoryId||!lyrics){
 
-    return;
-  }
+showMessage(
+"adminMessage",
+"Uzuza title, catégorie na lyrics.",
+"error"
+);
 
-  if (
-    !editingSongId &&
-    !pdf
-  ) {
+return;
+}
 
-    showMessage(
-      "adminMessage",
-      "PDF ni obligatoire.",
-      "error"
-    );
 
-    return;
-  }
+if(!editingSongId&&!pdf){
 
-  try {
+showMessage(
+"adminMessage",
+"PDF ni obligatoire.",
+"error"
+);
 
-    let pdfPath = null;
-    let midiPath = null;
+return;
+}
 
-    if (pdf) {
 
-      pdfPath =
-        await uploadFile(
-          pdf,
-          "pdf"
-        );
-    }
+try{
 
-    if (midi) {
+let pdfPath=null;
+let midiPath=null;
 
-      midiPath =
-        await uploadFile(
-          midi,
-          "midi"
-        );
-    }
 
-    const data = {
+if(pdf){
 
-      title: title,
+pdfPath=
+await uploadFile(
+pdf,
+"Pdf"
+);
 
-      artist_id:
-        artistId
-          ? artistId
-          : null,
+}
 
-      category_id:
-        categoryId,
 
-      lyrics: lyrics,
+if(midi){
 
-      is_popular:
-        popular
-    };
+midiPath=
+await uploadFile(
+midi,
+"Midi"
+);
 
-    if (pdfPath)
-      data.pdf_url = pdfPath;
+}
 
-    if (midiPath)
-      data.midi_url = midiPath;
 
-    let result;
+const data={
 
-    if (editingSongId) {
+title:title,
 
-      result =
-        await supabaseClient
-          .from("songs")
-          .update(data)
-          .eq(
-            "id",
-            editingSongId
-          );
+artist_id:
+artistId?artistId:null,
 
-    } else {
+category_id:
+categoryId,
 
-      result =
-        await supabaseClient
-          .from("songs")
-          .insert(data);
-    }
+lyrics:lyrics,
 
-    if (result.error)
-      throw result.error;
+is_popular:popular
 
-    showMessage(
-      "adminMessage",
-      editingSongId
-        ? "Indirimbo yahinduwe neza."
-        : "Indirimbo yashizwe muri database neza."
-    );
+};
 
-    resetForm();
 
-    await loadSongs();
+if(pdfPath)
+data.pdf_url=pdfPath;
 
-  } catch(error) {
+if(midiPath)
+data.midi_url=midiPath;
 
-    console.error(error);
 
-    showMessage(
-      "adminMessage",
-      "Ikibazo: " +
-      error.message,
-      "error"
-    );
-  }
+let result;
+
+
+if(editingSongId){
+
+result=
+await supabaseClient
+.from("songs")
+.update(data)
+.eq("id",editingSongId);
+
+}else{
+
+result=
+await supabaseClient
+.from("songs")
+.insert(data);
+
+}
+
+
+if(result.error)
+throw result.error;
+
+
+showMessage(
+"adminMessage",
+editingSongId
+?"Indirimbo yahinduwe neza."
+:"Indirimbo yashizwe muri database neza."
+);
+
+
+resetForm();
+
+await loadSongs();
+
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"adminMessage",
+"Ikibazo: "+error.message,
+"error"
+);
+
+}
+
 }
 
 
 /* =====================================================
    EDIT SONG
-   ===================================================== */
+===================================================== */
 
-function editSong(id) {
+function editSong(id){
 
-  const song =
-    songs.find(
-      item =>
-        String(item.id) ===
-        String(id)
-    );
+const song=
+songs.find(
+item=>String(item.id)===String(id)
+);
 
-  if (!song)
-    return;
+if(!song)
+return;
 
-  editingSongId =
-    song.id;
+editingSongId=song.id;
 
-  document
-    .getElementById("formTitle")
-    .textContent =
-    "✏️ Hindura indirimbo";
+document.getElementById("formTitle")
+.textContent="✏️ Hindura indirimbo";
 
-  document
-    .getElementById("songTitle")
-    .value =
-    song.title || "";
+document.getElementById("songTitle")
+.value=song.title||"";
 
-  document
-    .getElementById("songArtist")
-    .value =
-    song.artist_id || "";
+document.getElementById("songArtist")
+.value=song.artist_id||"";
 
-  document
-    .getElementById("songCategory")
-    .value =
-    song.category_id || "";
+document.getElementById("songCategory")
+.value=song.category_id||"";
 
-  document
-    .getElementById("songLyrics")
-    .value =
-    song.lyrics || "";
+document.getElementById("songLyrics")
+.value=song.lyrics||"";
 
-  document
-    .getElementById("songPopular")
-    .value =
-    song.is_popular
-      ? "true"
-      : "false";
+document.getElementById("songPopular")
+.value=song.is_popular?"true":"false";
 
-  document
-    .getElementById("cancelEdit")
-    .style.display =
-    "inline-block";
+document.getElementById("cancelEdit")
+.style.display="inline-block";
 }
 
 
-function cancelEdit() {
+function cancelEdit(){
 
-  resetForm();
+resetForm();
 }
 
 
-function resetForm() {
+function resetForm(){
 
-  editingSongId = null;
+editingSongId=null;
 
-  document
-    .getElementById("formTitle")
-    .textContent =
-    "➕ Shiramwo indirimbo";
+document.getElementById("formTitle")
+.textContent="➕ Shiramwo indirimbo";
 
-  document
-    .getElementById("songTitle")
-    .value = "";
+document.getElementById("songTitle").value="";
 
-  document
-    .getElementById("songArtist")
-    .value = "";
+document.getElementById("songArtist").value="";
 
-  document
-    .getElementById("songCategory")
-    .value = "";
+document.getElementById("songCategory").value="";
 
-  document
-    .getElementById("songLyrics")
-    .value = "";
+document.getElementById("songLyrics").value="";
 
-  document
-    .getElementById("songPDF")
-    .value = "";
+document.getElementById("songPDF").value="";
 
-  document
-    .getElementById("songMIDI")
-    .value = "";
+document.getElementById("songMIDI").value="";
 
-  document
-    .getElementById("songPopular")
-    .value = "false";
+document.getElementById("songPopular").value="false";
 
-  document
-    .getElementById("cancelEdit")
-    .style.display =
-    "none";
+document.getElementById("cancelEdit")
+.style.display="none";
 }
 
 
 /* =====================================================
    DELETE SONG
-   ===================================================== */
+===================================================== */
 
-async function deleteSong(id) {
+async function deleteSong(id){
 
-  if (
-    !confirm(
-      "Urashaka gukuraho iyi ndirimbo?"
-    )
-  )
-    return;
+if(!confirm(
+"Urashaka gukuraho iyi ndirimbo?"
+))
+return;
 
-  const result =
-    await supabaseClient
-      .from("songs")
-      .delete()
-      .eq("id",id);
+const result=
+await supabaseClient
+.from("songs")
+.delete()
+.eq("id",id);
 
-  if (result.error) {
+if(result.error){
 
-    alert(
-      result.error.message
-    );
+alert(result.error.message);
 
-    return;
-  }
+return;
+}
 
-  await loadSongs();
+await loadSongs();
 }
 
 
 /* =====================================================
-   ADMIN SONG LIST
-   ===================================================== */
+   ADMIN SONGS
+===================================================== */
 
-function renderAdminSongs() {
+function renderAdminSongs(){
 
-  const container =
-    document.getElementById(
-      "adminSongs"
-    );
+const container=
+document.getElementById("adminSongs");
 
-  if (!songs.length) {
+if(!songs.length){
 
-    container.innerHTML =
-      `<div class="loading">
-        Nta ndirimbo iraboneka.
-      </div>`;
+container.innerHTML=
+`<div class="loading">
+Nta ndirimbo iraboneka.
+</div>`;
 
-    return;
-  }
+return;
+}
 
-  container.innerHTML =
-    songs.map(song => `
+container.innerHTML=
+songs.map(song=>`
 
-      <div class="admin-row">
+<div class="admin-row">
 
-        <div>
+<div>
 
-          <strong>
-            ${escapeHTML(song.title)}
-          </strong>
+<strong>
+${escapeHTML(song.title)}
+</strong>
 
-          <br>
+<br>
 
-          <small>
+<small>
 
-            ${
-              escapeHTML(
-                song.artists?.name ||
-                "Nta muhinga"
-              )
-            }
+${escapeHTML(
+song.artists?.name||"Nta muhinga"
+)}
 
-            •
+•
 
-            ${
-              escapeHTML(
-                song.categories?.name ||
-                "Nta catégorie"
-              )
-            }
+${escapeHTML(
+song.categories?.name||"Nta catégorie"
+)}
 
-          </small>
+</small>
 
-        </div>
+</div>
 
-        <div class="admin-actions">
+<div class="admin-actions">
 
-          <button
-            class="small-button"
-            onclick="openSong('${song.id}')">
-            👁️
-          </button>
+<button
+class="small-button"
+onclick="openSong('${song.id}')">
+👁️
+</button>
 
-          <button
-            class="small-button"
-            onclick="editSong('${song.id}')">
-            ✏️
-          </button>
+<button
+class="small-button"
+onclick="editSong('${song.id}')">
+✏️
+</button>
 
-          <button
-            class="danger-button"
-            onclick="deleteSong('${song.id}')">
-            🗑️
-          </button>
+<button
+class="danger-button"
+onclick="deleteSong('${song.id}')">
+🗑️
+</button>
 
-        </div>
+</div>
 
-      </div>
+</div>
 
-    `).join("");
+`).join("");
 }
 
 
 /* =====================================================
-   CATEGORY ADMIN
-   ===================================================== */
+   ADD CATEGORY
+===================================================== */
 
-async function addCategory() {
+async function addCategory(){
 
-  const input =
-    document.getElementById(
-      "newCategory"
-    );
+const input=
+document.getElementById("newCategory");
 
-  const name =
-    input.value.trim();
+const name=input.value.trim();
 
-  if (!name)
-    return;
+if(!name)
+return;
 
-  const result =
-    await supabaseClient
-      .from("categories")
-      .insert({
-        name:name
-      });
+const result=
+await supabaseClient
+.from("categories")
+.insert({
+name:name
+});
 
-  if (result.error) {
+if(result.error){
 
-    alert(
-      result.error.message
-    );
+alert(result.error.message);
 
-    return;
-  }
-
-  input.value = "";
-
-  await loadCategories();
+return;
 }
 
+input.value="";
 
-function renderAdminCategories() {
-
-  const container =
-    document.getElementById(
-      "adminCategories"
-    );
-
-  container.innerHTML =
-    categories.map(category => `
-
-      <div class="admin-row">
-
-        <span>
-          📂
-          ${escapeHTML(category.name)}
-        </span>
-
-        <button
-          class="danger-button"
-          onclick="deleteCategory('${category.id}')">
-          🗑️
-        </button>
-
-      </div>
-
-    `).join("");
-}
-
-
-async function deleteCategory(id) {
-
-  if (
-    !confirm(
-      "Urashaka gukuraho iyi catégorie?"
-    )
-  )
-    return;
-
-  const used =
-    songs.some(
-      song =>
-        String(song.category_id) ===
-        String(id)
-    );
-
-  if (used) {
-
-    alert(
-      "Iyi catégorie iracari ikoreshwa n'indirimbo."
-    );
-
-    return;
-  }
-
-  const result =
-    await supabaseClient
-      .from("categories")
-      .delete()
-      .eq("id",id);
-
-  if (result.error) {
-
-    alert(
-      result.error.message
-    );
-
-    return;
-  }
-
-  await loadCategories();
+await loadCategories();
 }
 
 
 /* =====================================================
-   ARTIST ADMIN
-   ===================================================== */
+   ADMIN CATEGORIES
+===================================================== */
 
-async function addArtist() {
+function renderAdminCategories(){
 
-  const input =
-    document.getElementById(
-      "newArtist"
-    );
+const container=
+document.getElementById("adminCategories");
 
-  const name =
-    input.value.trim();
+container.innerHTML=
+categories.map(category=>`
 
-  if (!name)
-    return;
+<div class="admin-row">
 
-  const result =
-    await supabaseClient
-      .from("artists")
-      .insert({
-        name:name
-      });
+<span>
+📂 ${escapeHTML(category.name)}
+</span>
 
-  if (result.error) {
+<button
+class="danger-button"
+onclick="deleteCategory('${category.id}')">
+🗑️
+</button>
 
-    alert(
-      result.error.message
-    );
+</div>
 
-    return;
-  }
-
-  input.value = "";
-
-  await loadArtists();
+`).join("");
 }
 
 
-function renderAdminArtists() {
+async function deleteCategory(id){
 
-  const container =
-    document.getElementById(
-      "adminArtists"
-    );
+if(!confirm(
+"Urashaka gukuraho iyi catégorie?"
+))
+return;
 
-  container.innerHTML =
-    artists.map(artist => `
+const used=
+songs.some(
+song=>
+String(song.category_id)===String(id)
+);
 
-      <div class="admin-row">
+if(used){
 
-        <span>
-          🎼
-          ${escapeHTML(artist.name)}
-        </span>
+alert(
+"Iyi catégorie iracari ikoreshwa n'indirimbo."
+);
 
-        <button
-          class="danger-button"
-          onclick="deleteArtist('${artist.id}')">
-          🗑️
-        </button>
+return;
+}
 
-      </div>
+const result=
+await supabaseClient
+.from("categories")
+.delete()
+.eq("id",id);
 
-    `).join("");
+if(result.error){
+
+alert(result.error.message);
+
+return;
+}
+
+await loadCategories();
 }
 
 
-async function deleteArtist(id) {
+/* =====================================================
+   ADD ARTIST
+===================================================== */
 
-  if (
-    !confirm(
-      "Urashaka gukuraho uyu muhinga?"
-    )
-  )
-    return;
+async function addArtist(){
 
-  const result =
-    await supabaseClient
-      .from("artists")
-      .delete()
-      .eq("id",id);
+const input=
+document.getElementById("newArtist");
 
-  if (result.error) {
+const name=input.value.trim();
 
-    alert(
-      result.error.message
-    );
+if(!name)
+return;
 
-    return;
-  }
+const result=
+await supabaseClient
+.from("artists")
+.insert({
+name:name
+});
 
-  await loadArtists();
-  await loadSongs();
+if(result.error){
+
+alert(result.error.message);
+
+return;
+}
+
+input.value="";
+
+await loadArtists();
+}
+
+
+/* =====================================================
+   ADMIN ARTISTS
+===================================================== */
+
+function renderAdminArtists(){
+
+const container=
+document.getElementById("adminArtists");
+
+container.innerHTML=
+artists.map(artist=>`
+
+<div class="admin-row">
+
+<span>
+🎼 ${escapeHTML(artist.name)}
+</span>
+
+<button
+class="danger-button"
+onclick="deleteArtist('${artist.id}')">
+🗑️
+</button>
+
+</div>
+
+`).join("");
+}
+
+
+async function deleteArtist(id){
+
+if(!confirm(
+"Urashaka gukuraho uyu muhinga?"
+))
+return;
+
+const result=
+await supabaseClient
+.from("artists")
+.delete()
+.eq("id",id);
+
+if(result.error){
+
+alert(result.error.message);
+
+return;
+}
+
+await loadArtists();
+
+await loadSongs();
 }
 
 
 /* =====================================================
    MESSAGE
-   ===================================================== */
+===================================================== */
 
-function showMessage(
-  id,
-  text,
-  type = "success"
-) {
+function showMessage(id,text,type="success"){
 
-  const element =
-    document.getElementById(id);
+const element=
+document.getElementById(id);
 
-  element.textContent =
-    text;
+element.textContent=text;
 
-  element.className =
-    "message show " +
-    type;
+element.className=
+"message show "+type;
 }
 
 
 /* =====================================================
    INITIALIZE
-   ===================================================== */
+===================================================== */
 
-async function initialize() {
+async function initialize(){
 
-  await checkSession();
+await checkSession();
 
-  await Promise.all([
-    loadCategories(),
-    loadArtists(),
-    loadSongs()
-  ]);
+await Promise.all([
+loadCategories(),
+loadArtists(),
+loadSongs()
+]);
+
 }
-
 
 initialize();
 
