@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="rn">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Indirimbo | IEK</title>
+
+<meta name="description"
+      content="Indirimbo za Ekleziya Katolika - IEK">
+
+<style>
+
+/* =====================================================
+   IEK SONG PAGE
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+
+    --primary:#087f5b;
+    --primary-dark:#056043;
+
+    --background:#f5f7fa;
+    --card:#ffffff;
+
+    --text:#172033;
+    --muted:#718096;
+
+    --border:#e2e8f0;
+
+    --header:rgba(255,255,255,.95);
+
+    --shadow:
+        0 10px 30px rgba(20,30,50,.08);
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark{
+
+    --background:#080d16;
+    --card:#111827;
+
+    --text:#f8fafc;
+    --muted:#a3adbd;
+
+    --border:#263244;
+
+    --header:rgba(17,24,39,.95);
+
+    --shadow:
+        0 10px 30px rgba(0,0,0,.35);
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body{
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    min-height:100vh;
+
+    transition:
+        background .3s ease,
+        color .3s ease;
+}
+
+button,
+input,
+textarea{
+
+    font-family:inherit;
+}
+
+button{
+
+    cursor:pointer;
+}
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+}
+
+.container{
+
+    width:min(1000px,92%);
+
+    margin:auto;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    height:74px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    background:var(--header);
+
+    border-bottom:
+        1px solid var(--border);
+
+    backdrop-filter:blur(15px);
+}
+
+.header-inner{
+
+    height:100%;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        auto
+        1fr;
+
+    align-items:center;
+}
+
+
+/* =====================================================
+   MENU BUTTON
+===================================================== */
+
+.menu-button{
+
+    justify-self:start;
+
+    width:44px;
+    height:44px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:12px;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:5px;
+
+    transition:.25s;
+}
+
+.menu-button span{
+
+    width:21px;
+
+    height:2px;
+
+    background:currentColor;
+
+    border-radius:10px;
+}
+
+.menu-button:hover{
+
+    background:var(--primary);
+
+    color:white;
+
+    border-color:var(--primary);
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    font-weight:900;
+}
+
+.logo-mark{
+
+    width:42px;
+    height:42px;
+
+    border-radius:13px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #087f5b,
+            #14b8a6
+        );
+
+    color:white;
+
+    font-size:16px;
+
+    box-shadow:
+        0 6px 18px
+        rgba(8,127,91,.25);
+}
+
+.logo-text{
+
+    font-size:14px;
+
+    line-height:1.05;
+}
+
+
+/* =====================================================
+   HEADER RIGHT
+===================================================== */
+
+.header-right{
+
+    justify-self:end;
+
+    display:flex;
+
+    gap:8px;
+}
+
+.theme-button,
+.admin-button{
+
+    width:44px;
+    height:44px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:12px;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    font-size:18px;
+
+    transition:.25s;
+}
+
+.theme-button:hover{
+
+    background:#334155;
+
+    color:white;
+
+    border-color:#334155;
+}
+
+.admin-button:hover{
+
+    background:#f59e0b;
+
+    color:white;
+
+    border-color:#f59e0b;
+}
+
+
+/* =====================================================
+   SIDE MENU
+===================================================== */
+
+.side-menu{
+
+    position:fixed;
+
+    top:0;
+
+    left:-330px;
+
+    width:310px;
+
+    height:100vh;
+
+    background:var(--card);
+
+    z-index:2000;
+
+    padding:25px;
+
+    overflow-y:auto;
+
+    box-shadow:
+        10px 0 35px rgba(0,0,0,.18);
+
+    transition:.3s;
+}
+
+.side-menu.active{
+
+    left:0;
+}
+
+.menu-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding-bottom:20px;
+
+    margin-bottom:20px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.menu-header strong{
+
+    font-size:20px;
+}
+
+.close-menu{
+
+    width:40px;
+    height:40px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:10px;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    font-size:21px;
+}
+
+.menu-link{
+
+    display:block;
+
+    padding:14px 12px;
+
+    margin-bottom:5px;
+
+    border-radius:10px;
+
+    color:var(--text);
+
+    font-weight:700;
+
+    transition:.2s;
+}
+
+.menu-link:hover{
+
+    background:var(--primary);
+
+    color:white;
+}
+
+.menu-link small{
+
+    display:block;
+
+    margin-top:4px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    font-weight:400;
+}
+
+.menu-link:hover small{
+
+    color:white;
+}
+
+
+/* =====================================================
+   OVERLAY
+===================================================== */
+
+.overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(0,0,0,.50);
+
+    z-index:1500;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.3s;
+}
+
+.overlay.active{
+
+    opacity:1;
+
+    visibility:visible;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.song-page{
+
+    padding:
+        35px 0 70px;
+}
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+.back-link{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    color:var(--primary);
+
+    font-size:13px;
+
+    font-weight:800;
+
+    margin-bottom:20px;
+}
+
+.back-link:hover{
+
+    color:var(--primary-dark);
+}
+
+
+/* =====================================================
+   SONG HEADER
+===================================================== */
+
+.song-header{
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:22px;
+
+    padding:30px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:20px;
+}
+
+.song-category{
+
+    display:inline-block;
+
+    padding:
+        6px 11px;
+
+    border-radius:30px;
+
+    background:
+        rgba(8,127,91,.10);
+
+    color:var(--primary);
+
+    font-size:11px;
+
+    font-weight:800;
+
+    margin-bottom:13px;
+}
+
+.song-title{
+
+    font-size:
+        clamp(28px,5vw,44px);
+
+    line-height:1.15;
+
+    margin-bottom:10px;
+}
+
+.song-artist{
+
+    color:var(--muted);
+
+    font-size:14px;
+}
+
+.song-artist strong{
+
+    color:var(--primary);
+}
+
+
+/* =====================================================
+   ACTION BUTTONS
+===================================================== */
+
+.actions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:25px;
+}
+
+.action{
+
+    border:0;
+
+    color:white;
+
+    padding:
+        12px 18px;
+
+    border-radius:10px;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    transition:.2s;
+}
+
+.action:hover{
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* LYRICS */
+
+.lyrics-btn{
+
+    background:#2563eb;
+}
+
+
+/* PDF */
+
+.pdf-btn{
+
+    background:#dc2626;
+}
+
+
+/* MIDI */
+
+.midi-btn{
+
+    background:#7c3aed;
+}
+
+
+/* DOWNLOAD */
+
+.download-btn{
+
+    background:#16a34a;
+}
+
+
+/* SHARE */
+
+.share-btn{
+
+    background:#ea580c;
+}
+
+
+/* =====================================================
+   LYRICS
+===================================================== */
+
+.content-card{
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:27px;
+
+    margin-bottom:20px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(20,30,50,.03);
+}
+
+.content-card h2{
+
+    font-size:20px;
+
+    margin-bottom:20px;
+}
+
+.lyrics-content{
+
+    white-space:pre-line;
+
+    color:var(--text);
+
+    line-height:2;
+
+    font-size:15px;
+
+    padding:
+        5px 2px;
+}
+
+
+/* =====================================================
+   COMMENTS
+===================================================== */
+
+.comments{
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:27px;
+}
+
+.comments h2{
+
+    font-size:20px;
+
+    margin-bottom:7px;
+}
+
+.comments-intro{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    margin-bottom:20px;
+}
+
+.comment-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.comment-form input,
+.comment-form textarea{
+
+    width:100%;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:11px;
+
+    padding:13px;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    outline:none;
+
+    font-size:14px;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(8,127,91,.08);
+}
+
+.comment-form textarea{
+
+    min-height:110px;
+
+    resize:vertical;
+}
+
+.comment-submit{
+
+    align-self:flex-start;
+
+    border:0;
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:
+        11px 19px;
+
+    border-radius:10px;
+
+    font-weight:800;
+
+    transition:.2s;
+}
+
+.comment-submit:hover{
+
+    background:var(--primary-dark);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =====================================================
+   NOT FOUND
+===================================================== */
+
+.not-found{
+
+    text-align:center;
+
+    padding:60px 20px;
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:20px;
+}
+
+.not-found-icon{
+
+    font-size:45px;
+
+    margin-bottom:15px;
+}
+
+.not-found h1{
+
+    margin-bottom:10px;
+}
+
+.not-found p{
+
+    color:var(--muted);
+
+    font-size:14px;
+
+    margin-bottom:20px;
+}
+
+.home-button{
+
+    display:inline-block;
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:
+        11px 18px;
+
+    border-radius:10px;
+
+    font-weight:800;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    border-top:
+        1px solid var(--border);
+
+    padding:
+        30px 0 20px;
+
+    text-align:center;
+}
+
+.footer p{
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:600px){
+
+    .header{
+
+        height:68px;
+    }
+
+    .logo-text{
+
+        display:none;
+    }
+
+    .logo-mark{
+
+        width:40px;
+        height:40px;
+    }
+
+    .menu-button,
+    .theme-button,
+    .admin-button{
+
+        width:40px;
+        height:40px;
+    }
+
+    .song-page{
+
+        padding-top:25px;
+    }
+
+    .song-header{
+
+        padding:22px;
+    }
+
+    .content-card,
+    .comments{
+
+        padding:20px;
+    }
+
+    .actions{
+
+        display:grid;
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .action{
+
+        width:100%;
+    }
+}
+
+
+@media(max-width:380px){
+
+    .actions{
+
+        grid-template-columns:1fr;
+    }
+
+    .side-menu{
+
+        width:285px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDE MENU
+===================================================== -->
+
+<div
+    class="overlay"
+    id="overlay">
+</div>
+
+
+<aside
+    class="side-menu"
+    id="sideMenu">
+
+
+    <div class="menu-header">
+
+        <strong>
+            IEK
+        </strong>
+
+        <button
+            class="close-menu"
+            id="closeMenu">
+
+            ×
+
+        </button>
+
+    </div>
+
+
+    <a
+        href="index.html"
+        class="menu-link">
+
+        Ahabanza
+
+        <small>
+            Urupapuro rw'intango
+        </small>
+
+    </a>
+
+
+    <a
+        href="#"
+        class="menu-link">
+
+        Imirwi y'indirimbo
+
+        <small>
+            Rondera indirimbo hakurikijwe imirwi
+        </small>
+
+    </a>
+
+
+    <a
+        href="#"
+        class="menu-link">
+
+        Abahinga b'indirimbo
+
+        <small>
+            Abahinga n'indirimbo zabo
+        </small>
+
+    </a>
+
+
+    <a
+        href="#"
+        class="menu-link">
+
+        Ivyerekeye Indirimbo za Ekleziya Katolika (IEK)
+
+        <small>
+            Menya vyinshi kuri IEK
+        </small>
+
+    </a>
+
+
+    <a
+        href="#"
+        class="menu-link">
+
+        Ibimenyeshejwe muri IEK
+
+        <small>
+            Amakuru n'amatangazo
+        </small>
+
+    </a>
+
+
+</aside>
+
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+<div class="container header-inner">
+
+
+    <!-- MENU -->
+
+    <button
+        class="menu-button"
+        id="menuButton"
+        aria-label="Menu">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </button>
+
+
+    <!-- LOGO -->
+
+    <a
+        href="index.html"
+        class="logo">
+
+        <div class="logo-mark">
+            IEK
+        </div>
+
+        <div class="logo-text">
+
+            INDIRIMBO ZA<br>
+            EKLEZIYA KATOLIKA
+
+        </div>
+
+    </a>
+
+
+    <!-- RIGHT -->
+
+    <div class="header-right">
+
+
+        <button
+            class="theme-button"
+            id="themeButton"
+            title="Dark mode">
+
+            🌙
+
+        </button>
+
+
+        <button
+            class="admin-button"
+            id="adminButton"
+            title="Admin">
+
+            ⚙
+
+        </button>
+
+
+    </div>
+
+</div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="song-page">
+
+<div class="container">
+
+
+    <!-- BACK -->
+
+    <a
+        href="index.html"
+        class="back-link">
+
+        ← Subira ku ndirimbo
+
+    </a>
+
+
+    <!-- =================================================
+         SONG AREA
+    ================================================= -->
+
+    <section
+        class="song-header"
+        id="songArea">
+
+
+        <div
+            class="song-category"
+            id="songCategory">
+
+            ...
+
+        </div>
+
+
+        <h1
+            class="song-title"
+            id="songTitle">
+
+            Biriko birarondera...
+
+        </h1>
+
+
+        <p class="song-artist">
+
+            Umuhinga:
+
+            <strong
+                id="songArtist">
+
+                ...
+
+            </strong>
+
+        </p>
+
+
+        <!-- ACTIONS -->
+
+        <div class="actions">
+
+
+            <button
+                class="action lyrics-btn"
+                id="lyricsButton">
+
+                Lyrics
+
+            </button>
+
+
+            <button
+                class="action pdf-btn"
+                id="pdfButton">
+
+                PDF
+
+            </button>
+
+
+            <button
+                class="action midi-btn"
+                id="midiButton">
+
+                MIDI
+
+            </button>
+
+
+            <button
+                class="action download-btn"
+                id="downloadButton">
+
+                Download
+
+            </button>
+
+
+            <button
+                class="action share-btn"
+                id="shareButton">
+
+                Sangiza
+
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         LYRICS
+    ================================================= -->
+
+    <section
+        class="content-card"
+        id="lyricsSection">
+
+
+        <h2>
+            Lyrics
+        </h2>
+
+
+        <div
+            class="lyrics-content"
+            id="songLyrics">
+
+            Biriko birarondera lyrics...
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         COMMENTS
+    ================================================= -->
+
+    <section
+        class="comments">
+
+
+        <h2>
+            Commentaires
+        </h2>
+
+
+        <p class="comments-intro">
+
+            Sangiza iciyumviro cawe kuri iyi
+            ndirimbo canke ku muhinga wayikoze.
+
+        </p>
+
+
+        <form
+            class="comment-form"
+            id="commentForm">
+
+
+            <input
+                type="text"
+                id="commentName"
+                placeholder="Izina ryawe"
+                required>
+
+
+            <textarea
+                id="commentText"
+                placeholder="Andika commentaire yawe..."
+                required>
+            </textarea>
+
+
+            <button
+                type="submit"
+                class="comment-submit">
+
+                Rungika commentaire
+
+            </button>
+
+
+        </form>
+
+
+    </section>
+
+
+</div>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+<div class="container">
+
+<p>
+
+© 2026 Indirimbo za Ekleziya Katolika (IEK).
+Uburenganzira bwose burabitswe.
+
+</p>
+
+</div>
+
+</footer>
+
+
+
+<script>
+
+/* =====================================================
+   SONG DATABASE — TEMPORARY
+   TUZAYISUBIRIZA NA DATABASE NYAYO
+===================================================== */
+
+const songs = {
+
+    1: {
+
+        title:
+            "Yezu Mwungere Mwiza",
+
+        artist:
+            "Umuhinga wa mbere",
+
+        category:
+            "Gusangira",
+
+        lyrics:
+`Yezu Mwungere mwiza,
+turakurondera.
+
+Tuyobore mu nzira yawe,
+duhore turi kumwe nawe.
+
+Turagushima Yezu,
+Umukiza wacu.`,
+
+        pdf:
+            "#",
+
+        midi:
+            "#"
+
+    },
+
+
+    2: {
+
+        title:
+            "Mwagazi w'Imana",
+
+        artist:
+            "Umuhinga wa kabiri",
+
+        category:
+            "Mwagazi w'Imana",
+
+        lyrics:
+`Mwagazi w'Imana,
+wewe ukiza ivyaha vy'abantu.
+
+Tugirire imbabazi,
+duhe amahoro.`,
+
+        pdf:
+            "#",
+
+        midi:
+            "#"
+
+    },
+
+
+    3: {
+
+        title:
+            "Izaburi ya 23",
+
+        artist:
+            "Umuhinga wa gatatu",
+
+        category:
+            "Izaburi",
+
+        lyrics:
+`Umukama ni we mwungere wanje,
+nta co nzobura.
+
+Ampemesha mu vyatsi bitotahaye,
+andonkeza ku mazi atuje.`,
+
+        pdf:
+            "#",
+
+        midi:
+            "#"
+
+    }
+
+};
+
+
+
+/* =====================================================
+   GET SONG ID FROM URL
+===================================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const songId =
+    params.get("id");
+
+
+const song =
+    songs[songId];
+
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const songTitle =
+    document.getElementById(
+        "songTitle"
+    );
+
+const songArtist =
+    document.getElementById(
+        "songArtist"
+    );
+
+const songCategory =
+    document.getElementById(
+        "songCategory"
+    );
+
+const songLyrics =
+    document.getElementById(
+        "songLyrics"
+    );
+
+
+
+/* =====================================================
+   LOAD SONG
+===================================================== */
+
+if(song){
+
+    songTitle.textContent =
+        song.title;
+
+    songArtist.textContent =
+        song.artist;
+
+    songCategory.textContent =
+        song.category;
+
+    songLyrics.textContent =
+        song.lyrics;
+
+    document.title =
+        song.title +
+        " | IEK";
+
+}else{
+
+    document.getElementById(
+        "songArea"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "lyricsSection"
+    ).style.display =
+        "none";
+
+
+    document.querySelector(
+        ".comments"
+    ).style.display =
+        "none";
+
+
+    const error =
+        document.createElement(
+            "section"
+        );
+
+    error.className =
+        "not-found";
+
+
+ 
